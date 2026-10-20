@@ -1,0 +1,2692 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AdGuard Filtering Log Viewer</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<style>
+:root {
+  --bg: #f4f6f9;
+  --panel: #ffffff;
+  --panel-2: #f8fafc;
+  --text: #172033;
+  --muted: #667085;
+  --border: #d8dee9;
+  --border-soft: #e4e7ec;
+  --accent: #2563eb;
+  --processed: #ffffff;
+  --processed-accent: #667085;
+  --processed-border: #d0d5dd;
+  --modified: #e4e7ec;
+  --modified-accent: #475467;
+  --modified-border: #d0d5dd;
+  --allowed: #d1fadf;
+  --allowed-accent: #12b76a;
+  --allowed-border: #a7f3d0;
+  --blocked: #fecaca;
+  --blocked-accent: #f04438;
+  --blocked-border: #fda29b;
+  --cosmetic: #fef3c7;
+  --cosmetic-accent: #f59e0b;
+  --cosmetic-border: #fde68a;
+  --shadow: 0 1px 2px rgba(16, 24, 40, 0.06);
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 14px;
+}
+button, input { font: inherit; }
+button { cursor: pointer; }
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  flex: 0 0 auto;
+  padding: 14px 20px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+}
+.brand h1 { margin: 0; font-size: 18px; letter-spacing: -0.01em; }
+.brand-line { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.source { margin-top: 3px; color: var(--muted); font-size: 12px; }
+.statusbar input[type="search"] {
+  flex: 1 1 220px;
+  min-width: 140px;
+  max-width: 100%;
+  height: 32px;
+  padding: 0 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--panel);
+  color: var(--text);
+}
+.statusbar input[type="search"]:disabled { opacity: 0.55; }
+.button {
+  height: 36px;
+  padding: 0 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--panel);
+  color: var(--text);
+  white-space: nowrap;
+}
+.button:hover { background: var(--panel-2); }
+.button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.button.primary:hover { filter: brightness(1.05); }
+.statusbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  flex: 0 0 auto;
+  padding: 10px 20px;
+  background: var(--bg);
+}
+.summary { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  padding: 4px 9px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--panel);
+  color: var(--text);
+  font-size: 12px;
+  white-space: nowrap;
+}
+.chip strong {
+  display: inline-block;
+  min-width: 5ch;
+  color: inherit;
+  text-align: right;
+}
+.chip.processed { background: var(--processed); border-color: var(--processed-border); }
+.chip.blocked { background: var(--blocked); border-color: var(--blocked-accent); }
+.chip.modified { background: var(--modified); border-color: var(--modified-accent); }
+.chip.allowed { background: var(--allowed); border-color: var(--allowed-accent); }
+.chip.cosmetic { background: var(--cosmetic); border-color: var(--cosmetic-accent); }
+.app-shell {
+  display: grid;
+  grid-template-columns: 250px minmax(0, 1fr);
+  gap: 16px;
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 0 20px 20px;
+}
+.app-shell.details-open {
+  grid-template-columns: 250px minmax(0, 1fr) 420px;
+}
+.sidebar {
+  min-height: 0;
+  overflow: auto;
+  padding: 12px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+.filter-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.filter-head h2 { margin: 0; font-size: 14px; }
+.link-button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  font-size: 12px;
+}
+.filter-section { border-top: 1px solid var(--border-soft); padding: 4px 0; }
+.group-title {
+  padding: 7px 2px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.group-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 2px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.group-head:hover { background: var(--panel-2); }
+.group-head input { margin: 0; accent-color: #16a34a; }
+.filter-list { padding: 0 0 6px; }
+.filter-list.scroll { max-height: 180px; overflow: auto; }
+.check-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 2px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.check-row:hover { background: var(--panel-2); }
+.check-row input { accent-color: #16a34a; margin: 0; }
+.check-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.check-count {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.tree-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 3px 2px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.tree-row:hover { background: var(--panel-2); }
+.tree-row input { margin: 0; accent-color: #16a34a; }
+.tree-row.parent { font-weight: 600; }
+.tree-row.child { padding-left: 24px; }
+.tree-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tree-count {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+.switch-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-soft);
+  font-size: 13px;
+  cursor: pointer;
+}
+.switch-row input { accent-color: #16a34a; margin: 0; }
+.content {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+.record-list {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 6px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overflow-anchor: none;
+  background: var(--panel);
+}
+.virtual-spacer { width: 100%; }
+.record-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  width: 100%;
+  margin: 0 0 5px;
+  padding: 10px 12px;
+  border: 1px solid var(--row-border, var(--border-soft));
+  border-left: 4px solid var(--row-accent, var(--processed-accent));
+  border-radius: 8px;
+  background: var(--row-bg, var(--processed));
+  color: inherit;
+  text-align: left;
+}
+.record-row:hover { filter: brightness(0.98); }
+.record-row:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.record-row.selected { box-shadow: inset 0 0 0 2px var(--accent); }
+.category-processed {
+  --row-bg: var(--processed);
+  --row-accent: var(--processed-accent);
+  --row-border: var(--processed-border);
+}
+.category-modified {
+  --row-bg: var(--modified);
+  --row-accent: var(--modified-accent);
+  --row-border: var(--modified-border);
+}
+.category-allowed {
+  --row-bg: var(--allowed);
+  --row-accent: var(--allowed-accent);
+  --row-border: var(--allowed-border);
+}
+.category-blocked {
+  --row-bg: var(--blocked);
+  --row-accent: var(--blocked-accent);
+  --row-border: var(--blocked-border);
+}
+.category-cosmetic {
+  --row-bg: var(--cosmetic);
+  --row-accent: var(--cosmetic-accent);
+  --row-border: var(--cosmetic-border);
+}
+.app-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+}
+.record-body { flex: 1 1 auto; min-width: 0; }
+.record-line { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.record-domain {
+  min-width: 0;
+  overflow: hidden;
+  color: #0f172a;
+  font-size: 14px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.category-processed .record-domain { color: #344054; }
+.record-time {
+  flex: 0 0 auto;
+  color: #475467;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.record-sub {
+  display: block;
+  margin-top: 2px;
+  overflow: hidden;
+  color: #344054;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.category-processed .record-sub { color: #475467; }
+.record-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; margin-top: 5px; }
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.07);
+  color: #344054;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.status-pill.status-blocked,
+.status-pill.status-failed { background: #fda29b; color: #912018; }
+.status-pill.status-modified { background: #fde68a; color: #92400e; }
+.status-pill.status-meta_modified { background: #d0d5dd; color: #1d2939; }
+.status-pill.status-whitelisted { background: #a7f3d0; color: #05603a; }
+.status-pill.status-bypassed,
+.status-pill.status-none,
+.status-pill.status-unknown { background: #eaecf0; color: #1d2939; }
+.repeat {
+  margin-left: auto;
+  padding: 1px 6px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.65);
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+}
+.empty { padding: 48px 20px; color: var(--muted); text-align: center; }
+.drop-zone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 24px;
+  overflow: auto;
+}
+.drop-card {
+  width: min(560px, 100%);
+  padding: 44px 32px;
+  border: 2px dashed #cbd5e1;
+  border-radius: 16px;
+  background: var(--panel);
+  text-align: center;
+  transition: border-color 0.15s, background 0.15s;
+}
+.drop-zone.drag-over .drop-card { border-color: var(--accent); background: #eff6ff; }
+.drop-icon { color: var(--accent); font-size: 36px; line-height: 1; }
+.drop-card h2 { margin: 14px 0 8px; font-size: 20px; }
+.drop-card p { margin: 0 0 18px; color: var(--muted); line-height: 1.5; }
+.drop-card code {
+  padding: 1px 5px;
+  border-radius: 5px;
+  background: var(--panel-2);
+  font-size: 13px;
+}
+.hint { margin: 16px 0 0 !important; font-size: 12px; }
+.error {
+  position: fixed;
+  top: 14px;
+  left: 50%;
+  z-index: 80;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  width: min(640px, calc(100vw - 28px));
+  padding: 11px 14px;
+  border: 1px solid #fecdca;
+  border-radius: 10px;
+  background: #fef3f2;
+  color: #b42318;
+  box-shadow: 0 8px 24px rgba(16, 24, 40, 0.14);
+  transform: translateX(-50%);
+}
+.error button {
+  margin-left: auto;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font-size: 18px;
+  line-height: 1;
+}
+.details {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+  padding: 18px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+.details-head { display: flex; align-items: flex-start; gap: 10px; padding-bottom: 12px; border-bottom: 1px solid var(--border-soft); }
+.details-head-text { flex: 1 1 auto; min-width: 0; }
+.details-head h2 { margin: 0; font-size: 16px; word-break: break-word; }
+.details-sub { margin-top: 3px; color: var(--muted); font-size: 12px; word-break: break-all; }
+.icon-button {
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--panel);
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1;
+}
+.details-status { margin: 12px 0; }
+.details dl {
+  display: grid;
+  grid-template-columns: 140px minmax(0, 1fr);
+  gap: 8px 12px;
+  margin: 0;
+}
+.details dt { color: var(--muted); font-size: 12px; font-weight: 600; }
+.details dd { margin: 0; font-size: 13px; word-break: break-word; }
+.detail-value { display: flex; align-items: flex-start; gap: 6px; }
+.detail-value span { flex: 1 1 auto; min-width: 0; white-space: pre-wrap; }
+.detail-value.break-all span { word-break: break-all; }
+.toggle-button { display: inline-block; margin-top: 4px; }
+.copy-button {
+  flex: 0 0 auto;
+  padding: 1px 6px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: var(--panel);
+  color: var(--muted);
+  font-size: 11px;
+}
+.copy-button:hover { background: var(--panel-2); }
+.rules-title { margin: 18px 0 6px; font-size: 14px; }
+.rule-source {
+  margin: 6px 0 2px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+.rule-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 6px;
+  padding: 8px;
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  background: var(--panel-2);
+}
+.rule-row code { flex: 1 1 auto; min-width: 0; font-size: 12px; word-break: break-all; }
+.raw-block { margin-top: 18px; border-top: 1px solid var(--border-soft); padding-top: 12px; }
+.raw-block summary { cursor: pointer; color: var(--muted); font-size: 13px; font-weight: 600; }
+pre {
+  max-height: 320px;
+  margin: 10px 0 0;
+  padding: 10px;
+  overflow: auto;
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  background: var(--panel-2);
+  font-size: 11px;
+  line-height: 1.45;
+}
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  z-index: 90;
+  padding: 9px 14px;
+  border-radius: 999px;
+  background: #101828;
+  color: #fff;
+  font-size: 13px;
+  transform: translateX(-50%);
+}
+@media (max-width: 1200px) {
+  .app-shell.details-open {
+    grid-template-columns: 250px minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) minmax(180px, 32%);
+  }
+  .app-shell.details-open .details {
+    grid-column: 1 / -1;
+  }
+}
+@media (max-width: 720px) {
+  .app-shell,
+  .app-shell.details-open {
+    grid-template-columns: 1fr;
+    overflow: auto;
+  }
+  .app-shell.details-open {
+    grid-template-rows: auto minmax(300px, 1fr) minmax(220px, auto);
+  }
+  .app-shell.details-open .details {
+    grid-column: auto;
+  }
+  .sidebar { max-height: 40vh; }
+  .content { min-height: 340px; }
+  .statusbar input[type="search"] { flex: 1 1 100%; }
+}
+@media (max-width: 620px) {
+  .topbar, .statusbar, .app-shell { padding-left: 12px; padding-right: 12px; }
+}
+@media (max-width: 900px) {
+  .app-shell.details-open {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(0, 1fr);
+    overflow: hidden;
+  }
+  .app-shell.details-open .sidebar,
+  .app-shell.details-open .content {
+    display: none;
+  }
+  .app-shell.details-open .details {
+    grid-column: 1;
+    grid-row: 1;
+    min-height: 0;
+  }
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-line">
+      <h1>AdGuard Filtering Log Viewer</h1>
+      <button class="button primary" id="open-file" type="button">Open JSON</button>
+    </div>
+    <div class="source" id="source-label">No JSON loaded</div>
+  </div>
+</header>
+<div class="statusbar">
+  <div class="summary" id="summary"></div>
+  <input id="search" type="search" placeholder="Search: domain, URL, app, rule" disabled>
+</div>
+<div class="app-shell" id="app-shell" hidden>
+  <aside class="sidebar" id="sidebar">
+    <div class="filter-head">
+      <h2>Filters</h2>
+      <button class="link-button" id="reset-filters" type="button">Reset</button>
+    </div>
+    <section class="filter-section">
+      <div class="group-title">Apps</div>
+      <div class="filter-list scroll" id="filter-apps"></div>
+    </section>
+    <section class="filter-section">
+      <label class="group-head"><input type="checkbox" id="toggle-statuses"> Status</label>
+      <div class="filter-list" id="filter-statuses"></div>
+    </section>
+    <section class="filter-section">
+      <label class="group-head"><input type="checkbox" id="toggle-events"> Event type</label>
+      <div class="filter-list" id="filter-events"></div>
+    </section>
+    <section class="filter-section">
+      <label class="group-head"><input type="checkbox" id="toggle-sides"> Origin</label>
+      <div class="filter-list" id="filter-sides"></div>
+    </section>
+    <label class="switch-row"><input id="unique-urls" type="checkbox"> Unique URLs only</label>
+  </aside>
+  <main class="content">
+    <div class="record-list" id="record-list">
+      <div class="virtual-spacer" id="virtual-top"></div>
+      <div id="virtual-rows"></div>
+      <div class="virtual-spacer" id="virtual-bottom"></div>
+    </div>
+  </main>
+  <aside class="details" id="details" aria-hidden="true" hidden>
+    <div class="details-head">
+      <span class="app-badge" id="details-badge"></span>
+      <div class="details-head-text">
+        <h2 id="details-domain"></h2>
+        <div class="details-sub" id="details-sub"></div>
+      </div>
+      <button class="icon-button" id="close-details" type="button" aria-label="Close">×</button>
+    </div>
+    <div class="details-status" id="details-status"></div>
+    <dl id="details-fields"></dl>
+    <div id="details-rules"></div>
+    <details class="raw-block">
+      <summary>Original event</summary>
+      <pre id="details-raw"></pre>
+    </details>
+  </aside>
+</div>
+<section class="drop-zone" id="drop-zone">
+  <div class="drop-card">
+    <div class="drop-icon">⇩</div>
+    <h2>Open an AdGuard for Android filtering log</h2>
+    <p>Drop <code>recent_activity.json</code> here or choose a file.</p>
+    <p>Logs from other AdGuard products are not compatible.</p>
+    <button class="button primary" id="choose-file" type="button">Choose JSON</button>
+    <p class="hint">The file is processed locally in your browser. No data is sent to the network.</p>
+  </div>
+</section>
+<input id="file-input" type="file" accept=".json,application/json" hidden>
+<div class="error" id="error" hidden>
+  <span id="error-text"></span>
+  <button id="error-close" type="button" aria-label="Close">×</button>
+</div>
+<div class="toast" id="toast" hidden></div>
+<script src="filters-meta.js"></script>
+<script src="dns-filters-meta.js"></script>
+<script>
+"use strict";
+
+const PRELOADED_DATA = null;
+const PRELOADED_SOURCE = null;
+
+const FILTER_NAMES = window.ADGUARD_FILTER_NAMES || {};
+const DNS_FILTER_NAMES = window.ADGUARD_DNS_FILTER_NAMES || {};
+
+const DNS_PACKAGE = "com.adguard.dns";
+
+const APP_NAMES = {
+  "com.instagram.android": "Instagram",
+  "mobi.zona": "Zona",
+  "com.google.android.apps.docs": "Google Docs",
+  "com.android.chrome": "Chrome",
+  "org.mozilla.firefox": "Firefox",
+  "com.google.android.gm": "Gmail",
+  "com.google.android.youtube": "YouTube",
+  "com.android.vending": "Google Play",
+  "com.google.android.apps.maps": "Google Maps",
+};
+
+const CONTENT_LABELS = {
+  DOCUMENT: "HTML",
+  SUBDOCUMENT: "Subdocument",
+  STYLESHEET: "CSS",
+  SCRIPT: "Script",
+  IMAGE: "Image",
+  MEDIA: "Media",
+  FONT: "Font",
+  OBJECT: "Object",
+  XMLHTTPREQUEST: "Ajax",
+  XML_HTTP_REQUEST: "Ajax",
+  WEBSOCKET: "Websocket",
+  PING: "Ping",
+  OTHER: "Other",
+  A: "A",
+  AAAA: "AAAA",
+};
+
+const CONTENT_ORDER = [
+  "DOCUMENT",
+  "STYLESHEET",
+  "XML_HTTP_REQUEST",
+  "IMAGE",
+  "MEDIA",
+  "FONT",
+  "OBJECT",
+  "PING",
+  "SCRIPT",
+  "SUBDOCUMENT",
+  "WEBSOCKET",
+  "OTHER",
+];
+
+const STATUS_ORDER = [
+  "NONE",
+  "BLOCKED",
+  "FAILED",
+  "MODIFIED",
+  "WHITELISTED",
+  "BYPASSED",
+  "META_MODIFIED",
+];
+
+const STATUS_LABELS = {
+  NONE: "Processed",
+  BLOCKED: "Blocked",
+  FAILED: "Failed",
+  MODIFIED: "Modified",
+  WHITELISTED: "Allowed",
+  BYPASSED: "Bypassed",
+  META_MODIFIED: "Modified Meta",
+};
+
+const EVENT_LEAVES = [
+  "dns",
+  "web",
+  "connection",
+  "firewall",
+  "tunnel",
+  "cookie",
+  "removed",
+  "cosmetic",
+  "whitelist",
+  "other",
+];
+
+const EVENT_LABELS = {
+  dns: "DNS",
+  web: "Web request",
+  tunnel: "HTTPS tunnel",
+  connection: "Connection",
+  firewall: "Firewall",
+  cookie: "Cookie modified",
+  removed: "Removed HTML element",
+  cosmetic: "Cosmetic / scriptlet / permission",
+  whitelist: "Whitelist",
+  other: "Other",
+};
+
+const SIDE_ORDER = ["1p", "3p"];
+const SIDE_LABELS = {
+  "1p": "First-party (1p)",
+  "3p": "Third-party (3p)",
+};
+
+const state = {
+  records: [],
+  source: "",
+  search: "",
+  apps: new Set(),
+  statuses: new Set(),
+  events: new Set(),
+  contents: new Set(),
+  sides: new Set(),
+  uniqueUrls: false,
+  selectedId: null,
+  selectedIndex: null,
+  visibleRecords: [],
+  listPaddingTop: 0,
+  initialized: false,
+};
+
+// The list renders only rows near the viewport. Spacers keep the scroll height.
+const ROW_GAP = 5;
+const ESTIMATED_ROW_HEIGHT = 84;
+const OVERSCAN = 8;
+const SEARCH_DEBOUNCE_MS = 120;
+const FILTER_STORAGE_KEY = "adguard-filtering-log-filters-v1";
+
+const rowHeights = new Map();
+let offsets = [];
+let totalHeight = 0;
+let renderTimer = null;
+let scrollFrame = null;
+let resizeFrame = null;
+let lastListWidth = 0;
+let lastListHeight = 0;
+let listResizeObserver = null;
+
+const els = {
+  search: document.getElementById("search"),
+  sourceLabel: document.getElementById("source-label"),
+  summary: document.getElementById("summary"),
+  appShell: document.getElementById("app-shell"),
+  sidebar: document.getElementById("sidebar"),
+  openFile: document.getElementById("open-file"),
+  chooseFile: document.getElementById("choose-file"),
+  fileInput: document.getElementById("file-input"),
+  dropZone: document.getElementById("drop-zone"),
+  recordList: document.getElementById("record-list"),
+  virtualTop: document.getElementById("virtual-top"),
+  virtualRows: document.getElementById("virtual-rows"),
+  virtualBottom: document.getElementById("virtual-bottom"),
+  filterApps: document.getElementById("filter-apps"),
+  filterStatuses: document.getElementById("filter-statuses"),
+  filterEvents: document.getElementById("filter-events"),
+  filterSides: document.getElementById("filter-sides"),
+  toggleStatuses: document.getElementById("toggle-statuses"),
+  toggleEvents: document.getElementById("toggle-events"),
+  toggleSides: document.getElementById("toggle-sides"),
+  resetFilters: document.getElementById("reset-filters"),
+  uniqueUrls: document.getElementById("unique-urls"),
+  details: document.getElementById("details"),
+  detailsBadge: document.getElementById("details-badge"),
+  detailsDomain: document.getElementById("details-domain"),
+  detailsSub: document.getElementById("details-sub"),
+  detailsStatus: document.getElementById("details-status"),
+  detailsFields: document.getElementById("details-fields"),
+  detailsRules: document.getElementById("details-rules"),
+  detailsRaw: document.getElementById("details-raw"),
+  closeDetails: document.getElementById("close-details"),
+  error: document.getElementById("error"),
+  errorText: document.getElementById("error-text"),
+  errorClose: document.getElementById("error-close"),
+  toast: document.getElementById("toast"),
+};
+
+function asList(value) {
+  if (value === null || value === undefined) return [];
+  if (Array.isArray(value)) {
+    return value
+      .filter((item) => item !== null && item !== undefined && item !== "")
+      .map(String);
+  }
+  if (typeof value === "string") return value ? [value] : [];
+  return [String(value)];
+}
+
+function toInt(value) {
+  const number = Number(value);
+  return Number.isFinite(number) ? Math.trunc(number) : 0;
+}
+
+function dedupeStrings(values) {
+  const seen = new Set();
+  const result = [];
+  for (const value of values) {
+    const text = String(value).trim();
+    if (!text) continue;
+    const key = text.toUpperCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    result.push(text);
+  }
+  return result;
+}
+
+function collectRules(value) {
+  if (Array.isArray(value)) {
+    return value.flatMap(collectRules);
+  }
+  if (value && typeof value === "object") {
+    if (typeof value.ruleText === "string") {
+      return value.ruleText.trim() ? [value.ruleText.trim()] : [];
+    }
+    return Object.values(value).flatMap(collectRules);
+  }
+  if (typeof value === "string") {
+    return value.trim() ? [value.trim()] : [];
+  }
+  return [];
+}
+
+function extractRules(payload) {
+  const values = [];
+  for (const key of ["appliedRules", "rules", "appliedRule"]) {
+    values.push(...collectRules(payload[key]));
+  }
+  return dedupeStrings(values);
+}
+
+function collectFilterIds(value, result) {
+  if (Array.isArray(value)) {
+    for (const item of value) collectFilterIds(item, result);
+    return;
+  }
+  if (!value || typeof value !== "object") return;
+
+  const raw = value.filterListId;
+  if (raw !== null && raw !== undefined && raw !== "") {
+    const filterId = Number(raw);
+    if (Number.isFinite(filterId)) result.push(filterId);
+  }
+  for (const item of Object.values(value)) {
+    collectFilterIds(item, result);
+  }
+}
+
+function filterSourceLabel(filterId) {
+  if (filterId === -1) return "User Rules";
+  if (filterId < 0) return "Custom Filter";
+  return FILTER_NAMES[filterId] || `Filter ${filterId}`;
+}
+
+function dnsFilterSourceLabel(filterId) {
+  if (filterId === -1) return "User Rules";
+  if (filterId < 0) return "Custom Filter";
+  return DNS_FILTER_NAMES[filterId] || `DNS filter ${filterId}`;
+}
+
+function dnsFilterSources(payload) {
+  const rules = payload.rules;
+  if (!rules || typeof rules !== "object" || Array.isArray(rules)) {
+    return [];
+  }
+  const ids = [];
+  for (const key of Object.keys(rules)) {
+    const filterId = Number(key);
+    if (Number.isFinite(filterId)) ids.push(filterId);
+  }
+  return dedupeStrings(ids.map(dnsFilterSourceLabel));
+}
+
+function filterSources(eventType, payload) {
+  if (eventType === "dnsRequest") {
+    return dnsFilterSources(payload);
+  }
+  const ids = [];
+  for (const key of ["appliedRules", "appliedRule", "rules"]) {
+    collectFilterIds(payload[key], ids);
+  }
+  return dedupeStrings(ids.map(filterSourceLabel));
+}
+
+function contentTypes(eventType, payload) {
+  if (eventType === "processedProxyRequest") {
+    return dedupeStrings(asList(payload.resourceTypes));
+  }
+  return [];
+}
+
+function side(payload) {
+  for (const key of ["thirdPartyRequest", "thirdParty", "isThirdParty"]) {
+    if (!(key in payload)) continue;
+    const value = payload[key];
+    if (typeof value === "boolean") return value ? "3p" : "1p";
+    if (typeof value === "string" && (value === "true" || value === "false")) {
+      return value === "true" ? "3p" : "1p";
+    }
+  }
+  return "";
+}
+
+function kind(eventType, payload) {
+  if (eventType === "processedProxyRequest") return String(payload.type || "");
+  if (eventType === "dnsRequest") {
+    return `DNS ${payload.requestType || ""}`.trim();
+  }
+  if (eventType === "whitelistedByNetworkRuleRequest") return "network";
+  return String(payload.type || "");
+}
+
+function humanizeEvent(name) {
+  return String(name)
+    .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
+    .replace(/_/g, " ")
+    .replace(/\b\w/g, (letter) => letter.toUpperCase());
+}
+
+function eventLabel(eventType, recordKind) {
+  if (eventType === "processedProxyRequest") {
+    if (recordKind === "TunnelRequest") return "HTTPS tunnel";
+    if (recordKind === "WebRequest") return "Web request";
+    if (recordKind === "Connection") return "Connection";
+    return "Proxy request";
+  }
+  if (eventType === "dnsRequest") return "DNS";
+  if (eventType === "whitelistedByNetworkRuleRequest") return "Whitelist";
+  if (eventType === "bypassedRequest") return "Bypassed request";
+  if (eventType === "blockedByFirewallRequest") return "Firewall block";
+  if (String(eventType).toLowerCase().includes("quic")) return "QUIC";
+  return humanizeEvent(eventType);
+}
+
+function eventGroup(eventType, recordKind) {
+  if (eventType === "dnsRequest") return "dns";
+  if (eventType === "whitelistedByNetworkRuleRequest") return "whitelist";
+  if (eventType === "bypassedRequest") return "other";
+  if (eventType === "blockedByFirewallRequest") return "firewall";
+  if (eventType === "processedProxyRequest") {
+    if (recordKind === "TunnelRequest") return "tunnel";
+    if (recordKind === "WebRequest") return "web";
+    if (recordKind === "Connection") return "connection";
+    return "other";
+  }
+  const lower = String(eventType).toLowerCase();
+  if (lower.includes("quic")) return "connection";
+  if (
+    lower.includes("cosmetic") ||
+    lower.includes("scriptlet") ||
+    lower.includes("permission")
+  ) {
+    return "cosmetic";
+  }
+  if (lower.includes("cookie")) return "cookie";
+  if (lower.includes("removed") || lower.includes("element")) return "removed";
+  if (lower.includes("firewall")) return "firewall";
+  if (lower.includes("connection")) return "connection";
+  return "other";
+}
+
+function statusRaw(eventType, payload) {
+  const values = [];
+  if (eventType === "processedProxyRequest") {
+    values.push(...asList(payload.requestStatuses));
+    values.push(...asList(payload.mainRequestStatus));
+    values.push(...asList(payload.requestBlockedReason));
+    values.push(...asList(payload.requestFailedReason));
+    values.push(...asList(payload.modifiedMetaReason));
+    values.push(...asList(payload.modifiedContentReasons));
+    if (payload.requestBlockedByBrowsingSecurityModule) {
+      values.push("BROWSING_SECURITY");
+    }
+  } else if (eventType === "dnsRequest") {
+    values.push(...asList(payload.requestStatus));
+    values.push(...asList(payload.blockingReason));
+  } else if (eventType === "whitelistedByNetworkRuleRequest") {
+    values.push("WHITELISTED");
+  } else if (eventType === "bypassedRequest") {
+    values.push("BYPASSED");
+  } else if (eventType === "blockedByFirewallRequest") {
+    values.push("FIREWALL");
+  } else {
+    for (const key of [
+      "status",
+      "requestStatus",
+      "requestStatuses",
+      "blockingReason",
+      "requestBlockedReason",
+      "requestFailedReason",
+    ]) {
+      values.push(...asList(payload[key]));
+    }
+    if (payload.blocked === true) values.push("BLOCKED");
+    if (payload.allowed === true) values.push("ALLOWED");
+    if (payload.bypassed === true) values.push("BYPASSED");
+    if (payload.failed === true) values.push("FAILED");
+  }
+  return dedupeStrings(values);
+}
+
+function hasCosmeticReasons(raw) {
+  const joined = raw.join(" ").toUpperCase();
+  return [
+    "COSMETIC",
+    "SCRIPTLET",
+    "PERMISSION",
+    "HTML_ELEM_REMOVED",
+    "COOKIE_RULE",
+  ].some((pattern) => joined.includes(pattern));
+}
+
+function hasStealthReasons(raw, payload) {
+  const joined = raw.join(" ").toUpperCase();
+  return (
+    joined.includes("STEALTHMODE") ||
+    joined.includes("TRACKING_PROTECTION") ||
+    asList(payload.appliedStealthModeOptions).length > 0
+  );
+}
+
+function canonicalStatus(eventType, payload, raw) {
+  if (eventType === "whitelistedByNetworkRuleRequest") return "WHITELISTED";
+  if (eventType === "bypassedRequest") return "BYPASSED";
+  if (eventType === "blockedByFirewallRequest") return "BLOCKED";
+  if (payload.requestBlockedByBrowsingSecurityModule) return "BLOCKED";
+  if (eventType === "dnsRequest") {
+    const reason = String(payload.blockingReason || "").toUpperCase();
+    if (reason && reason !== "NONE") return "BLOCKED";
+  }
+  if (eventType === "processedProxyRequest") {
+    if (asList(payload.requestBlockedReason).length) return "BLOCKED";
+    if (asList(payload.requestFailedReason).length) return "FAILED";
+  }
+
+  const joined = raw.join(" ").toUpperCase();
+  if (joined.includes("BLOCK")) return "BLOCKED";
+  if (joined.includes("FAIL") || joined.includes("ERROR")) return "FAILED";
+  if (hasStealthReasons(raw, payload)) return "META_MODIFIED";
+  if (hasCosmeticReasons(raw)) return "MODIFIED";
+  if (joined.includes("MODIFIED_META")) return "META_MODIFIED";
+  if (joined.includes("MODIFIED_CONTENT")) return "MODIFIED";
+  if (joined.includes("MODIF")) return "MODIFIED";
+  if (joined.includes("ALLOWED")) return "WHITELISTED";
+
+  if (!raw.length) {
+    const lower = String(eventType).toLowerCase();
+    if (lower.includes("block")) return "BLOCKED";
+    if (lower.includes("bypass")) return "BYPASSED";
+    if (lower.includes("allow")) return "WHITELISTED";
+    if (lower.includes("fail")) return "FAILED";
+    if (
+      lower.includes("modif") ||
+      lower.includes("cosmetic") ||
+      lower.includes("scriptlet") ||
+      lower.includes("permission") ||
+      lower.includes("removed") ||
+      lower.includes("cookie")
+    ) {
+      return "MODIFIED";
+    }
+    return "NONE";
+  }
+  return "NONE";
+}
+
+function statusKeys(record) {
+  return [record.status];
+}
+
+function category(record) {
+  if (record.status === "BLOCKED" || record.status === "FAILED") {
+    return "blocked";
+  }
+  if (record.status === "WHITELISTED") return "allowed";
+  if (
+    record.eventGroup === "cosmetic" ||
+    record.eventGroup === "removed"
+  ) {
+    return "cosmetic";
+  }
+  if (record.status === "META_MODIFIED") return "modified";
+  if (record.status === "MODIFIED") return "cosmetic";
+  return "processed";
+}
+
+function timestamp(value) {
+  let result = toInt(value);
+  if (result > 0 && result < 100000000000) result *= 1000;
+  return result;
+}
+
+function formatAddress(value) {
+  if (!value) return "";
+  if (typeof value === "string") return value;
+  const host = value.host || value.address || "";
+  const port = value.port ? `:${value.port}` : "";
+  return host ? `${host}${port}` : "";
+}
+
+function buildRecord(item) {
+  if (!item || typeof item !== "object") return null;
+  const event = item.event;
+  if (!event || typeof event !== "object") return null;
+  const eventType = Object.keys(event)[0];
+  if (!eventType) return null;
+  const payload = event[eventType];
+  if (!payload || typeof payload !== "object") return null;
+
+  const recordKind = kind(eventType, payload);
+  const raw = statusRaw(eventType, payload);
+  const status = canonicalStatus(eventType, payload, raw);
+  const record = {
+    id: item.id === undefined || item.id === null ? "" : item.id,
+    event: eventType,
+    eventLabel: eventLabel(eventType, recordKind),
+    eventGroup: eventGroup(eventType, recordKind),
+    kind: recordKind,
+    app: String(payload.packageName || ""),
+    domain: String(payload.domain || "").replace(/\.$/, ""),
+    url: String(payload.requestUrl || ""),
+    method: String(payload.httpMethod || ""),
+    content: contentTypes(eventType, payload),
+    dnsType: eventType === "dnsRequest" ? String(payload.requestType || "") : "",
+    status,
+    statusRaw: raw,
+    statusKeys: [],
+    side: side(payload),
+    rules: extractRules(payload),
+    filterSources: filterSources(eventType, payload),
+    sent: toInt(payload.sent),
+    received: toInt(payload.received),
+    elapsed: toInt(payload.elapsedTime),
+    timeMs: timestamp(payload.creationTime ?? payload.startTime),
+    answer: String(payload.answer || ""),
+    destination: formatAddress(
+      payload.destinationAddress || payload.remoteAddress,
+    ),
+    connectionId:
+      payload.sessionId === undefined || payload.sessionId === null
+        ? ""
+        : String(payload.sessionId),
+    referer: String(
+      payload.referrerUrl || payload.refererUrl || payload.referer || "",
+    ),
+    redirectUrl: String(payload.redirectUrl || ""),
+    language: String(payload.language || ""),
+    upstream: String(payload.upstream || ""),
+    stealthOptions: asList(payload.appliedStealthModeOptions),
+    firewallStrategy: payload.firewallBlockingStrategy || null,
+    tls: payload.tlsInfo || payload.tls || null,
+    certificate:
+      payload.originalCertificate ||
+      payload.certificate ||
+      (payload.tlsInfo && payload.tlsInfo.cert) ||
+      null,
+    raw: payload,
+  };
+  record.statusKeys = statusKeys(record);
+  record.category = category(record);
+  return record;
+}
+
+function parseLog(data) {
+  let value = data;
+  if (value && !Array.isArray(value) && typeof value === "object") {
+    for (const key of ["events", "activity", "records", "data", "items"]) {
+      if (Array.isArray(value[key])) {
+        value = value[key];
+        break;
+      }
+    }
+  }
+  if (!Array.isArray(value)) {
+    throw new Error("JSON must contain an array of records.");
+  }
+  const records = [];
+  let skipped = 0;
+  for (const item of value) {
+    const record = buildRecord(item);
+    if (record) {
+      record.uid = records.length;
+      records.push(record);
+    } else skipped += 1;
+  }
+  return { records, skipped };
+}
+
+function appName(packageName) {
+  if (packageName === DNS_PACKAGE) return "DNS (system)";
+  return APP_NAMES[packageName] || packageName || "Unknown app";
+}
+
+function appLetter(packageName) {
+  return (appName(packageName)[0] || "?").toUpperCase();
+}
+
+function appColor(packageName) {
+  if (packageName === DNS_PACKAGE) return "#2563eb";
+  const palette = [
+    "#2563eb",
+    "#7c3aed",
+    "#db2777",
+    "#ea580c",
+    "#0891b2",
+    "#16a34a",
+    "#ca8a04",
+    "#dc2626",
+  ];
+  let hash = 0;
+  for (const letter of packageName || "") {
+    hash = (hash * 31 + letter.charCodeAt(0)) >>> 0;
+  }
+  return palette[hash % palette.length];
+}
+
+function contentLabel(value) {
+  return CONTENT_LABELS[value] || value;
+}
+
+function statusLabel(value) {
+  return STATUS_LABELS[value] || value;
+}
+
+function sideLabel(value) {
+  return SIDE_LABELS[value] || SIDE_LABELS["1p"];
+}
+
+function formatTime(ms) {
+  if (!ms) return "—";
+  return new Date(ms).toLocaleTimeString("en-US", { hour12: false });
+}
+
+function formatDateTime(ms) {
+  if (!ms) return "";
+  return new Date(ms).toLocaleString("en-US", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
+}
+
+function formatBytes(value) {
+  if (!value) return "0 B";
+  const units = ["B", "KB", "MB", "GB"];
+  let number = value;
+  let index = 0;
+  while (number >= 1024 && index < units.length - 1) {
+    number /= 1024;
+    index += 1;
+  }
+  return `${number.toFixed(index === 0 ? 0 : 1)} ${units[index]}`;
+}
+
+const TLS_VERSIONS = {
+  769: "TLS 1.0",
+  770: "TLS 1.1",
+  771: "TLS 1.2",
+  772: "TLS 1.3",
+};
+
+const STEALTH_LABELS = {
+  SENDING_DO_NOT_TRACK_SIGNALS: "Do Not Track",
+  REMOVING_XCLIENT_DATA_HEADER: "Remove X-Client-Data",
+};
+
+function formatTls(value) {
+  if (!value) return "";
+  if (typeof value === "string") return value;
+  const parts = [];
+  if (value.tlsVersion) {
+    const version = String(value.tlsVersion);
+    parts.push(TLS_VERSIONS[version] || `TLS ${version}`);
+  }
+  if (value.version) parts.push(`Version: ${value.version}`);
+  if (value.cipher) parts.push(`Cipher: ${value.cipher}`);
+  if (value.ech !== undefined) parts.push(`ECH: ${value.ech}`);
+  if (value.quic !== undefined) parts.push(`QUIC: ${value.quic}`);
+  if (value.clientHello) parts.push(`ClientHello: ${value.clientHello}`);
+  return parts.length ? parts.join("\n") : JSON.stringify(value);
+}
+
+function formatCertificate(value) {
+  if (!value) return "";
+  if (typeof value === "string") {
+    return value.length > 160
+      ? `base64 DER, ${value.length} chars`
+      : value;
+  }
+  if (value.cert) return `base64 DER, ${value.cert.length} chars`;
+  return formatValue(value);
+}
+
+function formatStealthOptions(values) {
+  return values.map((value) => STEALTH_LABELS[value] || value).join(", ");
+}
+
+function formatFirewallStrategy(value) {
+  if (!value) return "";
+  if (typeof value === "string") return value;
+  const keys = Object.keys(value);
+  if (!keys.length) return "";
+  const key = keys[0];
+  const detail = value[key];
+  const label = humanizeEvent(key);
+  if (detail && typeof detail === "object" && detail.networkType) {
+    return `${label} (${detail.networkType})`;
+  }
+  return label;
+}
+
+function formatValue(value) {
+  if (value === null || value === undefined || value === "") return "";
+  if (typeof value === "object") return JSON.stringify(value, null, 2);
+  return String(value);
+}
+
+function plural(count, forms) {
+  return count === 1 ? forms[0] : forms[1];
+}
+
+function uniqueBy(list, getter) {
+  const seen = new Set();
+  const result = [];
+  for (const item of list) {
+    const value = getter(item);
+    if (seen.has(value)) continue;
+    seen.add(value);
+    result.push(value);
+  }
+  return result;
+}
+
+function countBy(records, getter) {
+  const counts = new Map();
+  for (const record of records) {
+    for (const value of getter(record)) {
+      counts.set(value, (counts.get(value) || 0) + 1);
+    }
+  }
+  return counts;
+}
+
+let appOptionsCache = null;
+let statusOptionsCache = null;
+let contentOptionsCache = null;
+let sideOptionsCache = null;
+
+function invalidateOptions() {
+  appOptionsCache = null;
+  statusOptionsCache = null;
+  contentOptionsCache = null;
+  sideOptionsCache = null;
+}
+
+function appOptions() {
+  if (appOptionsCache) return appOptionsCache;
+  const counts = countBy(state.records, (record) => [
+    record.app || "unknown",
+  ]);
+  appOptionsCache = [...counts.entries()]
+    .filter(([value]) => value !== DNS_PACKAGE)
+    .sort((a, b) => appName(a[0]).localeCompare(appName(b[0]), "ru"))
+    .map(([value, count]) => ({
+      value,
+      count,
+      label: appName(value),
+      title: value === "unknown" ? "" : value,
+    }));
+  return appOptionsCache;
+}
+
+function statusOptions() {
+  if (statusOptionsCache) return statusOptionsCache;
+  const counts = countBy(state.records, (record) => record.statusKeys);
+  statusOptionsCache = STATUS_ORDER.map((value) => ({
+    value,
+    count: counts.get(value) || 0,
+    label: statusLabel(value),
+  }));
+  return statusOptionsCache;
+}
+
+function contentOptions() {
+  if (contentOptionsCache) return contentOptionsCache;
+  const counts = new Map();
+  for (const record of state.records) {
+    if (record.eventGroup !== "web") continue;
+    const values = record.content.length ? record.content : ["OTHER"];
+    for (const value of values) {
+      counts.set(value, (counts.get(value) || 0) + 1);
+    }
+  }
+  const values = [...CONTENT_ORDER];
+  for (const key of counts.keys()) {
+    if (!values.includes(key)) values.push(key);
+  }
+  contentOptionsCache = values.map((value) => ({
+    value,
+    count: counts.get(value) || 0,
+    label: contentLabel(value),
+  }));
+  return contentOptionsCache;
+}
+
+function sideOptions() {
+  if (sideOptionsCache) return sideOptionsCache;
+  const counts = countBy(state.records, (record) => [record.side || "1p"]);
+  sideOptionsCache = SIDE_ORDER.map((value) => ({
+    value,
+    count: counts.get(value) || 0,
+    label: SIDE_LABELS[value],
+  }));
+  return sideOptionsCache;
+}
+
+function renderSimpleCheckboxes(container, options, selected, group) {
+  container.replaceChildren();
+  for (const option of options) {
+    const label = document.createElement("label");
+    label.className = "check-row";
+    if (option.title) label.title = option.title;
+
+    const input = document.createElement("input");
+    input.type = "checkbox";
+    input.value = option.value;
+    input.checked = selected.has(option.value);
+    input.dataset.group = group;
+
+    const text = document.createElement("span");
+    text.className = "check-text";
+    text.textContent = option.label;
+
+    const count = document.createElement("span");
+    count.className = "check-count";
+    count.textContent = option.count;
+
+    label.append(input, text, count);
+    container.append(label);
+  }
+}
+
+function treeRow(label, count, options) {
+  const row = document.createElement("label");
+  row.className = `tree-row${options.className ? ` ${options.className}` : ""}`;
+
+  const input = document.createElement("input");
+  input.type = "checkbox";
+  if (options.leaf) {
+    input.dataset.eventLeaf = options.leaf;
+    input.checked = state.events.has(options.leaf);
+  }
+  if (options.content) {
+    input.dataset.content = options.content;
+    input.checked = state.contents.has(options.content);
+  }
+  if (options.parent) {
+    input.dataset.eventParent = options.parent;
+  }
+
+  const text = document.createElement("span");
+  text.className = "tree-label";
+  text.textContent = label;
+
+  const countElement = document.createElement("span");
+  countElement.className = "tree-count";
+  countElement.textContent = count;
+
+  row.append(input, text, countElement);
+  return row;
+}
+
+function syncEventParents() {
+  const webParent = els.filterEvents.querySelector(
+    '[data-event-parent="web"]',
+  );
+  if (webParent) {
+    const allContents = contentOptions().map((option) => option.value);
+    const selected = allContents.filter((value) =>
+      state.contents.has(value),
+    ).length;
+    const webSelected = state.events.has("web");
+    webParent.checked =
+      webSelected && allContents.length > 0 && selected === allContents.length;
+    webParent.indeterminate =
+      webSelected && selected > 0 && selected < allContents.length;
+  }
+
+  const connectionParent = els.filterEvents.querySelector(
+    '[data-event-parent="connection"]',
+  );
+  if (connectionParent) {
+    const leaves = ["connection", "firewall"];
+    const selected = leaves.filter((value) => state.events.has(value)).length;
+    connectionParent.checked = selected === leaves.length;
+    connectionParent.indeterminate = selected > 0 && selected < leaves.length;
+  }
+}
+
+function syncEventChildren() {
+  for (const input of els.filterEvents.querySelectorAll("[data-content]")) {
+    input.checked = state.contents.has(input.dataset.content);
+  }
+  for (const input of els.filterEvents.querySelectorAll("[data-event-leaf]")) {
+    input.checked = state.events.has(input.dataset.eventLeaf);
+  }
+  syncEventParents();
+}
+
+function renderEventTree() {
+  const counts = countBy(state.records, (record) => [record.eventGroup]);
+  const content = contentOptions();
+  const connectionCount =
+    (counts.get("connection") || 0) + (counts.get("firewall") || 0);
+
+  els.filterEvents.replaceChildren();
+  els.filterEvents.append(
+    treeRow("DNS", counts.get("dns") || 0, { leaf: "dns" }),
+  );
+  els.filterEvents.append(
+    treeRow("Web request", counts.get("web") || 0, {
+      parent: "web",
+      className: "parent",
+    }),
+  );
+  for (const option of content) {
+    els.filterEvents.append(
+      treeRow(option.label, option.count, {
+        content: option.value,
+        className: "child",
+      }),
+    );
+  }
+  els.filterEvents.append(
+    treeRow("Connection", connectionCount, {
+      parent: "connection",
+      className: "parent",
+    }),
+  );
+  els.filterEvents.append(
+    treeRow("Firewall", counts.get("firewall") || 0, {
+      leaf: "firewall",
+      className: "child",
+    }),
+  );
+  els.filterEvents.append(
+    treeRow("Other", counts.get("connection") || 0, {
+      leaf: "connection",
+      className: "child",
+    }),
+  );
+  for (const key of [
+    "tunnel",
+    "cookie",
+    "removed",
+    "cosmetic",
+    "whitelist",
+    "other",
+  ]) {
+    els.filterEvents.append(
+      treeRow(EVENT_LABELS[key], counts.get(key) || 0, { leaf: key }),
+    );
+  }
+  syncEventParents();
+}
+
+function setHeaderState(header, values, selected) {
+  const total = values.length;
+  const count = values.filter((value) => selected.has(value)).length;
+  header.checked = total > 0 && count === total;
+  header.indeterminate = count > 0 && count < total;
+}
+
+function syncAllHeaders() {
+  setHeaderState(els.toggleStatuses, STATUS_ORDER, state.statuses);
+  setHeaderState(els.toggleSides, SIDE_ORDER, state.sides);
+  const eventValues = [
+    ...EVENT_LEAVES,
+    ...contentOptions().map((option) => option.value),
+  ];
+  const selectedEvents = new Set([...state.events, ...state.contents]);
+  setHeaderState(els.toggleEvents, eventValues, selectedEvents);
+}
+
+function syncGroupInputs(container, selected) {
+  for (const input of container.querySelectorAll("input[data-group]")) {
+    input.checked = selected.has(input.value);
+  }
+}
+
+function renderFilters() {
+  renderSimpleCheckboxes(els.filterApps, appOptions(), state.apps, "apps");
+  renderSimpleCheckboxes(
+    els.filterStatuses,
+    statusOptions(),
+    state.statuses,
+    "statuses",
+  );
+  renderSimpleCheckboxes(els.filterSides, sideOptions(), state.sides, "sides");
+  renderEventTree();
+  syncAllHeaders();
+  els.uniqueUrls.checked = state.uniqueUrls;
+}
+
+function resetFilters() {
+  state.apps = new Set();
+  state.statuses = new Set(STATUS_ORDER);
+  state.events = new Set(EVENT_LEAVES);
+  state.contents = new Set(
+    contentOptions().map((option) => option.value),
+  );
+  state.sides = new Set(SIDE_ORDER);
+  state.search = "";
+  state.uniqueUrls = false;
+  els.search.value = "";
+}
+
+function readSavedFilters() {
+  try {
+    const raw = localStorage.getItem(FILTER_STORAGE_KEY);
+    if (!raw) return null;
+    const data = JSON.parse(raw);
+    return data && typeof data === "object" ? data : null;
+  } catch (error) {
+    return null;
+  }
+}
+
+function savedFilterValues(saved, key) {
+  if (!saved || !Array.isArray(saved[key])) return null;
+  return saved[key].map(String);
+}
+
+function restoreFilterGroup(saved, key, validValues, fallback) {
+  const values = savedFilterValues(saved, key);
+  if (values === null) return new Set(fallback);
+  const valid = values.filter((value) => validValues.includes(value));
+  if (values.length && !valid.length) return new Set(fallback);
+  return new Set(valid);
+}
+
+function restoreFilters() {
+  resetFilters();
+  const saved = readSavedFilters();
+  if (!saved) return;
+
+  const appValues = appOptions().map((option) => option.value);
+  const contentValues = contentOptions().map((option) => option.value);
+
+  state.apps = restoreFilterGroup(saved, "apps", appValues, []);
+  state.statuses = restoreFilterGroup(
+    saved,
+    "statuses",
+    STATUS_ORDER,
+    STATUS_ORDER,
+  );
+  state.events = restoreFilterGroup(
+    saved,
+    "events",
+    EVENT_LEAVES,
+    EVENT_LEAVES,
+  );
+  state.contents = restoreFilterGroup(
+    saved,
+    "contents",
+    contentValues,
+    contentValues,
+  );
+  state.sides = restoreFilterGroup(saved, "sides", SIDE_ORDER, SIDE_ORDER);
+  state.uniqueUrls = saved.uniqueUrls === true;
+}
+
+function saveFilters() {
+  try {
+    localStorage.setItem(
+      FILTER_STORAGE_KEY,
+      JSON.stringify({
+        apps: [...state.apps],
+        statuses: [...state.statuses],
+        events: [...state.events],
+        contents: [...state.contents],
+        sides: [...state.sides],
+        uniqueUrls: state.uniqueUrls,
+      }),
+    );
+  } catch (error) {
+    // Ignore storage errors.
+  }
+}
+
+function searchableText(record) {
+  if (record._searchText === undefined) {
+    record._searchText = [
+      record.domain,
+      record.url,
+      record.app,
+      appName(record.app),
+      record.method,
+      record.answer,
+      record.dnsType,
+      record.upstream,
+      record.redirectUrl,
+      record.eventLabel,
+      formatFirewallStrategy(record.firewallStrategy),
+      ...record.rules,
+    ]
+      .join(" ")
+      .toLowerCase();
+  }
+  return record._searchText;
+}
+
+function filterRecords() {
+  const search = state.search.trim().toLowerCase();
+  const appFilterActive = state.apps.size > 0;
+  const allAppsSelected =
+    !appFilterActive || state.apps.size === appOptions().length;
+  return state.records.filter((record) => {
+    if (record.eventGroup === "dns") {
+      if (!allAppsSelected) return false;
+    } else if (appFilterActive && !state.apps.has(record.app || "unknown")) {
+      return false;
+    }
+    if (!record.statusKeys.some((key) => state.statuses.has(key))) return false;
+    if (!state.events.has(record.eventGroup)) return false;
+    if (!state.sides.has(record.side || "1p")) return false;
+    if (record.eventGroup === "web") {
+      const values = record.content.length ? record.content : ["OTHER"];
+      if (!values.some((value) => state.contents.has(value))) return false;
+    }
+    if (search && !searchableText(record).includes(search)) return false;
+    return true;
+  });
+}
+
+function uniqueKey(record) {
+  if (record.eventGroup === "dns") return `dns|${record.domain}`;
+  return record.url || record.domain || `${record.event}|${record.id}`;
+}
+
+function applyUnique(records) {
+  if (!state.uniqueUrls) {
+    return records;
+  }
+  const groups = new Map();
+  for (const record of records) {
+    const key = uniqueKey(record);
+    const group = groups.get(key);
+    if (group) group.repeat += 1;
+    else groups.set(key, { ...record, repeat: 1 });
+  }
+  return [...groups.values()];
+}
+
+function summaryChip(label, value, className) {
+  const element = document.createElement("div");
+  element.className = `chip${className ? ` ${className}` : ""}`;
+  const text = document.createElement("span");
+  text.textContent = `${label}: `;
+  const strong = document.createElement("strong");
+  strong.textContent = value;
+  element.append(text, strong);
+  return element;
+}
+
+function renderSummary(visible) {
+  const counts = {
+    processed: 0,
+    blocked: 0,
+    modified: 0,
+    allowed: 0,
+    cosmetic: 0,
+  };
+  for (const record of visible) {
+    if (Object.prototype.hasOwnProperty.call(counts, record.category)) {
+      counts[record.category] += 1;
+    }
+  }
+  els.summary.replaceChildren(
+    summaryChip("Total", state.records.length),
+    summaryChip("Shown", visible.length),
+    summaryChip("Processed", counts.processed, "processed"),
+    summaryChip("Blocked", counts.blocked, "blocked"),
+    summaryChip("Modified Meta", counts.modified, "modified"),
+    summaryChip("Allowed", counts.allowed, "allowed"),
+    summaryChip("Modified", counts.cosmetic, "cosmetic"),
+  );
+}
+
+function statusBadge(record) {
+  const element = document.createElement("span");
+  element.className = `pill status-pill status-${record.status.toLowerCase()}`;
+  element.textContent = statusLabel(record.status);
+  return element;
+}
+
+function recordSubtitle(record) {
+  if (record.eventGroup === "dns" && record.answer) return record.answer;
+  if (record.url) return record.url;
+  if (record.rules.length) return record.rules[0];
+  return record.domain || "—";
+}
+
+function makePill(text) {
+  const element = document.createElement("span");
+  element.className = "pill";
+  element.textContent = text;
+  return element;
+}
+
+function rowHeight(record) {
+  const measured = rowHeights.get(record.uid);
+  return measured === undefined ? ESTIMATED_ROW_HEIGHT : measured;
+}
+
+function rebuildOffsets() {
+  const records = state.visibleRecords;
+  offsets = new Array(records.length + 1);
+  offsets[0] = 0;
+  for (let index = 0; index < records.length; index += 1) {
+    offsets[index + 1] =
+      offsets[index] + rowHeight(records[index]) + ROW_GAP;
+  }
+  totalHeight = offsets[records.length];
+}
+
+function findIndexAt(position) {
+  const total = state.visibleRecords.length;
+  if (!total) return 0;
+  let low = 0;
+  let high = total - 1;
+  while (low < high) {
+    const middle = (low + high + 1) >> 1;
+    if (offsets[middle] <= position) low = middle;
+    else high = middle - 1;
+  }
+  return low;
+}
+
+function measureRows(depth) {
+  let changed = false;
+  for (const row of els.virtualRows.querySelectorAll(".record-row")) {
+    const index = Number(row.dataset.index);
+    const record = state.visibleRecords[index];
+    if (!record) continue;
+    const height = row.getBoundingClientRect().height;
+    if (height > 0 && Math.abs(rowHeight(record) - height) > 0.5) {
+      rowHeights.set(record.uid, height);
+      changed = true;
+    }
+  }
+  if (!changed) return;
+
+  rebuildOffsets();
+  const rows = els.virtualRows.querySelectorAll(".record-row");
+  if (!rows.length) return;
+  const firstIndex = Number(rows[0].dataset.index);
+  const lastIndex = Number(rows[rows.length - 1].dataset.index) + 1;
+  els.virtualTop.style.height =
+    firstIndex > 0 ? `${offsets[firstIndex]}px` : "0px";
+  els.virtualBottom.style.height =
+    lastIndex < state.visibleRecords.length
+      ? `${totalHeight - offsets[lastIndex]}px`
+      : "0px";
+
+  if (depth === 0) {
+    const list = els.recordList;
+    const scrollTop = Math.max(0, list.scrollTop - state.listPaddingTop);
+    const viewport = list.clientHeight || 600;
+    if (
+      lastIndex < state.visibleRecords.length &&
+      offsets[lastIndex] < scrollTop + viewport
+    ) {
+      renderWindow(1);
+    }
+  }
+}
+
+function renderWindow(depth = 0) {
+  const records = state.visibleRecords;
+  const total = records.length;
+  if (!total) {
+    els.virtualTop.style.height = "0px";
+    els.virtualBottom.style.height = "0px";
+    const empty = document.createElement("div");
+    empty.className = "empty";
+    empty.textContent = "No records match the selected filters.";
+    els.virtualRows.replaceChildren(empty);
+    return;
+  }
+
+  const list = els.recordList;
+  const viewport = list.clientHeight || 600;
+  const scrollTop = Math.max(0, list.scrollTop - state.listPaddingTop);
+  const start = Math.max(0, findIndexAt(scrollTop) - OVERSCAN);
+  let end = Math.min(
+    total,
+    findIndexAt(scrollTop + viewport) + OVERSCAN + 1,
+  );
+  if (end <= start) end = Math.min(total, start + 1);
+
+  els.virtualTop.style.height = start > 0 ? `${offsets[start]}px` : "0px";
+  els.virtualBottom.style.height =
+    end < total ? `${totalHeight - offsets[end]}px` : "0px";
+
+  const fragment = document.createDocumentFragment();
+  for (let index = start; index < end; index += 1) {
+    fragment.append(buildRow(records[index], index));
+  }
+  els.virtualRows.replaceChildren(fragment);
+  measureRows(depth);
+}
+
+function scrollToIndex(index) {
+  const list = els.recordList;
+  const top = offsets[index] + state.listPaddingTop;
+  const bottom = top + rowHeight(state.visibleRecords[index]);
+  if (top < list.scrollTop) {
+    list.scrollTop = top;
+  } else if (bottom > list.scrollTop + list.clientHeight) {
+    list.scrollTop = Math.max(0, bottom - list.clientHeight);
+  }
+  renderWindow();
+}
+
+function buildRow(record, index) {
+  const row = document.createElement("button");
+  row.type = "button";
+  row.className = `record-row category-${record.category}`;
+  row.dataset.index = String(index);
+  if (state.selectedIndex !== null && index === state.selectedIndex) {
+    row.classList.add("selected");
+  }
+  row.title = "Click to open details";
+
+  const badge = document.createElement("span");
+  badge.className = "app-badge";
+  badge.style.background = appColor(record.app);
+  badge.textContent = appLetter(record.app);
+
+  const body = document.createElement("span");
+  body.className = "record-body";
+
+  const line = document.createElement("span");
+  line.className = "record-line";
+  const domain = document.createElement("span");
+  domain.className = "record-domain";
+  domain.textContent = record.domain || record.eventLabel;
+  const time = document.createElement("span");
+  time.className = "record-time";
+  time.textContent = formatTime(record.timeMs);
+  line.append(domain, time);
+
+  const subtitle = document.createElement("span");
+  subtitle.className = "record-sub";
+  subtitle.textContent = recordSubtitle(record);
+  if (record.url) subtitle.title = record.url;
+
+  const meta = document.createElement("span");
+  meta.className = "record-meta";
+  meta.append(makePill(record.eventLabel));
+  if (record.dnsType) meta.append(makePill(`DNS ${record.dnsType}`));
+  const contentValues = record.content.length
+    ? record.content
+    : record.eventGroup === "web"
+      ? ["OTHER"]
+      : [];
+  for (const value of contentValues) {
+    meta.append(makePill(contentLabel(value)));
+  }
+  if (record.side) meta.append(makePill(record.side));
+  meta.append(statusBadge(record));
+  if (record.repeat > 1) {
+    const repeat = document.createElement("span");
+    repeat.className = "repeat";
+    repeat.textContent = `×${record.repeat}`;
+    meta.append(repeat);
+  }
+
+  body.append(line, subtitle, meta);
+  row.append(badge, body);
+  return row;
+}
+
+function renderList() {
+  const filtered = filterRecords();
+  const visible = applyUnique(filtered);
+  state.visibleRecords = visible;
+  renderSummary(visible);
+
+  if (state.selectedId !== null) {
+    const index = visible.findIndex(
+      (record) => String(record.id) === String(state.selectedId),
+    );
+    if (index === -1) {
+      closeDetails();
+    } else {
+      state.selectedIndex = index;
+    }
+  }
+
+  els.recordList.scrollTop = 0;
+  rebuildOffsets();
+  renderWindow();
+  saveFilters();
+}
+
+function detailValue(value, copyable, clamp) {
+  const wrapper = document.createElement("div");
+  wrapper.className = "detail-value";
+  if (copyable) wrapper.classList.add("break-all");
+  const text = document.createElement("span");
+  text.textContent = value;
+  if (clamp) {
+    text.dataset.clamp = "true";
+    text.dataset.fullText = value;
+  }
+  wrapper.append(text);
+  if (copyable) wrapper.append(copyButton(value));
+  return wrapper;
+}
+
+function addDetailField(list, label, value, copyable, clamp) {
+  if (value === null || value === undefined || value === "") return;
+  const term = document.createElement("dt");
+  term.textContent = label;
+  const definition = document.createElement("dd");
+  definition.append(detailValue(String(value), copyable, clamp));
+  if (clamp) {
+    const toggle = document.createElement("button");
+    toggle.type = "button";
+    toggle.className = "link-button toggle-button";
+    toggle.textContent = "Show full";
+    toggle.hidden = true;
+    definition.append(toggle);
+  }
+  list.append(term, definition);
+}
+
+function clampMiddleText(text, span) {
+  const width = span.getBoundingClientRect().width;
+  if (!text || !width) return text;
+
+  const style = getComputedStyle(span);
+  const measure = document.createElement("div");
+  measure.style.position = "absolute";
+  measure.style.top = "0";
+  measure.style.left = "-9999px";
+  measure.style.visibility = "hidden";
+  measure.style.pointerEvents = "none";
+  measure.style.width = `${width}px`;
+  measure.style.fontFamily = style.fontFamily;
+  measure.style.fontSize = style.fontSize;
+  measure.style.fontWeight = style.fontWeight;
+  measure.style.fontStyle = style.fontStyle;
+  measure.style.letterSpacing = style.letterSpacing;
+  measure.style.lineHeight = style.lineHeight;
+  measure.style.whiteSpace = "pre-wrap";
+  measure.style.wordBreak = style.wordBreak;
+  measure.style.overflowWrap = style.overflowWrap;
+  document.body.append(measure);
+
+  try {
+    measure.textContent = "M";
+    const lineHeight = measure.getBoundingClientRect().height;
+    if (!lineHeight) return text;
+
+    measure.textContent = text;
+    if (measure.scrollHeight <= lineHeight * 5 + 1) return text;
+
+    const maxPartHeight = lineHeight * 2 + 1;
+    const fits = (value) => {
+      measure.textContent = value;
+      return measure.scrollHeight <= maxPartHeight;
+    };
+    const findLength = (makeValue) => {
+      let low = 0;
+      let high = text.length;
+      while (low < high) {
+        const middle = Math.ceil((low + high) / 2);
+        if (fits(makeValue(middle))) low = middle;
+        else high = middle - 1;
+      }
+      return low;
+    };
+
+    const prefixLength = findLength((length) => text.slice(0, length));
+    const suffixLength = findLength((length) =>
+      length ? text.slice(-length) : "",
+    );
+    if (!prefixLength && !suffixLength) return text;
+    if (prefixLength + suffixLength >= text.length) return text;
+
+    const parts = [];
+    if (prefixLength) parts.push(text.slice(0, prefixLength));
+    parts.push("...");
+    if (suffixLength) parts.push(text.slice(-suffixLength));
+    return parts.join("\n");
+  } finally {
+    measure.remove();
+  }
+}
+
+function applyClampedValues() {
+  for (const span of els.detailsFields.querySelectorAll("[data-clamp]")) {
+    const fullText = span.dataset.fullText || "";
+    const truncated = clampMiddleText(fullText, span);
+    span.textContent = truncated;
+
+    const definition = span.closest("dd");
+    const toggle = definition
+      ? definition.querySelector(".toggle-button")
+      : null;
+    if (!toggle) continue;
+
+    if (truncated === fullText) {
+      toggle.hidden = true;
+      continue;
+    }
+
+    toggle.hidden = false;
+    toggle.textContent = "Show full";
+    toggle.dataset.expanded = "false";
+    toggle.addEventListener("click", () => {
+      const expanded = toggle.dataset.expanded === "true";
+      span.textContent = expanded ? truncated : fullText;
+      toggle.textContent = expanded ? "Show full" : "Show less";
+      toggle.dataset.expanded = expanded ? "false" : "true";
+    });
+  }
+}
+
+const REASON_LABELS = {
+  QUERY_MATCHED_BY_RULE: "Blocked by a filtering rule",
+  FILTERED: "Blocked by a filtering rule",
+  RULE: "Blocked by a filtering rule",
+  MODIFIED_META: "Headers modified",
+  MODIFIED_CONTENT: "Content modified",
+  STEALTHMODE: "Stealth mode",
+  BROWSING_SECURITY: "Browsing security",
+  FIREWALL: "Blocked by firewall",
+  COSMETIC_RULE: "Cosmetic rule",
+  HTML_ELEM_REMOVED: "HTML element removed",
+  PERMISSIONS_RULE: "Permissions",
+  COOKIE_RULE: "Cookie rule",
+  BLOCKED: "",
+  NONE: "",
+  WHITELISTED: "",
+  BYPASSED: "",
+  ALLOWED: "",
+};
+
+const DNS_REASON_LABELS = {
+  QUERY_MATCHED_BY_RULE: "Blocked by a DNS rule",
+  FILTERED: "Blocked by a DNS rule",
+  RULE: "Blocked by a DNS rule",
+  BLOCKED: "",
+  NONE: "",
+};
+
+function blockingReason(record) {
+  const labels =
+    record.event === "dnsRequest" ? DNS_REASON_LABELS : REASON_LABELS;
+  const values = [];
+  for (const value of record.statusRaw) {
+    const upper = value.toUpperCase();
+    const label = Object.prototype.hasOwnProperty.call(labels, upper)
+      ? labels[upper]
+      : value;
+    if (label) values.push(label);
+  }
+  return dedupeStrings(values).join(", ");
+}
+
+function ruleAction(record) {
+  if (record.status === "BLOCKED") return "Request blocked by";
+  if (record.status === "WHITELISTED") return "Request allowed by";
+  if (record.status === "MODIFIED" || record.status === "META_MODIFIED") {
+    return "Request modified by";
+  }
+  return "Rule applied from";
+}
+
+function openDetails(record, index) {
+  state.selectedId = record.id;
+  state.selectedIndex = index;
+  els.detailsBadge.style.background = appColor(record.app);
+  els.detailsBadge.textContent = appLetter(record.app);
+  els.detailsDomain.textContent = record.domain || record.eventLabel;
+  els.detailsSub.textContent = "";
+  els.detailsSub.hidden = true;
+  els.detailsStatus.replaceChildren(statusBadge(record));
+  els.details.hidden = false;
+  els.details.setAttribute("aria-hidden", "false");
+  els.appShell.classList.add("details-open");
+
+  els.detailsFields.replaceChildren();
+  const appLabel = appName(record.app);
+  if (!record.app || record.app !== appLabel) {
+    addDetailField(els.detailsFields, "App", appLabel);
+  }
+  addDetailField(els.detailsFields, "Package", record.app, true);
+  addDetailField(els.detailsFields, "Event", record.eventLabel);
+  addDetailField(
+    els.detailsFields,
+    "Blocking reason",
+    blockingReason(record),
+  );
+  addDetailField(els.detailsFields, "Domain", record.domain, true);
+  addDetailField(els.detailsFields, "Request URL", record.url, true, true);
+  addDetailField(
+    els.detailsFields,
+    "Destination address",
+    record.destination,
+    true,
+  );
+  addDetailField(
+    els.detailsFields,
+    "Start time",
+    formatDateTime(record.timeMs),
+  );
+  addDetailField(
+    els.detailsFields,
+    "Elapsed time",
+    record.elapsed ? `${record.elapsed} ms` : "",
+  );
+  addDetailField(els.detailsFields, "Connection ID", record.connectionId);
+  addDetailField(els.detailsFields, "HTTP method", record.method);
+  addDetailField(els.detailsFields, "Referer URL", record.referer, true);
+  addDetailField(els.detailsFields, "Redirect URL", record.redirectUrl, true);
+  addDetailField(els.detailsFields, "DNS query", record.dnsType);
+  addDetailField(els.detailsFields, "DNS answer", record.answer);
+  addDetailField(els.detailsFields, "Upstream", record.upstream);
+  const contentValues = record.content.length
+    ? record.content
+    : record.eventGroup === "web"
+      ? ["OTHER"]
+      : [];
+  addDetailField(
+    els.detailsFields,
+    "Content type",
+    contentValues.map(contentLabel).join(", "),
+  );
+  addDetailField(els.detailsFields, "Origin", sideLabel(record.side));
+  addDetailField(els.detailsFields, "Sent", formatBytes(record.sent));
+  addDetailField(els.detailsFields, "Received", formatBytes(record.received));
+  addDetailField(els.detailsFields, "Language", record.language);
+  addDetailField(
+    els.detailsFields,
+    "Stealth mode",
+    formatStealthOptions(record.stealthOptions),
+  );
+  addDetailField(
+    els.detailsFields,
+    "Firewall",
+    formatFirewallStrategy(record.firewallStrategy),
+  );
+  addDetailField(els.detailsFields, "TLS", formatTls(record.tls));
+  addDetailField(
+    els.detailsFields,
+    "Original certificate",
+    formatCertificate(record.certificate),
+  );
+
+  els.detailsRules.replaceChildren();
+  const bypassed =
+    record.status === "BYPASSED" || record.event === "bypassedRequest";
+  if (!bypassed && (record.rules.length || record.filterSources.length)) {
+    const title = document.createElement("h3");
+    title.className = "rules-title";
+    title.textContent = "Applied rules";
+    els.detailsRules.append(title);
+    if (record.filterSources.length) {
+      const source = document.createElement("div");
+      source.className = "rule-source";
+      source.textContent =
+        `${ruleAction(record)}: ${record.filterSources.join(", ")}`;
+      els.detailsRules.append(source);
+    }
+    for (const rule of record.rules) {
+      const row = document.createElement("div");
+      row.className = "rule-row";
+      const code = document.createElement("code");
+      code.textContent = rule;
+      row.append(code, copyButton(rule));
+      els.detailsRules.append(row);
+    }
+  }
+
+  els.detailsRaw.textContent = JSON.stringify(record.raw, null, 2);
+  applyClampedValues();
+  els.details.scrollTop = 0;
+  highlightSelectedRow();
+  handleListResize();
+}
+
+function closeDetails() {
+  state.selectedId = null;
+  state.selectedIndex = null;
+  els.details.hidden = true;
+  els.details.setAttribute("aria-hidden", "true");
+  els.appShell.classList.remove("details-open");
+  highlightSelectedRow();
+  handleListResize();
+}
+
+function highlightSelectedRow() {
+  for (const row of els.virtualRows.querySelectorAll(".record-row")) {
+    row.classList.toggle(
+      "selected",
+      state.selectedIndex !== null &&
+        Number(row.dataset.index) === state.selectedIndex,
+    );
+  }
+}
+
+function moveSelection(delta) {
+  const visible = state.visibleRecords;
+  if (!visible.length) return;
+
+  let index = state.selectedIndex === null ? -1 : state.selectedIndex;
+  if (state.selectedId !== null) {
+    const found = visible.findIndex(
+      (record) => String(record.id) === String(state.selectedId),
+    );
+    if (found !== -1) index = found;
+  }
+  if (index === -1 && delta < 0) index = visible.length;
+
+  let next = index + delta;
+  if (next < 0) next = visible.length - 1;
+  if (next >= visible.length) next = 0;
+
+  scrollToIndex(next);
+  openDetails(visible[next], next);
+  const row = els.virtualRows.querySelector(
+    `.record-row[data-index="${next}"]`,
+  );
+  if (row) row.scrollIntoView({ block: "nearest" });
+}
+
+function showError(message) {
+  els.errorText.textContent = message;
+  els.error.hidden = false;
+}
+
+function hideError() {
+  els.error.hidden = true;
+}
+
+let toastTimer = null;
+function showToast(message) {
+  els.toast.textContent = message;
+  els.toast.hidden = false;
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    els.toast.hidden = true;
+  }, 1800);
+}
+
+function copyButton(text) {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "copy-button";
+  button.textContent = "Copy";
+  button.addEventListener("click", async (event) => {
+    event.stopPropagation();
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch (error) {
+      const area = document.createElement("textarea");
+      area.value = text;
+      area.style.position = "fixed";
+      area.style.opacity = "0";
+      document.body.append(area);
+      area.select();
+      document.execCommand("copy");
+      area.remove();
+    }
+    showToast("Copied");
+  });
+  return button;
+}
+
+function updateSource(source, count, skipped) {
+  state.source = source;
+  const parts = [
+    source,
+    `${count} ${plural(count, ["record", "records"])}`,
+  ];
+  if (skipped) {
+    parts.push(`skipped: ${skipped}`);
+  }
+  els.sourceLabel.textContent = parts.join(" · ");
+  document.title = `AdGuard Filtering Log Viewer — ${source}`;
+}
+
+function initViewer(records, source, skipped) {
+  closeDetails();
+  cancelScheduledRender();
+  state.records = records;
+  invalidateOptions();
+  rowHeights.clear();
+  els.dropZone.hidden = true;
+  els.appShell.hidden = false;
+  state.listPaddingTop =
+    parseFloat(getComputedStyle(els.recordList).paddingTop) || 0;
+  lastListWidth = els.recordList.clientWidth;
+  lastListHeight = els.recordList.clientHeight;
+  state.initialized = true;
+  restoreFilters();
+  renderFilters();
+  renderList();
+  updateSource(source, records.length, skipped);
+  els.search.disabled = false;
+  els.search.focus();
+}
+
+async function loadFile(file) {
+  try {
+    const text = await file.text();
+    const data = JSON.parse(text);
+    const { records, skipped } = parseLog(data);
+    hideError();
+    initViewer(records, file.name, skipped);
+  } catch (error) {
+    showError(error instanceof Error ? error.message : String(error));
+  }
+}
+
+function cancelScheduledRender() {
+  if (renderTimer !== null) {
+    clearTimeout(renderTimer);
+    renderTimer = null;
+  }
+}
+
+function scheduleRender(delay = 0) {
+  cancelScheduledRender();
+  renderTimer = setTimeout(() => {
+    renderTimer = null;
+    renderList();
+  }, delay);
+}
+
+function resetFilterState() {
+  cancelScheduledRender();
+  resetFilters();
+  renderFilters();
+  renderList();
+}
+
+els.openFile.addEventListener("click", () => els.fileInput.click());
+els.chooseFile.addEventListener("click", () => els.fileInput.click());
+els.fileInput.addEventListener("change", () => {
+  const file = els.fileInput.files && els.fileInput.files[0];
+  if (file) loadFile(file);
+  els.fileInput.value = "";
+});
+
+for (const eventName of ["dragenter", "dragover"]) {
+  els.dropZone.addEventListener(eventName, (event) => {
+    event.preventDefault();
+    els.dropZone.classList.add("drag-over");
+  });
+}
+for (const eventName of ["dragleave", "drop"]) {
+  els.dropZone.addEventListener(eventName, (event) => {
+    event.preventDefault();
+    els.dropZone.classList.remove("drag-over");
+  });
+}
+els.dropZone.addEventListener("drop", (event) => {
+  const file = event.dataTransfer && event.dataTransfer.files[0];
+  if (file) loadFile(file);
+});
+
+els.search.addEventListener("input", () => {
+  state.search = els.search.value;
+  scheduleRender(SEARCH_DEBOUNCE_MS);
+});
+els.uniqueUrls.addEventListener("change", () => {
+  state.uniqueUrls = els.uniqueUrls.checked;
+  scheduleRender();
+});
+els.resetFilters.addEventListener("click", resetFilterState);
+
+els.toggleStatuses.addEventListener("change", () => {
+  state.statuses = els.toggleStatuses.checked
+    ? new Set(STATUS_ORDER)
+    : new Set();
+  syncGroupInputs(els.filterStatuses, state.statuses);
+  syncAllHeaders();
+  scheduleRender();
+});
+
+els.toggleSides.addEventListener("change", () => {
+  state.sides = els.toggleSides.checked ? new Set(SIDE_ORDER) : new Set();
+  syncGroupInputs(els.filterSides, state.sides);
+  syncAllHeaders();
+  scheduleRender();
+});
+
+els.toggleEvents.addEventListener("change", () => {
+  if (els.toggleEvents.checked) {
+    state.events = new Set(EVENT_LEAVES);
+    state.contents = new Set(
+      contentOptions().map((option) => option.value),
+    );
+  } else {
+    state.events = new Set();
+    state.contents = new Set();
+  }
+  syncEventChildren();
+  syncAllHeaders();
+  scheduleRender();
+});
+
+els.sidebar.addEventListener("change", (event) => {
+  const input = event.target.closest("input[type='checkbox'][data-group]");
+  if (!input) return;
+  const group = input.dataset.group;
+  const selected = state[group];
+  if (!selected) return;
+  if (input.checked) selected.add(input.value);
+  else selected.delete(input.value);
+  syncAllHeaders();
+  scheduleRender();
+});
+
+els.filterEvents.addEventListener("change", (event) => {
+  const input = event.target.closest("input[type='checkbox']");
+  if (!input) return;
+
+  if (input.dataset.eventParent) {
+    const parent = input.dataset.eventParent;
+    if (parent === "web") {
+      if (input.checked) {
+        state.events.add("web");
+        state.contents = new Set(
+          contentOptions().map((option) => option.value),
+        );
+      } else {
+        state.events.delete("web");
+        state.contents.clear();
+      }
+    } else if (parent === "connection") {
+      if (input.checked) {
+        state.events.add("connection");
+        state.events.add("firewall");
+      } else {
+        state.events.delete("connection");
+        state.events.delete("firewall");
+      }
+    }
+  } else if (input.dataset.content) {
+    const value = input.dataset.content;
+    if (input.checked) state.contents.add(value);
+    else state.contents.delete(value);
+    if (state.contents.size) state.events.add("web");
+    else state.events.delete("web");
+  } else if (input.dataset.eventLeaf) {
+    const value = input.dataset.eventLeaf;
+    if (input.checked) state.events.add(value);
+    else state.events.delete(value);
+  }
+
+  syncEventChildren();
+  syncAllHeaders();
+  scheduleRender();
+});
+
+els.virtualRows.addEventListener("click", (event) => {
+  const row = event.target.closest(".record-row");
+  if (!row) return;
+  const index = Number(row.dataset.index);
+  const record = state.visibleRecords[index];
+  if (record) openDetails(record, index);
+});
+
+els.recordList.addEventListener(
+  "scroll",
+  () => {
+    if (scrollFrame !== null) return;
+    scrollFrame = requestAnimationFrame(() => {
+      scrollFrame = null;
+      renderWindow();
+    });
+  },
+  { passive: true },
+);
+
+function handleListResize() {
+  if (!state.initialized || resizeFrame !== null) return;
+  resizeFrame = requestAnimationFrame(() => {
+    resizeFrame = null;
+    const width = els.recordList.clientWidth;
+    const height = els.recordList.clientHeight;
+    if (width === lastListWidth && height === lastListHeight) return;
+    const widthChanged = width !== lastListWidth;
+    lastListWidth = width;
+    lastListHeight = height;
+    if (widthChanged) rowHeights.clear();
+    rebuildOffsets();
+    renderWindow();
+  });
+}
+
+if (typeof ResizeObserver !== "undefined") {
+  listResizeObserver = new ResizeObserver(handleListResize);
+  listResizeObserver.observe(els.recordList);
+} else {
+  window.addEventListener("resize", handleListResize);
+}
+
+els.closeDetails.addEventListener("click", closeDetails);
+els.errorClose.addEventListener("click", hideError);
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    closeDetails();
+    hideError();
+    return;
+  }
+  if (event.key !== "ArrowUp" && event.key !== "ArrowDown") return;
+  if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+
+  const target = event.target;
+  if (
+    target &&
+    typeof target.closest === "function" &&
+    target.closest("input, textarea, select, pre")
+  ) {
+    return;
+  }
+  if (!state.visibleRecords.length) return;
+
+  event.preventDefault();
+  moveSelection(event.key === "ArrowDown" ? 1 : -1);
+});
+
+renderSummary([]);
+
+if (PRELOADED_DATA !== null) {
+  try {
+    const { records, skipped } = parseLog(PRELOADED_DATA);
+    initViewer(records, PRELOADED_SOURCE || "embedded data", skipped);
+  } catch (error) {
+    showError(error instanceof Error ? error.message : String(error));
+  }
+}
+</script>
+</body>
+</html>
