@@ -47,6 +47,7 @@ to turn hiding on or off.
 - URL patterns use JavaScript regular expressions without `/.../`
   delimiters. Escape `/` as `\/`.
 - Use `Text` mode for literal URL strings.
+- Use `Reset selection` to enable all domains and valid URL patterns.
 - Import a Fiddler `.ffx` file or an `.agfilters` file. Import replaces
   the current list.
 - Export the list to `.agfilters`.

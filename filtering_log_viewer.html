@@ -534,9 +534,10 @@ pre {
   inset: 0;
   z-index: 70;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   padding: 16px;
+  padding-top: max(16px, calc((100vh - 760px) / 2));
   background: rgba(15, 23, 42, 0.45);
 }
 .modal {
@@ -677,8 +678,8 @@ pre {
 .hide-copy-row label { color: var(--muted); font-size: 12px; font-weight: 600; }
 .hide-copy-row textarea {
   width: 100%;
-  min-height: 38px;
-  max-height: 90px;
+  min-height: 62px;
+  max-height: 180px;
   padding: 7px 9px;
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -886,12 +887,12 @@ pre {
         <p>Only enabled and valid rules are included.</p>
         <div class="hide-copy-row">
           <label for="copy-domains">Hide following hosts</label>
-          <textarea id="copy-domains" readonly rows="2" spellcheck="false"></textarea>
+          <textarea id="copy-domains" readonly rows="3" spellcheck="false"></textarea>
           <button class="button" id="copy-domains-button" type="button">Copy</button>
         </div>
         <div class="hide-copy-row">
           <label for="copy-urls">Hide if URL contains</label>
-          <textarea id="copy-urls" readonly rows="2" spellcheck="false"></textarea>
+          <textarea id="copy-urls" readonly rows="3" spellcheck="false"></textarea>
           <button class="button" id="copy-urls-button" type="button">Copy</button>
         </div>
       </div>
@@ -900,9 +901,10 @@ pre {
       <button class="button" id="import-hide" type="button">Import…</button>
       <button class="button" id="export-hide" type="button">Export .agfilters</button>
       <button class="button" id="show-fiddler-copy" type="button" aria-expanded="false" aria-controls="hide-copy">Export to Fiddler</button>
+      <button class="button" id="reset-hide-selection" type="button" title="Enable all domains and valid URL patterns">Reset selection</button>
       <span class="spacer"></span>
       <button class="button danger" id="clear-hide" type="button">Clear</button>
-      <button class="button primary" id="done-hide" type="button">Done</button>
+      <button class="button primary" id="done-hide" type="button">Apply</button>
     </div>
   </div>
 </div>
@@ -1078,6 +1080,7 @@ let lastListWidth = 0;
 let lastListHeight = 0;
 let listResizeObserver = null;
 let hideLastFocus = null;
+let hideBackdropPressed = false;
 
 const els = {
   search: document.getElementById("search"),
@@ -1134,6 +1137,7 @@ const els = {
   exportHide: document.getElementById("export-hide"),
   showFiddlerCopy: document.getElementById("show-fiddler-copy"),
   hideCopy: document.getElementById("hide-copy"),
+  resetHideSelection: document.getElementById("reset-hide-selection"),
   clearHide: document.getElementById("clear-hide"),
   doneHide: document.getElementById("done-hide"),
   hideFileInput: document.getElementById("hide-file-input"),
@@ -2210,6 +2214,10 @@ function renderHideModal() {
     (invalidUrls ? ` · ${invalidUrls} invalid` : "");
   syncGroupCheckbox(els.toggleAllDomains, state.hideDomains, "domains");
   syncGroupCheckbox(els.toggleAllUrls, state.hideUrls, "urls");
+  els.resetHideSelection.disabled = !(
+    state.hideDomains.some((entry) => !entry.enabled) ||
+    state.hideUrls.some((entry) => !entry.error && !entry.enabled)
+  );
   renderDomainList();
   renderUrlList();
   updateHideCopy();
@@ -2320,6 +2328,28 @@ function setGroupEnabled(kind, enabled) {
   saveHideList();
   renderHideModal();
   scheduleRender();
+}
+
+function resetHideSelection() {
+  let changed = false;
+  for (const entry of state.hideDomains) {
+    if (!entry.enabled) {
+      entry.enabled = true;
+      changed = true;
+    }
+  }
+  for (const entry of state.hideUrls) {
+    if (!entry.error && !entry.enabled) {
+      entry.enabled = true;
+      changed = true;
+    }
+  }
+  if (!changed) return;
+  state.hideMatcher = null;
+  saveHideList();
+  renderHideModal();
+  scheduleRender();
+  showToast("All hide rules enabled");
 }
 
 function addDomains() {
@@ -3854,8 +3884,17 @@ els.hideEnabledModal.addEventListener("change", () =>
 );
 els.closeHide.addEventListener("click", closeHideModal);
 els.doneHide.addEventListener("click", closeHideModal);
+els.hideModal.addEventListener("pointerdown", (event) => {
+  hideBackdropPressed = event.target === els.hideModal;
+});
+els.hideModal.addEventListener("pointercancel", () => {
+  hideBackdropPressed = false;
+});
 els.hideModal.addEventListener("click", (event) => {
-  if (event.target === els.hideModal) closeHideModal();
+  if (event.target === els.hideModal && hideBackdropPressed) {
+    closeHideModal();
+  }
+  hideBackdropPressed = false;
 });
 els.toggleAllDomains.addEventListener("change", () =>
   setGroupEnabled("domains", els.toggleAllDomains.checked),
@@ -3968,10 +4007,17 @@ els.showFiddlerCopy.addEventListener("click", () => {
   updateHideCopy();
   els.hideCopy.hidden = false;
   els.showFiddlerCopy.setAttribute("aria-expanded", "true");
-  els.hideCopy.scrollIntoView({ block: "nearest", behavior: "smooth" });
-  if (!els.copyDomainsButton.disabled) els.copyDomainsButton.focus();
-  else if (!els.copyUrlsButton.disabled) els.copyUrlsButton.focus();
+  requestAnimationFrame(() => {
+    const modalBody = els.hideModal.querySelector(".modal-body");
+    if (modalBody) modalBody.scrollTop = modalBody.scrollHeight;
+    if (!els.copyDomainsButton.disabled) {
+      els.copyDomainsButton.focus({ preventScroll: true });
+    } else if (!els.copyUrlsButton.disabled) {
+      els.copyUrlsButton.focus({ preventScroll: true });
+    }
+  });
 });
+els.resetHideSelection.addEventListener("click", resetHideSelection);
 els.clearHide.addEventListener("click", () => {
   if (!state.hideDomains.length && !state.hideUrls.length) return;
   if (!window.confirm("Remove all domains and URL patterns?")) return;
