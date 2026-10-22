@@ -45,7 +45,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
   font-size: 14px;
 }
-button, input { font: inherit; }
+button, input, textarea, select { font: inherit; }
 button { cursor: pointer; }
 .topbar {
   display: flex;
@@ -57,6 +57,22 @@ button { cursor: pointer; }
   padding: 14px 20px;
   background: var(--panel);
   border-bottom: 1px solid var(--border);
+}
+.topbar-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.button-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  margin-left: 6px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--border-soft);
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
 }
 .brand h1 { margin: 0; font-size: 18px; letter-spacing: -0.01em; }
 .brand-line { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
@@ -116,6 +132,7 @@ button { cursor: pointer; }
 .chip.modified { background: var(--modified); border-color: var(--modified-accent); }
 .chip.allowed { background: var(--allowed); border-color: var(--allowed-accent); }
 .chip.cosmetic { background: var(--cosmetic); border-color: var(--cosmetic-accent); }
+.chip.hidden { background: var(--panel-2); border-color: var(--border); color: var(--muted); }
 .app-shell {
   display: grid;
   grid-template-columns: 250px minmax(0, 1fr);
@@ -220,6 +237,12 @@ button { cursor: pointer; }
   cursor: pointer;
 }
 .switch-row input { accent-color: #16a34a; margin: 0; }
+.hide-switch-row {
+  margin-top: 0;
+  padding: 4px 2px 8px;
+  border-top: 0;
+  border-bottom: 1px solid var(--border-soft);
+}
 .content {
   display: flex;
   flex-direction: column;
@@ -497,12 +520,197 @@ pre {
   bottom: 20px;
   left: 50%;
   z-index: 90;
+  max-width: min(720px, calc(100vw - 32px));
   padding: 9px 14px;
   border-radius: 999px;
   background: #101828;
   color: #fff;
   font-size: 13px;
+  text-align: center;
   transform: translateX(-50%);
+}
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 16px;
+  padding-top: max(16px, calc((100vh - 760px) / 2));
+  background: rgba(15, 23, 42, 0.45);
+}
+.modal {
+  display: flex;
+  flex-direction: column;
+  width: min(900px, 100%);
+  max-height: min(760px, calc(100vh - 32px));
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--panel);
+  box-shadow: 0 20px 50px rgba(16, 24, 40, 0.28);
+}
+.modal-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 16px 18px 12px;
+  border-bottom: 1px solid var(--border-soft);
+}
+.modal-head h2 { margin: 0; font-size: 17px; }
+.modal-sub { margin-top: 3px; color: var(--muted); font-size: 12px; }
+.modal-head .icon-button { margin-left: auto; }
+.modal-body { padding: 12px 18px 16px; overflow: auto; }
+.modal-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-soft);
+}
+.modal-toolbar .check-row { padding: 0; }
+.modal-toolbar .check-row input { margin: 0; }
+.hide-columns { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; }
+.hide-section { min-width: 0; }
+.hide-section-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.hide-group-head { flex: 1 1 auto; padding: 0; }
+.hide-count {
+  color: var(--muted);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.hide-add { display: flex; gap: 8px; margin-bottom: 8px; }
+.hide-add input {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 34px;
+  padding: 0 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--panel);
+  color: var(--text);
+}
+.hide-add input:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+.hide-add input.invalid { border-color: #f04438; background: #fef3f2; }
+.hide-add select {
+  flex: 0 0 auto;
+  height: 34px;
+  padding: 0 7px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--panel);
+  color: var(--text);
+}
+.hide-add .button { height: 34px; padding: 0 12px; }
+.hide-status-line { display: flex; align-items: center; gap: 8px; min-height: 18px; margin-bottom: 6px; }
+.hide-status { flex: 1 1 auto; min-height: 16px; margin: 0; color: var(--muted); font-size: 11px; line-height: 1.4; }
+.hide-status.error { color: #b42318; }
+.hide-status.ok { color: #05603a; }
+.hide-list {
+  max-height: 260px;
+  overflow: auto;
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  background: var(--panel-2);
+}
+.hide-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 8px;
+  border-bottom: 1px solid var(--border-soft);
+  font-size: 13px;
+}
+.hide-row:last-child { border-bottom: 0; }
+.hide-row:hover { background: var(--panel); }
+.hide-row label { display: flex; align-items: center; gap: 8px; min-width: 0; flex: 1 1 auto; cursor: pointer; }
+.hide-row input { margin: 0; accent-color: #16a34a; }
+.hide-value { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hide-value code {
+  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+  font-size: 12px;
+}
+.hide-mode {
+  flex: 0 0 auto;
+  padding: 1px 5px;
+  border-radius: 999px;
+  background: var(--border-soft);
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.hide-row.invalid { background: #fef3f2; }
+.hide-row.invalid .hide-value,
+.hide-row.invalid .hide-value code { color: #b42318; }
+.hide-remove {
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: none;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1;
+}
+.hide-remove:hover { background: var(--panel-2); border-color: var(--border); color: var(--text); }
+.hide-empty { padding: 20px 12px; color: var(--muted); font-size: 12px; text-align: center; }
+.hide-hint { margin: 6px 0 0; color: var(--muted); font-size: 12px; line-height: 1.45; }
+.hide-hint code { padding: 1px 4px; border-radius: 4px; background: var(--panel-2); font-size: 11px; }
+.hide-copy { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border-soft); }
+.hide-copy h3 { margin: 0 0 4px; font-size: 13px; }
+.hide-copy p { margin: 0 0 10px; color: var(--muted); font-size: 12px; }
+.hide-copy-row {
+  display: grid;
+  grid-template-columns: 130px minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+  margin-top: 8px;
+}
+.hide-copy-row label { color: var(--muted); font-size: 12px; font-weight: 600; }
+.hide-copy-row textarea {
+  width: 100%;
+  min-height: 62px;
+  max-height: 180px;
+  padding: 7px 9px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--panel-2);
+  color: var(--text);
+  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+  font-size: 11px;
+  line-height: 1.4;
+  resize: vertical;
+}
+.hide-copy-row .button { height: 34px; }
+.modal-foot {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 12px 18px;
+  border-top: 1px solid var(--border-soft);
+  background: var(--panel-2);
+}
+.modal-foot .spacer { flex: 1 1 auto; }
+.modal-foot .button { height: 34px; }
+.modal-foot .button.danger { color: #b42318; border-color: #fecdca; background: var(--panel); }
+.modal-foot .button.danger:hover { background: #fef3f2; }
+@media (max-width: 760px) {
+  .modal-backdrop { align-items: stretch; padding: 8px; }
+  .modal { max-height: calc(100vh - 16px); }
+  .hide-columns { grid-template-columns: 1fr; }
+  .hide-list { max-height: 180px; }
+  .hide-copy-row { grid-template-columns: 1fr auto; }
+  .hide-copy-row label { grid-column: 1 / -1; }
 }
 @media (max-width: 1200px) {
   .app-shell.details-open {
@@ -559,6 +767,9 @@ pre {
     </div>
     <div class="source" id="source-label">No JSON loaded</div>
   </div>
+  <div class="topbar-actions">
+    <button class="button" id="open-hide-list" type="button" aria-haspopup="dialog" title="Manage hidden domains and URL patterns">Hide list<span class="button-count" id="hide-rule-count" hidden></span></button>
+  </div>
 </header>
 <div class="statusbar">
   <div class="summary" id="summary"></div>
@@ -570,6 +781,7 @@ pre {
       <h2>Filters</h2>
       <button class="link-button" id="reset-filters" type="button">Reset</button>
     </div>
+    <label class="switch-row hide-switch-row"><input id="hide-enabled" type="checkbox"> Hide matching records</label>
     <section class="filter-section">
       <div class="group-title">Apps</div>
       <div class="filter-list scroll" id="filter-apps"></div>
@@ -613,6 +825,89 @@ pre {
     </details>
   </aside>
 </div>
+<div class="modal-backdrop" id="hide-modal" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="hide-title">
+    <div class="modal-head">
+      <div>
+        <h2 id="hide-title">Hide list</h2>
+        <div class="modal-sub" id="hide-subtitle">Domains and URL patterns hidden from the log</div>
+      </div>
+      <button class="icon-button" id="close-hide" type="button" aria-label="Close">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-toolbar">
+        <label class="check-row"><input type="checkbox" id="hide-enabled-modal"> Hide matching records</label>
+        <span class="modal-sub" id="hide-hidden-count">0 records hidden in the current log</span>
+      </div>
+      <div class="hide-columns">
+        <section class="hide-section">
+          <div class="hide-section-head">
+            <label class="group-head hide-group-head"><input type="checkbox" id="toggle-all-domains"> Hide following hosts</label>
+            <span class="hide-count" id="domain-count">0 of 0</span>
+          </div>
+          <div class="hide-add">
+            <input id="domain-input" type="text" placeholder="example.com, *.google.com" aria-label="Domain to hide" autocomplete="off" spellcheck="false">
+            <button class="button" id="add-domain" type="button">Add</button>
+          </div>
+          <div class="hide-status-line">
+            <p class="hide-status" id="domain-status"></p>
+          </div>
+          <div class="hide-add">
+            <input id="domain-search" type="search" placeholder="Filter domains" aria-label="Filter domains" autocomplete="off">
+          </div>
+          <div class="hide-list" id="domain-list"></div>
+          <p class="hide-hint">A plain domain hides the domain and its subdomains. <code>*.example.com</code> and <code>.example.com</code> hide subdomains only. A full URL is converted to its host.</p>
+        </section>
+        <section class="hide-section">
+          <div class="hide-section-head">
+            <label class="group-head hide-group-head"><input type="checkbox" id="toggle-all-urls"> Hide if URL contains</label>
+            <span class="hide-count" id="url-count">0 of 0</span>
+          </div>
+          <div class="hide-add">
+            <input id="url-input" type="text" placeholder="\/recaptcha\/" aria-label="URL pattern to hide" autocomplete="off" spellcheck="false">
+            <select id="url-mode" aria-label="URL pattern mode">
+              <option value="regex">Regex</option>
+              <option value="text">Text</option>
+            </select>
+            <button class="button" id="add-url" type="button">Add</button>
+          </div>
+          <div class="hide-status-line">
+            <p class="hide-status" id="url-status"></p>
+            <button class="link-button" id="fix-url-slashes" type="button" hidden>Fix slashes</button>
+          </div>
+          <div class="hide-add">
+            <input id="url-search" type="search" placeholder="Filter URL patterns" aria-label="Filter URL patterns" autocomplete="off">
+          </div>
+          <div class="hide-list" id="url-list"></div>
+          <p class="hide-hint">Regex source without <code>/.../</code>. Example: <code>\/AdguardFilters\/issues\/245055</code>. Escape <code>/</code> as <code>\/</code> for Fiddler. Use Text mode for literal strings.</p>
+        </section>
+      </div>
+      <div class="hide-copy" id="hide-copy" hidden>
+        <h3>Copy for Fiddler</h3>
+        <p>Only enabled and valid rules are included.</p>
+        <div class="hide-copy-row">
+          <label for="copy-domains">Hide following hosts</label>
+          <textarea id="copy-domains" readonly rows="3" spellcheck="false"></textarea>
+          <button class="button" id="copy-domains-button" type="button">Copy</button>
+        </div>
+        <div class="hide-copy-row">
+          <label for="copy-urls">Hide if URL contains</label>
+          <textarea id="copy-urls" readonly rows="3" spellcheck="false"></textarea>
+          <button class="button" id="copy-urls-button" type="button">Copy</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="button" id="import-hide" type="button">Import…</button>
+      <button class="button" id="export-hide" type="button">Export .agfilters</button>
+      <button class="button" id="show-fiddler-copy" type="button" aria-expanded="false" aria-controls="hide-copy">Export to Fiddler</button>
+      <button class="button" id="reset-hide-selection" type="button" title="Enable all domains and valid URL patterns">Reset selection</button>
+      <span class="spacer"></span>
+      <button class="button danger" id="clear-hide" type="button">Clear</button>
+      <button class="button primary" id="done-hide" type="button">Apply</button>
+    </div>
+  </div>
+</div>
 <section class="drop-zone" id="drop-zone">
   <div class="drop-card">
     <div class="drop-icon">⇩</div>
@@ -624,6 +919,7 @@ pre {
   </div>
 </section>
 <input id="file-input" type="file" accept=".json,application/json" hidden>
+<input id="hide-file-input" type="file" accept=".ffx,.xml,.agfilters,application/xml,application/json" hidden>
 <div class="error" id="error" hidden>
   <span id="error-text"></span>
   <button id="error-close" type="button" aria-label="Close">×</button>
@@ -749,6 +1045,13 @@ const state = {
   contents: new Set(),
   sides: new Set(),
   uniqueUrls: false,
+  hideEnabled: false,
+  hideDomains: [],
+  hideUrls: [],
+  hideMatcher: null,
+  hiddenCount: 0,
+  domainSearch: "",
+  urlSearch: "",
   selectedId: null,
   selectedIndex: null,
   visibleRecords: [],
@@ -762,6 +1065,10 @@ const ESTIMATED_ROW_HEIGHT = 84;
 const OVERSCAN = 8;
 const SEARCH_DEBOUNCE_MS = 120;
 const FILTER_STORAGE_KEY = "adguard-filtering-log-filters-v1";
+const HIDE_STORAGE_KEY = "adguard-filtering-log-hidden-v1";
+const HIDE_FORMAT = "adguard-filtering-log-viewer/hide-list";
+const HIDE_VERSION = 1;
+const HIDE_EXPORT_NAME = "adguard-filtering-log-hide-list.agfilters";
 
 const rowHeights = new Map();
 let offsets = [];
@@ -772,6 +1079,8 @@ let resizeFrame = null;
 let lastListWidth = 0;
 let lastListHeight = 0;
 let listResizeObserver = null;
+let hideLastFocus = null;
+let hideBackdropPressed = false;
 
 const els = {
   search: document.getElementById("search"),
@@ -796,6 +1105,42 @@ const els = {
   toggleSides: document.getElementById("toggle-sides"),
   resetFilters: document.getElementById("reset-filters"),
   uniqueUrls: document.getElementById("unique-urls"),
+  hideEnabled: document.getElementById("hide-enabled"),
+  openHideList: document.getElementById("open-hide-list"),
+  hideRuleCount: document.getElementById("hide-rule-count"),
+  hideModal: document.getElementById("hide-modal"),
+  closeHide: document.getElementById("close-hide"),
+  hideSubtitle: document.getElementById("hide-subtitle"),
+  hideHiddenCount: document.getElementById("hide-hidden-count"),
+  hideEnabledModal: document.getElementById("hide-enabled-modal"),
+  toggleAllDomains: document.getElementById("toggle-all-domains"),
+  domainCount: document.getElementById("domain-count"),
+  domainInput: document.getElementById("domain-input"),
+  addDomain: document.getElementById("add-domain"),
+  domainStatus: document.getElementById("domain-status"),
+  domainSearch: document.getElementById("domain-search"),
+  domainList: document.getElementById("domain-list"),
+  toggleAllUrls: document.getElementById("toggle-all-urls"),
+  urlCount: document.getElementById("url-count"),
+  urlInput: document.getElementById("url-input"),
+  urlMode: document.getElementById("url-mode"),
+  addUrl: document.getElementById("add-url"),
+  urlStatus: document.getElementById("url-status"),
+  fixUrlSlashes: document.getElementById("fix-url-slashes"),
+  urlSearch: document.getElementById("url-search"),
+  urlList: document.getElementById("url-list"),
+  copyDomains: document.getElementById("copy-domains"),
+  copyUrls: document.getElementById("copy-urls"),
+  copyDomainsButton: document.getElementById("copy-domains-button"),
+  copyUrlsButton: document.getElementById("copy-urls-button"),
+  importHide: document.getElementById("import-hide"),
+  exportHide: document.getElementById("export-hide"),
+  showFiddlerCopy: document.getElementById("show-fiddler-copy"),
+  hideCopy: document.getElementById("hide-copy"),
+  resetHideSelection: document.getElementById("reset-hide-selection"),
+  clearHide: document.getElementById("clear-hide"),
+  doneHide: document.getElementById("done-hide"),
+  hideFileInput: document.getElementById("hide-file-input"),
   details: document.getElementById("details"),
   detailsBadge: document.getElementById("details-badge"),
   detailsDomain: document.getElementById("details-domain"),
@@ -1358,6 +1703,990 @@ function plural(count, forms) {
   return count === 1 ? forms[0] : forms[1];
 }
 
+function escapeRegExp(value) {
+  return String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function hasUnescapedSlash(value) {
+  let backslashes = 0;
+  for (const char of String(value)) {
+    if (char === "\\") {
+      backslashes += 1;
+      continue;
+    }
+    if (char === "/" && backslashes % 2 === 0) return true;
+    backslashes = 0;
+  }
+  return false;
+}
+
+function escapeSlashes(value) {
+  let result = "";
+  let backslashes = 0;
+  for (const char of String(value)) {
+    if (char === "\\") {
+      result += char;
+      backslashes += 1;
+      continue;
+    }
+    if (char === "/" && backslashes % 2 === 0) result += "\\/";
+    else result += char;
+    backslashes = 0;
+  }
+  return result;
+}
+
+function stripOuterParens(source) {
+  const text = String(source).trim();
+  if (!text.startsWith("(") || !text.endsWith(")") || text.startsWith("(?")) {
+    return text;
+  }
+  let depth = 0;
+  let escaped = false;
+  let inClass = false;
+  for (let index = 0; index < text.length; index += 1) {
+    const char = text[index];
+    if (escaped) {
+      escaped = false;
+      continue;
+    }
+    if (char === "\\") {
+      escaped = true;
+      continue;
+    }
+    if (inClass) {
+      if (char === "]") inClass = false;
+      continue;
+    }
+    if (char === "[") {
+      inClass = true;
+      continue;
+    }
+    if (char === "(") {
+      depth += 1;
+      continue;
+    }
+    if (char === ")") {
+      depth -= 1;
+      if (depth === 0 && index < text.length - 1) return text;
+    }
+  }
+  return depth === 0 ? text.slice(1, -1) : text;
+}
+
+function splitTopLevelAlternation(source) {
+  const text = stripOuterParens(source);
+  const parts = [];
+  let start = 0;
+  let depth = 0;
+  let escaped = false;
+  let inClass = false;
+  for (let index = 0; index < text.length; index += 1) {
+    const char = text[index];
+    if (escaped) {
+      escaped = false;
+      continue;
+    }
+    if (char === "\\") {
+      escaped = true;
+      continue;
+    }
+    if (inClass) {
+      if (char === "]") inClass = false;
+      continue;
+    }
+    if (char === "[") {
+      inClass = true;
+      continue;
+    }
+    if (char === "(") {
+      depth += 1;
+      continue;
+    }
+    if (char === ")") {
+      depth = Math.max(0, depth - 1);
+      continue;
+    }
+    if (char === "|" && depth === 0) {
+      const part = text.slice(start, index).trim();
+      if (part) parts.push(part);
+      start = index + 1;
+    }
+  }
+  const last = text.slice(start).trim();
+  if (last) parts.push(last);
+  return parts;
+}
+
+function normalizeDomainPattern(value) {
+  let text = String(value === undefined || value === null ? "" : value)
+    .trim()
+    .toLowerCase();
+  if (!text) return "";
+  if (text.includes("://")) {
+    try {
+      text = new URL(text).hostname.toLowerCase();
+    } catch (error) {
+      return "";
+    }
+  }
+  text = text.replace(/\.$/, "");
+  if (!text || text === "*" || text === "." || text === "..") return "";
+  if (text.includes("..")) return "";
+  if (!/^[a-z0-9*._-]+$/.test(text)) return "";
+  if (text.startsWith("*.")) {
+    const rest = text.slice(2);
+    if (!rest || rest.includes("*")) return "";
+  } else if (text.startsWith(".")) {
+    const rest = text.slice(1);
+    if (!rest || rest.includes("*")) return "";
+  }
+  return text;
+}
+
+function compileUrlRegex(value) {
+  if (!value) return { regex: null, error: "Pattern is empty." };
+  if (hasUnescapedSlash(value)) {
+    return { regex: null, error: "Escape / as \\/ for Fiddler compatibility." };
+  }
+  try {
+    return { regex: new RegExp(value, "i"), error: "" };
+  } catch (error) {
+    return {
+      regex: null,
+      error: error instanceof Error ? error.message : String(error),
+    };
+  }
+}
+
+function createUrlEntry(value, mode, enabled, normalizeSlashes) {
+  const text = String(value === undefined || value === null ? "" : value).trim();
+  if (!text) return null;
+  if (mode === "text") {
+    return { value: text, mode: "text", enabled: enabled !== false, error: "" };
+  }
+  const normalized = normalizeSlashes ? escapeSlashes(text) : text;
+  const result = compileUrlRegex(normalized);
+  return {
+    value: normalized,
+    mode: "regex",
+    enabled: enabled !== false && !result.error,
+    error: result.error,
+  };
+}
+
+function parseAgFiltersObject(data) {
+  if (!data || typeof data !== "object" || Array.isArray(data)) {
+    throw new Error("Invalid hide list file.");
+  }
+  if (data.format && data.format !== HIDE_FORMAT) {
+    throw new Error("Unsupported hide list format.");
+  }
+  if (!Array.isArray(data.domains) && !Array.isArray(data.urls)) {
+    throw new Error("The file does not contain a hide list.");
+  }
+
+  const domains = [];
+  const seenDomains = new Set();
+  let invalidDomains = 0;
+  for (const item of Array.isArray(data.domains) ? data.domains : []) {
+    const rawValue = typeof item === "string" ? item : item && item.value;
+    const enabled = typeof item === "object" && item ? item.enabled !== false : true;
+    const value = normalizeDomainPattern(rawValue);
+    if (!value) {
+      invalidDomains += 1;
+      continue;
+    }
+    if (seenDomains.has(value)) continue;
+    seenDomains.add(value);
+    domains.push({ value, enabled });
+  }
+
+  const urls = [];
+  const seenUrls = new Set();
+  let invalidUrls = 0;
+  for (const item of Array.isArray(data.urls) ? data.urls : []) {
+    const rawValue = typeof item === "string" ? item : item && item.value;
+    const mode =
+      item && typeof item === "object" && item.mode === "text" ? "text" : "regex";
+    const enabled = item && typeof item === "object" ? item.enabled !== false : true;
+    const entry = createUrlEntry(rawValue, mode, enabled, mode === "regex");
+    if (!entry) continue;
+    const key = `${entry.mode}|${entry.value}`;
+    if (seenUrls.has(key)) continue;
+    seenUrls.add(key);
+    urls.push(entry);
+    if (entry.error) invalidUrls += 1;
+  }
+
+  return { domains, urls, invalidDomains, invalidUrls, format: "Hide list" };
+}
+
+function xmlText(doc, tagName) {
+  const nodes = doc.getElementsByTagName("*");
+  for (const node of nodes) {
+    if (node.localName === tagName) return node.textContent || "";
+  }
+  return "";
+}
+
+function parseFiddlerFile(text) {
+  const doc = new DOMParser().parseFromString(text, "application/xml");
+  if (
+    doc.getElementsByTagName("parsererror").length ||
+    doc.querySelector("parsererror") ||
+    doc.documentElement.nodeName === "parsererror"
+  ) {
+    throw new Error("The Fiddler file is not valid XML.");
+  }
+
+  const domains = [];
+  const seenDomains = new Set();
+  let invalidDomains = 0;
+  const hostsText = xmlText(doc, "slHosts");
+  for (const token of hostsText.split(";")) {
+    const value = normalizeDomainPattern(token);
+    if (!value) {
+      if (token.trim()) invalidDomains += 1;
+      continue;
+    }
+    if (seenDomains.has(value)) continue;
+    seenDomains.add(value);
+    domains.push({ value, enabled: true });
+  }
+
+  const urls = [];
+  let invalidUrls = 0;
+  let urlText = xmlText(doc, "sHideIfURLContains").trim();
+  if (urlText) {
+    const isRegex = /^REGEX:/i.test(urlText);
+    let source = urlText.replace(/^(REGEX|EXACT):/i, "").trim();
+    if (isRegex) {
+      if (/^\(\?i\)/.test(source)) source = source.slice(4);
+      for (const part of splitTopLevelAlternation(source)) {
+        const entry = createUrlEntry(part, "regex", true, true);
+        if (!entry) continue;
+        urls.push(entry);
+        if (entry.error) invalidUrls += 1;
+      }
+    } else {
+      const entry = createUrlEntry(source, "text", true, false);
+      if (entry) urls.push(entry);
+    }
+  }
+
+  if (!domains.length && !urls.length) {
+    throw new Error(
+      invalidDomains || invalidUrls
+        ? "No valid hide rules found in the Fiddler file."
+        : "No hide rules found in the Fiddler file.",
+    );
+  }
+  return { domains, urls, invalidDomains, invalidUrls, format: "Fiddler" };
+}
+
+function parseHideFile(text) {
+  const content = String(text).replace(/^\uFEFF/, "").trim();
+  if (!content) throw new Error("The file is empty.");
+  if (
+    content.startsWith("<") ||
+    /<slHosts[\s>]/i.test(content) ||
+    /<SimpleFilter[\s>]/i.test(content)
+  ) {
+    return parseFiddlerFile(content);
+  }
+  if (content.startsWith("{")) {
+    let data;
+    try {
+      data = JSON.parse(content);
+    } catch (error) {
+      throw new Error("The .agfilters file is not valid JSON.");
+    }
+    return parseAgFiltersObject(data);
+  }
+  throw new Error(
+    "Unsupported file. Import a Fiddler .ffx file or an .agfilters file.",
+  );
+}
+
+function saveHideList() {
+  try {
+    localStorage.setItem(
+      HIDE_STORAGE_KEY,
+      JSON.stringify({
+        format: HIDE_FORMAT,
+        version: HIDE_VERSION,
+        enabled: state.hideEnabled,
+        domains: state.hideDomains.map((entry) => ({
+          value: entry.value,
+          enabled: entry.enabled,
+        })),
+        urls: state.hideUrls.map((entry) => ({
+          value: entry.value,
+          mode: entry.mode,
+          enabled: entry.enabled,
+        })),
+      }),
+    );
+  } catch (error) {
+    // Ignore storage errors.
+  }
+}
+
+function restoreHideList() {
+  try {
+    const raw = localStorage.getItem(HIDE_STORAGE_KEY);
+    if (!raw) return;
+    const data = JSON.parse(raw);
+    const parsed = parseAgFiltersObject(data);
+    state.hideDomains = parsed.domains;
+    state.hideUrls = parsed.urls;
+    state.hideEnabled = data.enabled === true;
+    state.hideMatcher = null;
+  } catch (error) {
+    state.hideDomains = [];
+    state.hideUrls = [];
+    state.hideEnabled = false;
+    state.hideMatcher = null;
+  }
+}
+
+function updateHideRuleCounts() {
+  const activeDomains = state.hideDomains.filter((entry) => entry.enabled).length;
+  const activeUrls = state.hideUrls.filter(
+    (entry) => entry.enabled && !entry.error,
+  ).length;
+  const active = activeDomains + activeUrls;
+  els.hideRuleCount.textContent = String(active);
+  els.hideRuleCount.hidden = active === 0;
+  els.hideEnabled.checked = state.hideEnabled;
+  els.hideEnabledModal.checked = state.hideEnabled;
+}
+
+function syncGroupCheckbox(input, entries, kind) {
+  const valid =
+    kind === "urls" ? entries.filter((entry) => !entry.error) : entries;
+  const enabled = valid.filter((entry) => entry.enabled).length;
+  input.disabled = valid.length === 0;
+  input.checked = valid.length > 0 && enabled === valid.length;
+  input.indeterminate = enabled > 0 && enabled < valid.length;
+}
+
+function showHideStatus(element, message, kind) {
+  element.textContent = message;
+  element.className = `hide-status${kind ? ` ${kind}` : ""}`;
+}
+
+function updateHideHiddenCount() {
+  const count = state.hiddenCount;
+  els.hideHiddenCount.textContent =
+    `${count} ${plural(count, ["record", "records"])} hidden in the current log`;
+}
+
+function renderDomainList(resetScroll = false) {
+  const scrollTop = resetScroll ? 0 : els.domainList.scrollTop;
+  const search = state.domainSearch.trim().toLowerCase();
+  const entries = state.hideDomains
+    .map((entry, index) => ({ entry, index }))
+    .filter(({ entry }) => !search || entry.value.includes(search));
+  els.domainList.replaceChildren();
+  if (!entries.length) {
+    const empty = document.createElement("div");
+    empty.className = "hide-empty";
+    empty.textContent = state.hideDomains.length
+      ? "No domains match the filter."
+      : "No domains yet. Add one above or import a file.";
+    els.domainList.append(empty);
+    els.domainList.scrollTop = 0;
+    return;
+  }
+  for (const { entry, index } of entries) {
+    const row = document.createElement("div");
+    row.className = "hide-row";
+    const label = document.createElement("label");
+    const input = document.createElement("input");
+    input.type = "checkbox";
+    input.checked = entry.enabled;
+    input.dataset.index = String(index);
+    const value = document.createElement("span");
+    value.className = "hide-value";
+    value.textContent = entry.value;
+    value.title = entry.value;
+    label.append(input, value);
+    const remove = document.createElement("button");
+    remove.type = "button";
+    remove.className = "hide-remove";
+    remove.dataset.index = String(index);
+    remove.setAttribute("aria-label", `Remove ${entry.value}`);
+    remove.textContent = "×";
+    row.append(label, remove);
+    els.domainList.append(row);
+  }
+  els.domainList.scrollTop = scrollTop;
+}
+
+function renderUrlList(resetScroll = false) {
+  const scrollTop = resetScroll ? 0 : els.urlList.scrollTop;
+  const search = state.urlSearch.trim().toLowerCase();
+  const entries = state.hideUrls
+    .map((entry, index) => ({ entry, index }))
+    .filter(
+      ({ entry }) => !search || entry.value.toLowerCase().includes(search),
+    );
+  els.urlList.replaceChildren();
+  if (!entries.length) {
+    const empty = document.createElement("div");
+    empty.className = "hide-empty";
+    empty.textContent = state.hideUrls.length
+      ? "No URL patterns match the filter."
+      : "No URL patterns yet. Add one above or import a file.";
+    els.urlList.append(empty);
+    els.urlList.scrollTop = 0;
+    return;
+  }
+  for (const { entry, index } of entries) {
+    const row = document.createElement("div");
+    row.className = `hide-row${entry.error ? " invalid" : ""}`;
+    if (entry.error) row.title = entry.error;
+    const label = document.createElement("label");
+    const input = document.createElement("input");
+    input.type = "checkbox";
+    input.checked = entry.enabled;
+    input.disabled = Boolean(entry.error);
+    input.dataset.index = String(index);
+    const value = document.createElement("span");
+    value.className = "hide-value";
+    const code = document.createElement("code");
+    code.textContent = entry.value;
+    value.append(code);
+    value.title = entry.error
+      ? `${entry.value}\n${entry.error}`
+      : entry.value;
+    label.append(input, value);
+    const mode = document.createElement("span");
+    mode.className = "hide-mode";
+    mode.textContent = entry.mode === "text" ? "text" : "regex";
+    const remove = document.createElement("button");
+    remove.type = "button";
+    remove.className = "hide-remove";
+    remove.dataset.index = String(index);
+    remove.setAttribute("aria-label", `Remove ${entry.value}`);
+    remove.textContent = "×";
+    row.append(label, mode, remove);
+    els.urlList.append(row);
+  }
+  els.urlList.scrollTop = scrollTop;
+}
+
+function updateHideCopy() {
+  const domains = state.hideDomains
+    .filter((entry) => entry.enabled)
+    .map((entry) => entry.value);
+  els.copyDomains.value = domains.join("; ");
+
+  const urls = state.hideUrls
+    .filter((entry) => entry.enabled && !entry.error)
+    .map((entry) =>
+      entry.mode === "text"
+        ? escapeSlashes(escapeRegExp(entry.value))
+        : escapeSlashes(entry.value),
+    );
+  els.copyUrls.value = urls.length ? `REGEX:(${urls.join("|")})` : "";
+  els.copyDomainsButton.disabled = domains.length === 0;
+  els.copyUrlsButton.disabled = urls.length === 0;
+}
+
+function renderHideModal() {
+  if (!els.hideModal || els.hideModal.hidden) return;
+  updateHideRuleCounts();
+  const domainTotal = state.hideDomains.length;
+  const activeDomains = state.hideDomains.filter((entry) => entry.enabled).length;
+  const validUrls = state.hideUrls.filter((entry) => !entry.error);
+  const activeUrls = validUrls.filter((entry) => entry.enabled).length;
+  const invalidUrls = state.hideUrls.length - validUrls.length;
+  els.hideSubtitle.textContent =
+    `${domainTotal} ${plural(domainTotal, ["domain", "domains"])} · ` +
+    `${state.hideUrls.length} ${plural(state.hideUrls.length, ["URL pattern", "URL patterns"])}`;
+  updateHideHiddenCount();
+  els.domainCount.textContent = `${activeDomains} of ${domainTotal}`;
+  els.urlCount.textContent =
+    `${activeUrls} of ${validUrls.length}` +
+    (invalidUrls ? ` · ${invalidUrls} invalid` : "");
+  syncGroupCheckbox(els.toggleAllDomains, state.hideDomains, "domains");
+  syncGroupCheckbox(els.toggleAllUrls, state.hideUrls, "urls");
+  els.resetHideSelection.disabled = !(
+    state.hideDomains.some((entry) => !entry.enabled) ||
+    state.hideUrls.some((entry) => !entry.error && !entry.enabled)
+  );
+  renderDomainList();
+  renderUrlList();
+  updateHideCopy();
+}
+
+function validateUrlInput() {
+  const value = els.urlInput.value.trim();
+  const mode = els.urlMode.value;
+  els.fixUrlSlashes.hidden = true;
+  els.urlInput.classList.remove("invalid");
+  if (!value) {
+    showHideStatus(els.urlStatus, "", "");
+    els.addUrl.disabled = true;
+    return;
+  }
+  if (mode === "text") {
+    showHideStatus(els.urlStatus, "Literal text. No escaping needed.", "");
+    els.addUrl.disabled = false;
+    return;
+  }
+  const lines = value
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter(Boolean);
+  for (let index = 0; index < lines.length; index += 1) {
+    const line = lines[index];
+    const prefix = lines.length > 1 ? `Line ${index + 1}: ` : "";
+    if (hasUnescapedSlash(line)) {
+      showHideStatus(
+        els.urlStatus,
+        `${prefix}Escape / as \\/ for Fiddler compatibility.`,
+        "error",
+      );
+      els.urlInput.classList.add("invalid");
+      els.fixUrlSlashes.hidden = false;
+      els.addUrl.disabled = true;
+      return;
+    }
+    try {
+      new RegExp(line, "i");
+    } catch (error) {
+      showHideStatus(
+        els.urlStatus,
+        `${prefix}${error instanceof Error ? error.message : String(error)}`,
+        "error",
+      );
+      els.urlInput.classList.add("invalid");
+      els.addUrl.disabled = true;
+      return;
+    }
+  }
+  showHideStatus(els.urlStatus, "Valid regex.", "ok");
+  els.addUrl.disabled = false;
+}
+
+function openHideModal() {
+  hideLastFocus = document.activeElement;
+  state.domainSearch = "";
+  state.urlSearch = "";
+  els.domainSearch.value = "";
+  els.urlSearch.value = "";
+  els.domainInput.value = "";
+  els.urlInput.value = "";
+  els.urlMode.value = "regex";
+  els.urlInput.placeholder = "\\/recaptcha\\/";
+  els.domainInput.classList.remove("invalid");
+  els.urlInput.classList.remove("invalid");
+  showHideStatus(els.domainStatus, "", "");
+  els.addDomain.disabled = true;
+  validateUrlInput();
+  els.hideCopy.hidden = true;
+  els.showFiddlerCopy.setAttribute("aria-expanded", "false");
+  els.hideModal.hidden = false;
+  renderHideModal();
+  const modalBody = els.hideModal.querySelector(".modal-body");
+  if (modalBody) modalBody.scrollTop = 0;
+  els.domainList.scrollTop = 0;
+  els.urlList.scrollTop = 0;
+  els.domainInput.focus();
+}
+
+function closeHideModal() {
+  els.hideModal.hidden = true;
+  if (hideLastFocus && typeof hideLastFocus.focus === "function") {
+    hideLastFocus.focus();
+  }
+  hideLastFocus = null;
+}
+
+function setHideEnabled(enabled) {
+  state.hideEnabled = enabled;
+  saveHideList();
+  updateHideRuleCounts();
+  if (!els.hideModal.hidden) renderHideModal();
+  scheduleRender();
+}
+
+function setGroupEnabled(kind, enabled) {
+  const entries = kind === "domains" ? state.hideDomains : state.hideUrls;
+  for (const entry of entries) {
+    if (kind === "urls" && entry.error) {
+      entry.enabled = false;
+    } else {
+      entry.enabled = enabled;
+    }
+  }
+  state.hideMatcher = null;
+  saveHideList();
+  renderHideModal();
+  scheduleRender();
+}
+
+function resetHideSelection() {
+  let changed = false;
+  for (const entry of state.hideDomains) {
+    if (!entry.enabled) {
+      entry.enabled = true;
+      changed = true;
+    }
+  }
+  for (const entry of state.hideUrls) {
+    if (!entry.error && !entry.enabled) {
+      entry.enabled = true;
+      changed = true;
+    }
+  }
+  if (!changed) return;
+  state.hideMatcher = null;
+  saveHideList();
+  renderHideModal();
+  scheduleRender();
+  showToast("All hide rules enabled");
+}
+
+function addDomains() {
+  const tokens = els.domainInput.value.split(/[;,\n]+/);
+  const seen = new Set(state.hideDomains.map((entry) => entry.value));
+  let added = 0;
+  let invalid = 0;
+  let duplicates = 0;
+  for (const token of tokens) {
+    if (!token.trim()) continue;
+    const value = normalizeDomainPattern(token);
+    if (!value) {
+      invalid += 1;
+      continue;
+    }
+    if (seen.has(value)) {
+      duplicates += 1;
+      continue;
+    }
+    seen.add(value);
+    state.hideDomains.push({ value, enabled: true });
+    added += 1;
+  }
+  if (!added) {
+    if (invalid) {
+      showHideStatus(
+        els.domainStatus,
+        `Skipped ${invalid} invalid ${plural(invalid, ["entry", "entries"])}.`,
+        "error",
+      );
+    } else if (duplicates) {
+      showHideStatus(
+        els.domainStatus,
+        "No new domains added. They are already in the list.",
+        "error",
+      );
+    } else {
+      showHideStatus(els.domainStatus, "Enter a domain to add.", "error");
+    }
+    return;
+  }
+  if (invalid) {
+    showHideStatus(
+      els.domainStatus,
+      `Added ${added} ${plural(added, ["domain", "domains"])}. Skipped ${invalid} invalid ${plural(invalid, ["entry", "entries"])}.`,
+      "error",
+    );
+  } else {
+    showHideStatus(
+      els.domainStatus,
+      `Added ${added} ${plural(added, ["domain", "domains"])}.`,
+      "ok",
+    );
+  }
+  els.domainInput.value = "";
+  els.addDomain.disabled = true;
+  state.hideMatcher = null;
+  saveHideList();
+  renderHideModal();
+  els.domainList.scrollTop = els.domainList.scrollHeight;
+  scheduleRender();
+  els.domainInput.focus();
+}
+
+function addUrlPatterns() {
+  const mode = els.urlMode.value;
+  const lines = els.urlInput.value
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter(Boolean);
+  if (!lines.length) {
+    showHideStatus(els.urlStatus, "Enter a URL pattern to add.", "error");
+    return;
+  }
+  const seen = new Set(
+    state.hideUrls.map((entry) => `${entry.mode}|${entry.value}`),
+  );
+  let added = 0;
+  let invalid = 0;
+  let duplicates = 0;
+  for (const line of lines) {
+    let entry;
+    if (mode === "text") {
+      entry = { value: line, mode: "text", enabled: true, error: "" };
+    } else {
+      if (hasUnescapedSlash(line)) {
+        invalid += 1;
+        continue;
+      }
+      const result = compileUrlRegex(line);
+      if (result.error) {
+        invalid += 1;
+        continue;
+      }
+      entry = { value: line, mode: "regex", enabled: true, error: "" };
+    }
+    const key = `${entry.mode}|${entry.value}`;
+    if (seen.has(key)) {
+      duplicates += 1;
+      continue;
+    }
+    seen.add(key);
+    state.hideUrls.push(entry);
+    added += 1;
+  }
+  if (!added) {
+    if (invalid) {
+      showHideStatus(
+        els.urlStatus,
+        `Skipped ${invalid} invalid ${plural(invalid, ["pattern", "patterns"])}.`,
+        "error",
+      );
+    } else if (duplicates) {
+      showHideStatus(
+        els.urlStatus,
+        "No new patterns added. They are already in the list.",
+        "error",
+      );
+    } else {
+      showHideStatus(els.urlStatus, "Enter a URL pattern to add.", "error");
+    }
+    return;
+  }
+  if (invalid) {
+    showHideStatus(
+      els.urlStatus,
+      `Added ${added}. Skipped ${invalid} invalid ${plural(invalid, ["pattern", "patterns"])}.`,
+      "error",
+    );
+  } else if (duplicates) {
+    showHideStatus(
+      els.urlStatus,
+      `Added ${added}. Skipped ${duplicates} duplicate ${plural(duplicates, ["pattern", "patterns"])}.`,
+      "ok",
+    );
+  } else {
+    showHideStatus(
+      els.urlStatus,
+      `Added ${added} ${plural(added, ["pattern", "patterns"])}.`,
+      "ok",
+    );
+  }
+  els.urlInput.value = "";
+  els.urlInput.classList.remove("invalid");
+  els.fixUrlSlashes.hidden = true;
+  state.hideMatcher = null;
+  saveHideList();
+  renderHideModal();
+  els.urlList.scrollTop = els.urlList.scrollHeight;
+  scheduleRender();
+  els.addUrl.disabled = true;
+  els.urlInput.focus();
+}
+
+async function importHideFile(file) {
+  try {
+    const text = await file.text();
+    const parsed = parseHideFile(text);
+    if (!parsed.domains.length && !parsed.urls.length) {
+      throw new Error("No hide rules found in the file.");
+    }
+    const hasEntries = state.hideDomains.length > 0 || state.hideUrls.length > 0;
+    if (hasEntries && !window.confirm("Replace the current hide list?")) return;
+    const wasEnabled = state.hideEnabled;
+    state.hideDomains = parsed.domains;
+    state.hideUrls = parsed.urls;
+    state.hideEnabled = true;
+    state.hideMatcher = null;
+    state.domainSearch = "";
+    state.urlSearch = "";
+    els.domainSearch.value = "";
+    els.urlSearch.value = "";
+    els.domainInput.value = "";
+    els.urlInput.value = "";
+    els.addDomain.disabled = true;
+    els.addUrl.disabled = true;
+    els.urlInput.classList.remove("invalid");
+    els.fixUrlSlashes.hidden = true;
+    showHideStatus(els.domainStatus, "", "");
+    showHideStatus(els.urlStatus, "", "");
+    saveHideList();
+    updateHideRuleCounts();
+    if (!els.hideModal.hidden) {
+      renderHideModal();
+      els.domainList.scrollTop = 0;
+      els.urlList.scrollTop = 0;
+    }
+    scheduleRender();
+    const counts = `${parsed.domains.length} ${plural(parsed.domains.length, ["host", "hosts"])} and ${parsed.urls.length} ${plural(parsed.urls.length, ["URL pattern", "URL patterns"])}`;
+    let message = `Hide list imported: ${counts}.`;
+    if (!wasEnabled) message += " Hiding is now on.";
+    const invalid = parsed.invalidDomains + parsed.invalidUrls;
+    if (invalid) {
+      message += ` ${invalid} invalid ${plural(invalid, ["entry", "entries"])} skipped or disabled.`;
+    }
+    showToast(message, 4200);
+  } catch (error) {
+    showError(error instanceof Error ? error.message : String(error));
+  } finally {
+    els.hideFileInput.value = "";
+  }
+}
+
+function exportHideFile() {
+  const data = {
+    format: HIDE_FORMAT,
+    version: HIDE_VERSION,
+    enabled: state.hideEnabled,
+    domains: state.hideDomains.map((entry) => ({
+      value: entry.value,
+      enabled: entry.enabled,
+    })),
+    urls: state.hideUrls.map((entry) => ({
+      value: entry.value,
+      mode: entry.mode,
+      enabled: entry.enabled,
+    })),
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], {
+    type: "application/json",
+  });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = HIDE_EXPORT_NAME;
+  document.body.append(link);
+  link.click();
+  link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  showToast("Hide list exported");
+}
+
+function getHideMatcher() {
+  if (state.hideMatcher) return state.hideMatcher;
+  const plainDomains = new Set();
+  const subdomainDomains = new Set();
+  const wildcardPatterns = [];
+  for (const entry of state.hideDomains) {
+    if (!entry.enabled) continue;
+    const value = entry.value;
+    if (value.startsWith("*.")) {
+      subdomainDomains.add(value.slice(2));
+    } else if (value.startsWith(".")) {
+      subdomainDomains.add(value.slice(1));
+    } else if (value.includes("*")) {
+      const pattern = value.split("*").map(escapeRegExp).join(".*");
+      wildcardPatterns.push(new RegExp(`^${pattern}$`, "i"));
+    } else {
+      plainDomains.add(value);
+    }
+  }
+
+  const urlRegexes = [];
+  const urlTexts = [];
+  for (const entry of state.hideUrls) {
+    if (!entry.enabled || entry.error) continue;
+    if (entry.mode === "text") {
+      urlTexts.push(entry.value.toLowerCase());
+    } else {
+      try {
+        urlRegexes.push(new RegExp(entry.value, "i"));
+      } catch (error) {
+        // Invalid patterns are marked before they reach this point.
+      }
+    }
+  }
+
+  state.hideMatcher = {
+    plainDomains,
+    subdomainDomains,
+    wildcardPatterns,
+    urlRegexes,
+    urlTexts,
+  };
+  return state.hideMatcher;
+}
+
+function hostMatches(host, matcher) {
+  if (!host) return false;
+  const labels = host.split(".");
+  for (let index = 0; index < labels.length; index += 1) {
+    const suffix = labels.slice(index).join(".");
+    if (matcher.plainDomains.has(suffix)) return true;
+    if (index > 0 && matcher.subdomainDomains.has(suffix)) return true;
+  }
+  for (const regex of matcher.wildcardPatterns) {
+    if (regex.test(host)) return true;
+  }
+  return false;
+}
+
+function recordHost(record) {
+  const domain = String(record.domain || "")
+    .toLowerCase()
+    .replace(/\.$/, "");
+  if (domain) return domain;
+  if (!record.url) return "";
+  try {
+    return new URL(record.url).hostname.toLowerCase();
+  } catch (error) {
+    return "";
+  }
+}
+
+function urlMatches(url, matcher) {
+  if (!url) return false;
+  const lower = url.toLowerCase();
+  for (const text of matcher.urlTexts) {
+    if (lower.includes(text)) return true;
+  }
+  for (const regex of matcher.urlRegexes) {
+    if (regex.test(url)) return true;
+  }
+  return false;
+}
+
+function isHiddenByMatcher(record, matcher, hostCache, urlCache) {
+  const host = recordHost(record);
+  if (host) {
+    let hidden = hostCache.get(host);
+    if (hidden === undefined) {
+      hidden = hostMatches(host, matcher);
+      hostCache.set(host, hidden);
+    }
+    if (hidden) return true;
+  }
+  if (record.url && (matcher.urlRegexes.length || matcher.urlTexts.length)) {
+    let hidden = urlCache.get(record.url);
+    if (hidden === undefined) {
+      hidden = urlMatches(record.url, matcher);
+      urlCache.set(record.url, hidden);
+    }
+    if (hidden) return true;
+  }
+  return false;
+}
+
 function uniqueBy(list, getter) {
   const seen = new Set();
   const result = [];
@@ -1754,7 +3083,18 @@ function filterRecords() {
   const appFilterActive = state.apps.size > 0;
   const allAppsSelected =
     !appFilterActive || state.apps.size === appOptions().length;
-  return state.records.filter((record) => {
+  const hideMatcher = state.hideEnabled ? getHideMatcher() : null;
+  const hostCache = new Map();
+  const urlCache = new Map();
+  let hiddenCount = 0;
+  const records = state.records.filter((record) => {
+    if (
+      hideMatcher &&
+      isHiddenByMatcher(record, hideMatcher, hostCache, urlCache)
+    ) {
+      hiddenCount += 1;
+      return false;
+    }
     if (record.eventGroup === "dns") {
       if (!allAppsSelected) return false;
     } else if (appFilterActive && !state.apps.has(record.app || "unknown")) {
@@ -1770,6 +3110,7 @@ function filterRecords() {
     if (search && !searchableText(record).includes(search)) return false;
     return true;
   });
+  return { records, hiddenCount };
 }
 
 function uniqueKey(record) {
@@ -1802,7 +3143,7 @@ function summaryChip(label, value, className) {
   return element;
 }
 
-function renderSummary(visible) {
+function renderSummary(visible, hiddenCount = 0) {
   const counts = {
     processed: 0,
     blocked: 0,
@@ -1818,6 +3159,7 @@ function renderSummary(visible) {
   els.summary.replaceChildren(
     summaryChip("Total", state.records.length),
     summaryChip("Shown", visible.length),
+    summaryChip("Hidden", hiddenCount, "hidden"),
     summaryChip("Processed", counts.processed, "processed"),
     summaryChip("Blocked", counts.blocked, "blocked"),
     summaryChip("Modified Meta", counts.modified, "modified"),
@@ -1923,7 +3265,10 @@ function renderWindow(depth = 0) {
     els.virtualBottom.style.height = "0px";
     const empty = document.createElement("div");
     empty.className = "empty";
-    empty.textContent = "No records match the selected filters.";
+    const hiddenNote = state.hiddenCount
+      ? ` ${state.hiddenCount} ${plural(state.hiddenCount, ["record is", "records are"])} hidden by the hide list.`
+      : "";
+    empty.textContent = `No records match the selected filters.${hiddenNote}`;
     els.virtualRows.replaceChildren(empty);
     return;
   }
@@ -2022,10 +3367,12 @@ function buildRow(record, index) {
 }
 
 function renderList() {
-  const filtered = filterRecords();
+  const { records: filtered, hiddenCount } = filterRecords();
   const visible = applyUnique(filtered);
   state.visibleRecords = visible;
-  renderSummary(visible);
+  state.hiddenCount = hiddenCount;
+  renderSummary(visible, hiddenCount);
+  if (!els.hideModal.hidden) updateHideHiddenCount();
 
   if (state.selectedId !== null) {
     const index = visible.findIndex(
@@ -2388,13 +3735,28 @@ function hideError() {
 }
 
 let toastTimer = null;
-function showToast(message) {
+function showToast(message, duration = 1800) {
   els.toast.textContent = message;
   els.toast.hidden = false;
   if (toastTimer) clearTimeout(toastTimer);
   toastTimer = setTimeout(() => {
     els.toast.hidden = true;
-  }, 1800);
+  }, duration);
+}
+
+async function copyText(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch (error) {
+    const area = document.createElement("textarea");
+    area.value = text;
+    area.style.position = "fixed";
+    area.style.opacity = "0";
+    document.body.append(area);
+    area.select();
+    document.execCommand("copy");
+    area.remove();
+  }
 }
 
 function copyButton(text) {
@@ -2404,18 +3766,7 @@ function copyButton(text) {
   button.textContent = "Copy";
   button.addEventListener("click", async (event) => {
     event.stopPropagation();
-    try {
-      await navigator.clipboard.writeText(text);
-    } catch (error) {
-      const area = document.createElement("textarea");
-      area.value = text;
-      area.style.position = "fixed";
-      area.style.opacity = "0";
-      document.body.append(area);
-      area.select();
-      document.execCommand("copy");
-      area.remove();
-    }
+    await copyText(text);
     showToast("Copied");
   });
   return button;
@@ -2523,6 +3874,167 @@ els.uniqueUrls.addEventListener("change", () => {
   scheduleRender();
 });
 els.resetFilters.addEventListener("click", resetFilterState);
+
+els.openHideList.addEventListener("click", openHideModal);
+els.hideEnabled.addEventListener("change", () =>
+  setHideEnabled(els.hideEnabled.checked),
+);
+els.hideEnabledModal.addEventListener("change", () =>
+  setHideEnabled(els.hideEnabledModal.checked),
+);
+els.closeHide.addEventListener("click", closeHideModal);
+els.doneHide.addEventListener("click", closeHideModal);
+els.hideModal.addEventListener("pointerdown", (event) => {
+  hideBackdropPressed = event.target === els.hideModal;
+});
+els.hideModal.addEventListener("pointercancel", () => {
+  hideBackdropPressed = false;
+});
+els.hideModal.addEventListener("click", (event) => {
+  if (event.target === els.hideModal && hideBackdropPressed) {
+    closeHideModal();
+  }
+  hideBackdropPressed = false;
+});
+els.toggleAllDomains.addEventListener("change", () =>
+  setGroupEnabled("domains", els.toggleAllDomains.checked),
+);
+els.toggleAllUrls.addEventListener("change", () =>
+  setGroupEnabled("urls", els.toggleAllUrls.checked),
+);
+els.addDomain.addEventListener("click", addDomains);
+els.domainInput.addEventListener("input", () => {
+  els.addDomain.disabled = !els.domainInput.value.trim();
+  showHideStatus(els.domainStatus, "", "");
+});
+els.domainInput.addEventListener("keydown", (event) => {
+  if (event.key !== "Enter") return;
+  event.preventDefault();
+  if (!els.addDomain.disabled) addDomains();
+});
+els.domainSearch.addEventListener("input", () => {
+  state.domainSearch = els.domainSearch.value;
+  renderDomainList(true);
+});
+els.domainList.addEventListener("change", (event) => {
+  const input = event.target.closest("input[type='checkbox'][data-index]");
+  if (!input) return;
+  const entry = state.hideDomains[Number(input.dataset.index)];
+  if (!entry) return;
+  entry.enabled = input.checked;
+  state.hideMatcher = null;
+  saveHideList();
+  renderHideModal();
+  scheduleRender();
+});
+els.domainList.addEventListener("click", (event) => {
+  const button = event.target.closest("button[data-index]");
+  if (!button) return;
+  const index = Number(button.dataset.index);
+  if (!state.hideDomains[index]) return;
+  state.hideDomains.splice(index, 1);
+  state.hideMatcher = null;
+  saveHideList();
+  renderHideModal();
+  scheduleRender();
+});
+els.addUrl.addEventListener("click", addUrlPatterns);
+els.urlInput.addEventListener("input", validateUrlInput);
+els.urlMode.addEventListener("change", () => {
+  els.urlInput.placeholder =
+    els.urlMode.value === "text" ? "/recaptcha/" : "\\/recaptcha\\/";
+  validateUrlInput();
+});
+els.urlInput.addEventListener("keydown", (event) => {
+  if (event.key !== "Enter") return;
+  event.preventDefault();
+  if (!els.addUrl.disabled) addUrlPatterns();
+});
+els.fixUrlSlashes.addEventListener("click", () => {
+  els.urlInput.value = escapeSlashes(els.urlInput.value);
+  validateUrlInput();
+  els.urlInput.focus();
+});
+els.urlSearch.addEventListener("input", () => {
+  state.urlSearch = els.urlSearch.value;
+  renderUrlList(true);
+});
+els.urlList.addEventListener("change", (event) => {
+  const input = event.target.closest("input[type='checkbox'][data-index]");
+  if (!input) return;
+  const entry = state.hideUrls[Number(input.dataset.index)];
+  if (!entry || entry.error) {
+    input.checked = false;
+    return;
+  }
+  entry.enabled = input.checked;
+  state.hideMatcher = null;
+  saveHideList();
+  renderHideModal();
+  scheduleRender();
+});
+els.urlList.addEventListener("click", (event) => {
+  const button = event.target.closest("button[data-index]");
+  if (!button) return;
+  const index = Number(button.dataset.index);
+  if (!state.hideUrls[index]) return;
+  state.hideUrls.splice(index, 1);
+  state.hideMatcher = null;
+  saveHideList();
+  renderHideModal();
+  scheduleRender();
+});
+els.copyDomainsButton.addEventListener("click", async () => {
+  await copyText(els.copyDomains.value);
+  showToast("Copied hosts");
+});
+els.copyUrlsButton.addEventListener("click", async () => {
+  await copyText(els.copyUrls.value);
+  showToast("Copied regex");
+});
+els.importHide.addEventListener("click", () => els.hideFileInput.click());
+els.hideFileInput.addEventListener("change", () => {
+  const file = els.hideFileInput.files && els.hideFileInput.files[0];
+  if (file) importHideFile(file);
+});
+els.exportHide.addEventListener("click", exportHideFile);
+els.showFiddlerCopy.addEventListener("click", () => {
+  if (!els.hideCopy.hidden) {
+    els.hideCopy.hidden = true;
+    els.showFiddlerCopy.setAttribute("aria-expanded", "false");
+    return;
+  }
+  updateHideCopy();
+  els.hideCopy.hidden = false;
+  els.showFiddlerCopy.setAttribute("aria-expanded", "true");
+  requestAnimationFrame(() => {
+    const modalBody = els.hideModal.querySelector(".modal-body");
+    if (modalBody) modalBody.scrollTop = modalBody.scrollHeight;
+    if (!els.copyDomainsButton.disabled) {
+      els.copyDomainsButton.focus({ preventScroll: true });
+    } else if (!els.copyUrlsButton.disabled) {
+      els.copyUrlsButton.focus({ preventScroll: true });
+    }
+  });
+});
+els.resetHideSelection.addEventListener("click", resetHideSelection);
+els.clearHide.addEventListener("click", () => {
+  if (!state.hideDomains.length && !state.hideUrls.length) return;
+  if (!window.confirm("Remove all domains and URL patterns?")) return;
+  state.hideDomains = [];
+  state.hideUrls = [];
+  state.hideMatcher = null;
+  state.domainSearch = "";
+  state.urlSearch = "";
+  els.domainSearch.value = "";
+  els.urlSearch.value = "";
+  saveHideList();
+  renderHideModal();
+  els.domainList.scrollTop = 0;
+  els.urlList.scrollTop = 0;
+  scheduleRender();
+  showToast("Hide list cleared");
+});
 
 els.toggleStatuses.addEventListener("change", () => {
   state.statuses = els.toggleStatuses.checked
@@ -2656,12 +4168,17 @@ els.closeDetails.addEventListener("click", closeDetails);
 els.errorClose.addEventListener("click", hideError);
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
+    if (!els.hideModal.hidden) {
+      closeHideModal();
+      return;
+    }
     closeDetails();
     hideError();
     return;
   }
   if (event.key !== "ArrowUp" && event.key !== "ArrowDown") return;
   if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+  if (!els.hideModal.hidden) return;
 
   const target = event.target;
   if (
@@ -2677,7 +4194,9 @@ document.addEventListener("keydown", (event) => {
   moveSelection(event.key === "ArrowDown" ? 1 : -1);
 });
 
-renderSummary([]);
+restoreHideList();
+updateHideRuleCounts();
+renderSummary([], 0);
 
 if (PRELOADED_DATA !== null) {
   try {
