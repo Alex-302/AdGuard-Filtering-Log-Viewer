@@ -36,6 +36,26 @@ The viewer processes the file locally. No data is sent to the network.
 - Enable `Unique URLs only` to merge repeated requests.
 - The viewer saves the selected filters for the next visit.
 
+### Hide list
+
+Use `Hide list` in the top bar to hide matching records from the log.
+The list is saved in the browser. Use the `Hide matching records` switch
+to turn hiding on or off.
+
+- A plain domain hides the domain and its subdomains.
+- `*.example.com` and `.example.com` hide subdomains only.
+- URL patterns use JavaScript regular expressions without `/.../`
+  delimiters. Escape `/` as `\/`.
+- Use `Text` mode for literal URL strings.
+- Import a Fiddler `.ffx` file or an `.agfilters` file. Import replaces
+  the current list.
+- Export the list to `.agfilters`.
+- Use `Export to Fiddler` to show the copy fields for the host list and
+  the combined `REGEX:(...)` string.
+
+The `.agfilters` format is JSON. Fiddler cannot import it - it uses
+more options in the `.ffx` file.
+
 For offline use, open `filtering_log_viewer.html` from the repository and
 keep `filters-meta.js` and `dns-filters-meta.js` next to it.
 
