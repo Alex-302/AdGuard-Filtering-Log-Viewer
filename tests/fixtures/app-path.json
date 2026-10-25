@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "",
+        "appPath": "chrome.exe",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/app-path",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": ["DOCUMENT"],
+        "requestStatuses": [],
+        "creationTime": 1761300010000,
+        "elapsedTime": 4,
+        "sent": 100,
+        "received": 2000,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  }
+]

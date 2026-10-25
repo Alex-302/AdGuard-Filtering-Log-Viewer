@@ -25,6 +25,43 @@ __version__ = "1.0.0"
 PROXY_EVENT = "processedProxyRequest"
 DNS_EVENT = "dnsRequest"
 WHITELIST_EVENT = "whitelistedByNetworkRuleRequest"
+NETWORK_RULE_EVENT = "blockedByNetworkRuleRequest"
+
+PROXY_EVENTS = frozenset(
+    {
+        "processedProxyRequest",
+        "regularProxyRequest",
+        "metaModifiedProxyRequest",
+        "contentModifiedProxyRequest",
+        "blockedProxyRequest",
+        "allowedProxyRequest",
+        "failedProxyRequest",
+    }
+)
+
+DNS_EVENTS = frozenset(
+    {
+        "dnsRequest",
+        "regularDnsRequest",
+        "blockedDnsRequest",
+        "allowedDnsRequest",
+    }
+)
+
+PROXY_EVENT_STATUS = {
+    "metaModifiedProxyRequest": "MODIFIED_META",
+    "contentModifiedProxyRequest": "MODIFIED_CONTENT",
+    "blockedProxyRequest": "BLOCKED",
+    "allowedProxyRequest": "ALLOWED",
+    "failedProxyRequest": "FAILED",
+    "regularProxyRequest": "NONE",
+}
+
+DNS_EVENT_STATUS = {
+    "blockedDnsRequest": "BLOCKED",
+    "allowedDnsRequest": "ALLOWED",
+    "regularDnsRequest": "NONE",
+}
 
 TEMPLATE_PATH = Path(__file__).with_name("filtering_log_viewer.html")
 
@@ -82,6 +119,9 @@ FIELD_ALIASES = {
     "event": "event",
     "eventtype": "event",
     "eventlabel": "event_label",
+    "eventgroup": "event_group",
+    "viewerlabel": "viewer_label",
+    "category": "category",
     "kind": "kind",
     "type": "kind",
     "app": "app",
@@ -113,6 +153,9 @@ FIELD_LABELS = {
     "time_ms": "TIME_MS",
     "event": "EVENT_RAW",
     "event_label": "EVENT",
+    "event_group": "EVENT_GROUP",
+    "viewer_label": "VIEWER_EVENT",
+    "category": "CATEGORY",
     "kind": "KIND",
     "app": "APP",
     "domain": "DOMAIN",
@@ -282,9 +325,12 @@ def _extract_rules(payload: dict[str, Any]) -> list[str]:
 
 
 def _content_types(event_type: str, payload: dict[str, Any]) -> list[str]:
-    if event_type == PROXY_EVENT:
-        return _dedupe_strings(_as_list(payload.get("resourceTypes")))
-    if event_type == DNS_EVENT:
+    if event_type in PROXY_EVENTS:
+        values: list[str] = []
+        for key in ("resourceTypes", "resourceType", "contentTypes", "contentType"):
+            values.extend(_as_list(payload.get(key)))
+        return _dedupe_strings(values)
+    if event_type in DNS_EVENTS:
         return _dedupe_strings(_as_list(payload.get("requestType")))
     return []
 
@@ -302,12 +348,12 @@ def _side(payload: dict[str, Any]) -> str:
 
 
 def _kind(event_type: str, payload: dict[str, Any]) -> str:
-    if event_type == PROXY_EVENT:
+    if event_type in PROXY_EVENTS:
         return str(payload.get("type") or "")
-    if event_type == DNS_EVENT:
+    if event_type in DNS_EVENTS:
         request_type = str(payload.get("requestType") or "")
         return f"DNS {request_type}".strip()
-    if event_type == WHITELIST_EVENT:
+    if event_type in {WHITELIST_EVENT, NETWORK_RULE_EVENT}:
         return "network"
     if event_type == "bypassedRequest":
         return "network"
@@ -318,7 +364,7 @@ def _kind(event_type: str, payload: dict[str, Any]) -> str:
 
 def _status_raw(event_type: str, payload: dict[str, Any]) -> list[str]:
     values: list[str] = []
-    if event_type == PROXY_EVENT:
+    if event_type in PROXY_EVENTS:
         values.extend(_as_list(payload.get("requestStatuses")))
         values.extend(_as_list(payload.get("mainRequestStatus")))
         values.extend(_as_list(payload.get("requestBlockedReason")))
@@ -327,9 +373,18 @@ def _status_raw(event_type: str, payload: dict[str, Any]) -> list[str]:
         values.extend(_as_list(payload.get("modifiedContentReasons")))
         if payload.get("requestBlockedByBrowsingSecurityModule"):
             values.append("BROWSING_SECURITY")
-    elif event_type == DNS_EVENT:
+        derived = PROXY_EVENT_STATUS.get(event_type)
+        if derived:
+            values.append(derived)
+    elif event_type in DNS_EVENTS:
         values.extend(_as_list(payload.get("requestStatus")))
         values.extend(_as_list(payload.get("blockingReason")))
+        derived = DNS_EVENT_STATUS.get(event_type)
+        if derived:
+            values.append(derived)
+    elif event_type == NETWORK_RULE_EVENT:
+        values.extend(_as_list(payload.get("requestBlockedReason")))
+        values.append("BLOCKED")
     elif event_type == WHITELIST_EVENT:
         values.append("WHITELISTED")
     elif event_type == "bypassedRequest":
@@ -357,6 +412,31 @@ def _status_raw(event_type: str, payload: dict[str, Any]) -> list[str]:
     return _dedupe_strings(values)
 
 
+def _has_cosmetic_reasons(status_raw: Sequence[str]) -> bool:
+    joined = " ".join(status_raw).upper()
+    return any(
+        token in joined
+        for token in (
+            "COSMETIC",
+            "SCRIPTLET",
+            "PERMISSION",
+            "HTML_ELEM_REMOVED",
+            "COOKIE_RULE",
+        )
+    )
+
+
+def _has_stealth_reasons(
+    status_raw: Sequence[str], payload: dict[str, Any]
+) -> bool:
+    joined = " ".join(status_raw).upper()
+    return (
+        "STEALTHMODE" in joined
+        or "TRACKING_PROTECTION" in joined
+        or bool(_as_list(payload.get("appliedStealthModeOptions")))
+    )
+
+
 def _canonical_status(
     event_type: str, payload: dict[str, Any], status_raw: Sequence[str]
 ) -> str:
@@ -365,6 +445,8 @@ def _canonical_status(
     if event_type == "bypassedRequest":
         return "BYPASSED"
     if event_type == "blockedByFirewallRequest":
+        return "BLOCKED"
+    if event_type == NETWORK_RULE_EVENT:
         return "BLOCKED"
 
     if payload.get("requestBlockedByBrowsingSecurityModule"):
@@ -386,26 +468,11 @@ def _canonical_status(
         return "BLOCKED"
     if "FAIL" in joined or "ERROR" in joined:
         return "FAILED"
-
-    stealth_options = _as_list(payload.get("appliedStealthModeOptions"))
-    has_stealth = (
-        "STEALTHMODE" in joined
-        or "TRACKING_PROTECTION" in joined
-        or bool(stealth_options)
-    )
-    has_cosmetic = any(
-        token in joined
-        for token in (
-            "COSMETIC",
-            "SCRIPTLET",
-            "PERMISSION",
-            "HTML_ELEM_REMOVED",
-            "COOKIE_RULE",
-        )
-    )
-    if has_stealth:
+    if event_type == "metaModifiedProxyRequest":
         return "META_MODIFIED"
-    if has_cosmetic:
+    if _has_stealth_reasons(status_raw, payload):
+        return "META_MODIFIED"
+    if _has_cosmetic_reasons(status_raw):
         return "MODIFIED"
     if "MODIFIED_META" in joined:
         return "META_MODIFIED"
@@ -446,6 +513,12 @@ def _canonical_status(
     return "NONE"
 
 
+def _humanize_event(name: str) -> str:
+    text = re.sub(r"([a-z0-9])([A-Z])", r"\1 \2", str(name))
+    text = text.replace("_", " ")
+    return re.sub(r"\b\w", lambda match: match.group(0).upper(), text)
+
+
 @dataclass
 class LogRecord:
     id: Any
@@ -468,27 +541,101 @@ class LogRecord:
     raw: dict[str, Any] = field(default_factory=dict, repr=False)
 
     @property
-    def event_label(self) -> str:
-        if self.event == PROXY_EVENT:
+    def viewer_label(self) -> str:
+        """Return the label that the viewer shows for the event."""
+        if self.event in PROXY_EVENTS:
             kind = self.kind.lower()
             if kind == "tunnelrequest":
-                return "proxy:tunnel"
+                return "HTTPS tunnel"
             if kind == "webrequest":
-                return "proxy:web"
+                return "Web request"
             if kind == "connection":
-                return "proxy:connection"
-            return "proxy"
-        if self.event == DNS_EVENT:
+                return "Connection"
+            return "Proxy request"
+        if self.event in DNS_EVENTS:
+            return "DNS"
+        if self.event == WHITELIST_EVENT:
+            return "Whitelist"
+        if self.event == NETWORK_RULE_EVENT:
+            return "Network rule"
+        if self.event == "bypassedRequest":
+            return "Bypassed request"
+        if self.event == "blockedByFirewallRequest":
+            return "Firewall block"
+        if "quic" in self.event.lower():
+            return "QUIC"
+        return _humanize_event(self.event)
+
+    @property
+    def event_label(self) -> str:
+        return self.viewer_label
+
+    @property
+    def event_group(self) -> str:
+        if self.event in DNS_EVENTS:
             return "dns"
+        if self.event in PROXY_EVENTS:
+            kind = self.kind.lower()
+            if kind == "tunnelrequest":
+                return "tunnel"
+            if kind == "webrequest":
+                return "web"
+            if kind == "connection":
+                return "connection"
+            return "other"
         if self.event == WHITELIST_EVENT:
             return "whitelist"
+        if self.event == NETWORK_RULE_EVENT:
+            return "connection"
         if self.event == "bypassedRequest":
-            return "bypass"
+            return "other"
         if self.event == "blockedByFirewallRequest":
             return "firewall"
-        if "quic" in self.event.lower():
-            return "quic"
-        return self.event
+        lower = self.event.lower()
+        if "quic" in lower:
+            return "connection"
+        if any(
+            token in lower for token in ("cosmetic", "scriptlet", "permission")
+        ):
+            return "cosmetic"
+        if "cookie" in lower:
+            return "cookie"
+        if "removed" in lower or "element" in lower:
+            return "removed"
+        if "firewall" in lower:
+            return "firewall"
+        if "connection" in lower:
+            return "connection"
+        return "other"
+
+    @property
+    def has_content_cosmetic_reasons(self) -> bool:
+        reasons = _as_list(self.raw.get("modifiedContentReasons"))
+        joined = " ".join(reasons).upper()
+        return any(
+            token in joined
+            for token in (
+                "COSMETIC",
+                "HTML_ELEM_REMOVED",
+                "SERVICE_WORKER_INJECT",
+            )
+        )
+
+    @property
+    def category(self) -> str:
+        if self.status in {"BLOCKED", "FAILED"}:
+            return "blocked"
+        if self.status == "WHITELISTED":
+            return "allowed"
+        if self.event_group in {"cosmetic", "removed"}:
+            return "cosmetic"
+        if self.status == "META_MODIFIED":
+            return (
+                "cosmetic" if self.has_content_cosmetic_reasons else "modified"
+            )
+        if self.status == "MODIFIED":
+            return "cosmetic"
+        return "processed"
 
     @property
     def time_compact(self) -> str:
@@ -511,6 +658,12 @@ class LogRecord:
             return self.event
         if name == "event_label":
             return self.event_label
+        if name == "event_group":
+            return self.event_group
+        if name == "viewer_label":
+            return self.viewer_label
+        if name == "category":
+            return self.category
         if name == "kind":
             return self.kind
         if name == "app":
@@ -557,6 +710,9 @@ class LogRecord:
             "time_ms": self.time_ms,
             "event": self.event,
             "event_label": self.event_label,
+            "event_group": self.event_group,
+            "viewer_label": self.viewer_label,
+            "category": self.category,
             "kind": self.kind,
             "app": self.app,
             "domain": self.domain,
@@ -653,19 +809,32 @@ def load_records(path: str) -> tuple[list[LogRecord], int]:
 def _match_event(record: LogRecord, value: str) -> bool:
     normalized = _norm(value)
     kind = record.kind.lower()
-    if normalized in {"proxy", "proxied"}:
-        return record.event == PROXY_EVENT
-    if normalized in {"tunnel", "tunnelrequest"}:
-        return kind == "tunnelrequest"
-    if normalized in {"web", "webrequest"}:
-        return kind == "webrequest"
+    if normalized in {"proxy", "proxied", "proxyrequest"}:
+        return record.event in PROXY_EVENTS
+    if normalized in {
+        "tunnel",
+        "tunnelrequest",
+        "httpstunnel",
+        "proxytunnel",
+    }:
+        return record.event in PROXY_EVENTS and kind == "tunnelrequest"
+    if normalized in {"web", "webrequest", "proxyweb"}:
+        return record.event in PROXY_EVENTS and kind == "webrequest"
     if normalized in {"connection", "proxyconnection"}:
-        return record.event == PROXY_EVENT and kind == "connection"
+        return (
+            record.event in PROXY_EVENTS and kind == "connection"
+        ) or record.event == NETWORK_RULE_EVENT
     if normalized in {"dns", "dnsrequest"}:
-        return record.event == DNS_EVENT
+        return record.event in DNS_EVENTS
+    if normalized in {"networkrule", "blockedbynetworkrulerequest"}:
+        return record.event == NETWORK_RULE_EVENT
     if normalized in {"bypass", "bypassed", "bypassedrequest"}:
         return record.event == "bypassedRequest"
-    if normalized in {"firewall", "blockedbyfirewallrequest"}:
+    if normalized in {
+        "firewall",
+        "blockedbyfirewallrequest",
+        "firewallblock",
+    }:
         return record.event == "blockedByFirewallRequest"
     if normalized == "quic":
         return "quic" in record.event.lower()
@@ -673,10 +842,19 @@ def _match_event(record: LogRecord, value: str) -> bool:
         "whitelist",
         "whitelisted",
         "whitelistedbynetworkrulerequest",
-        "network",
     }:
         return record.event == WHITELIST_EVENT
-    keys = {_norm(record.event), _norm(record.event_label), _norm(record.kind)}
+    if normalized == "network":
+        return record.event in {WHITELIST_EVENT, NETWORK_RULE_EVENT}
+    if normalized == "other":
+        return record.event_group == "other"
+    keys = {
+        _norm(record.event),
+        _norm(record.event_label),
+        _norm(record.viewer_label),
+        _norm(record.event_group),
+        _norm(record.kind),
+    }
     return normalized in keys
 
 

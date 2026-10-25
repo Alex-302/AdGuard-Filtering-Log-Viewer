@@ -1,0 +1,12 @@
+{
+  "format": "adguard-filtering-log-viewer/hide-list",
+  "version": 1,
+  "enabled": true,
+  "domains": [
+    { "value": "example.com", "enabled": true },
+    { "value": "ads.example.com", "enabled": true }
+  ],
+  "urls": [
+    { "value": "\\/collect\\/", "mode": "regex", "enabled": true }
+  ]
+}

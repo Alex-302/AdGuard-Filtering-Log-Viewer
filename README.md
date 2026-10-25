@@ -31,26 +31,43 @@ The viewer processes the file locally. No data is sent to the network.
 
 - Use the sidebar to filter by app, status, event type, content type, and
   request side.
-- Use the search field to find a domain, URL, app, or rule.
-- Select a request to see its details and applied rules.
+- Use the search field to find a domain, URL, app, or rule. Press
+  `Ctrl-F` or `/` to focus it.
+- Click any table header to sort. Drag the header edge to resize a
+  column; double-click the edge to reset it. The keyboard arrows resize
+  a focused edge.
+- `Time` and `URL` are always visible. Use `Columns` or right-click the
+  header to hide or show the other columns. `App` shows the raw package
+  name, process name, or app path.
+- Hover a cut cell to see the full value. The popup can be selected and
+  copied, and it stays open while the pointer is over it.
+- Select a request to see its details. Details are docked on desktop,
+  shown below the table on a tablet, and full-screen on a phone.
+- Modified requests show the `Tracking Protection` or `Cosmetic` module
+  in the `Filter` column and the module option count in `Rule`.
 - Enable `Unique URLs only` to merge repeated requests.
-- The viewer saves the selected filters for the next visit.
+- The viewer saves the selected filters and column layout for the next
+  visit.
 
 ### Hide list
 
 Use `Hide list` in the top bar to hide matching records from the log.
-The list is saved in the browser. Use the `Hide matching records` switch
-to turn hiding on or off.
+The list is stored in the browser. Use the `Hide matching records`
+switch to turn hiding on or off. The switch in the sidebar applies
+immediately. The switch in the `Hide list` window is part of the draft.
 
 - A plain domain hides the domain and its subdomains.
 - `*.example.com` and `.example.com` hide subdomains only.
 - URL patterns use JavaScript regular expressions without `/.../`
   delimiters. Escape `/` as `\/`.
 - Use `Text` mode for literal URL strings.
-- Use `Reset selection` to enable all domains and valid URL patterns.
+- Use `Enable all` to enable all domains and valid URL patterns.
+- Use `Reset` to clear domains and URL patterns and turn hiding off.
+- Edits are a preview. `Save` commits them; closing the window discards
+  them. `Save` is disabled when there is nothing to save.
 - Import a Fiddler `.ffx` file or an `.agfilters` file. Import replaces
-  the current list.
-- Export the list to `.agfilters`.
+  the draft; it does not save until `Save`.
+- Export the current draft to `.agfilters`.
 - Use `Export to Fiddler` to show the copy fields for the host list and
   the combined `REGEX:(...)` string.
 
@@ -79,11 +96,17 @@ py -3 adguard_log_parser.py recent_activity.json --format json
 ```
 
 The command-line tool filters with `--event`, `--status`, `--side`,
-`--app`, `--domain`, `--rule`, and `--search`. Use `--dedup` to remove
-duplicates. Use `--format` to select `table`, `json`, `jsonl`, `csv`, or
-`html`.
+`--app`, `--domain`, `--rule`, and `--search`. It uses the same Android
+event mapping as the viewer. Use `--dedup` to remove duplicates. Use
+`--format` to select `table`, `json`, `jsonl`, `csv`, or `html`.
 
 Run `py -3 adguard_log_parser.py --help` for all options.
+
+## Documentation
+
+- [Log format and Android event mapping](Docs/log-samples.md)
+- [Implementation plan and status](Docs/change-plan.md)
+- [Viewer test setup](tests/viewer/README.md)
 
 ## License
 

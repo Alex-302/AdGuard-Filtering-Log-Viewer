@@ -1,0 +1,268 @@
+[
+  {
+    "id": 1,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.browser",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/page",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": ["DOCUMENT"],
+        "requestStatuses": [],
+        "creationTime": 1761300000000,
+        "elapsedTime": 12,
+        "sent": 120,
+        "received": 2400,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 2,
+    "event": {
+      "metaModifiedProxyRequest": {
+        "packageName": "com.example.browser",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://stats.example.com/collect",
+        "domain": "stats.example.com",
+        "thirdPartyRequest": true,
+        "resourceTypes": ["OTHER", "XML_HTTP_REQUEST"],
+        "requestStatuses": ["MODIFIED_META"],
+        "creationTime": 1761300001000,
+        "elapsedTime": 8,
+        "sent": 300,
+        "received": 200,
+        "httpMethod": "POST",
+        "appliedRules": {},
+        "modifiedMetaReason": ["STEALTHMODE"],
+        "modifiedContentReasons": [],
+        "appliedStealthModeOptions": [
+          "SENDING_DO_NOT_TRACK_SIGNALS",
+          "REMOVING_XCLIENT_DATA_HEADER"
+        ]
+      }
+    }
+  },
+  {
+    "id": 3,
+    "event": {
+      "contentModifiedProxyRequest": {
+        "packageName": "com.example.browser",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://news.example.com/article",
+        "domain": "news.example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": ["DOCUMENT"],
+        "requestStatuses": ["MODIFIED_META", "MODIFIED_CONTENT"],
+        "creationTime": 1761300002000,
+        "elapsedTime": 15,
+        "sent": 200,
+        "received": 8000,
+        "httpMethod": "GET",
+        "appliedRules": {
+          "permissions": [
+            {
+              "filterListId": 3,
+              "isWhitelist": false,
+              "ruleText": "/.*/$permissions=browsing-topics=(),document"
+            }
+          ]
+        },
+        "modifiedMetaReason": ["STEALTHMODE"],
+        "modifiedContentReasons": ["HTML_ELEM_REMOVED", "COSMETIC_RULE"],
+        "appliedStealthModeOptions": [
+          "SENDING_DO_NOT_TRACK_SIGNALS"
+        ]
+      }
+    }
+  },
+  {
+    "id": 4,
+    "event": {
+      "blockedProxyRequest": {
+        "packageName": "com.example.browser",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://ads.example.com/banner.js",
+        "domain": "ads.example.com",
+        "thirdPartyRequest": true,
+        "resourceTypes": ["SCRIPT"],
+        "requestStatuses": ["BLOCKED"],
+        "creationTime": 1761300003000,
+        "elapsedTime": 2,
+        "sent": 0,
+        "received": 0,
+        "httpMethod": "GET",
+        "appliedRules": {
+          "url": {
+            "filterListId": 2,
+            "isWhitelist": false,
+            "ruleText": "||ads.example.com^"
+          }
+        },
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": [],
+        "requestBlockedReason": ["RULE"],
+        "requestBlockedByBrowsingSecurityModule": false
+      }
+    }
+  },
+  {
+    "id": 5,
+    "event": {
+      "allowedProxyRequest": {
+        "packageName": "com.example.browser",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://cdn.example.com/app.js",
+        "domain": "cdn.example.com",
+        "thirdPartyRequest": true,
+        "resourceTypes": ["SCRIPT"],
+        "requestStatuses": ["ALLOWED"],
+        "creationTime": 1761300004000,
+        "elapsedTime": 5,
+        "sent": 80,
+        "received": 3000,
+        "httpMethod": "GET",
+        "appliedRules": {
+          "url": {
+            "filterListId": 2,
+            "isWhitelist": true,
+            "ruleText": "@@||cdn.example.com^"
+          }
+        },
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 6,
+    "event": {
+      "blockedDnsRequest": {
+        "packageName": "com.adguard.dns",
+        "domain": "ads.example.com.",
+        "requestUrl": "dns://ads.example.com./",
+        "requestType": "A",
+        "answer": "A, 0.0.0.0",
+        "rules": {"2": ["||ads.example.com^"]},
+        "elapsedTime": 1,
+        "startTime": 1761300005000,
+        "blockingReason": "QUERY_MATCHED_BY_RULE",
+        "sent": 0,
+        "received": 0
+      }
+    }
+  },
+  {
+    "id": 7,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.browser",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/cookieconsent.js",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": ["DOCUMENT"],
+        "requestStatuses": [],
+        "creationTime": 1761300006000,
+        "elapsedTime": 4,
+        "sent": 100,
+        "received": 2000,
+        "httpMethod": "GET",
+        "appliedRules": {
+          "url": {
+            "filterListId": 2,
+            "isWhitelist": false,
+            "ruleText": "/cookieconsent.$domain=qrcodemonkey.net|wedos.com|scssoft.com|umino.io|sklep.ledlumen.pl|megasobota.pl|emunia.pl|proxmox.com|glowing.com|medicalonline.jp|shop.wagnardsoft.com|funmix.pl|mokaunited.com|liki24.ro|cerrahpasa.iuc.edu.tr|fatfish.pl|artamon.cz|markat.com.pl|itpizzalasporto.plateform.app|jagadzet.pl"
+          }
+        },
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 8,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.browser",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/article",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": ["DOCUMENT"],
+        "requestStatuses": [],
+        "creationTime": 1761300007000,
+        "elapsedTime": 4,
+        "sent": 100,
+        "received": 2000,
+        "httpMethod": "GET",
+        "appliedRules": {
+          "url": {
+            "filterListId": 2,
+            "isWhitelist": false,
+            "ruleText": "a.com,b.com,c.com,d.com,e.com,f.com,g.com,h.com,i.com,j.com,k.com,l.com,m.com,n.com,o.com,p.com,q.com,r.com,s.com,t.com##.ad-banner"
+          }
+        },
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 9,
+    "event": {
+      "metaModifiedProxyRequest": {
+        "packageName": "com.example.browser",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://challenges.example.com/challenge",
+        "domain": "challenges.example.com",
+        "thirdPartyRequest": true,
+        "resourceTypes": ["DOCUMENT"],
+        "requestStatuses": ["MODIFIED_META"],
+        "creationTime": 1761300008000,
+        "elapsedTime": 4,
+        "sent": 100,
+        "received": 2000,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": ["PERMISSIONS_RULE"],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 10,
+    "event": {
+      "contentModifiedProxyRequest": {
+        "packageName": "com.example.browser",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/cosmetic-only",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": ["DOCUMENT"],
+        "requestStatuses": ["MODIFIED"],
+        "creationTime": 1761300009000,
+        "elapsedTime": 4,
+        "sent": 100,
+        "received": 2000,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": ["COSMETIC_RULE"]
+      }
+    }
+  }
+]

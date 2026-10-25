@@ -5,6 +5,11 @@ __pycache__/
 venv/
 .pytest_cache/
 
+# Node / Playwright
+node_modules/
+test-results/
+playwright-report/
+
 # Generated reports
 filtering_log_report.html
 

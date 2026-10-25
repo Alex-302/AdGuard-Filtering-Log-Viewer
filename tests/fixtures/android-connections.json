@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.app",
+        "type": "Connection",
+        "protocol": "Tcp",
+        "requestUrl": "tcp://example.com:443",
+        "domain": "example.com:443",
+        "thirdPartyRequest": true,
+        "resourceTypes": [],
+        "requestStatuses": [],
+        "creationTime": 1761300000000,
+        "elapsedTime": 3,
+        "sent": 0,
+        "received": 0,
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 2,
+    "event": {
+      "blockedProxyRequest": {
+        "packageName": "com.example.app",
+        "type": "Connection",
+        "protocol": "Tcp",
+        "requestUrl": "tcp://ads.example.com:443",
+        "domain": "ads.example.com:443",
+        "thirdPartyRequest": true,
+        "resourceTypes": [],
+        "requestStatuses": ["BLOCKED"],
+        "creationTime": 1761300001000,
+        "elapsedTime": 1,
+        "sent": 0,
+        "received": 0,
+        "appliedRules": {
+          "url": {
+            "filterListId": 2,
+            "isWhitelist": false,
+            "ruleText": "||ads.example.com^"
+          }
+        },
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": [],
+        "requestBlockedReason": ["RULE"]
+      }
+    }
+  },
+  {
+    "id": 3,
+    "event": {
+      "blockedByFirewallRequest": {
+        "packageName": "com.example.app",
+        "domain": "203.0.113.10:443",
+        "requestUrl": "tcp://203.0.113.10:443",
+        "creationTime": 1761300002000,
+        "elapsedTime": 0,
+        "sent": 0,
+        "received": 0,
+        "firewallBlockingStrategy": "BLOCK"
+      }
+    }
+  }
+]
