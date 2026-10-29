@@ -512,5 +512,5 @@ Other future work:
 ## Approval
 
 Status: **Implemented (P0) and follow-up fixes**. The user approved the
-work with `делай`. Final review and documentation tasks remain.
+work. Final review and documentation tasks remain.
 
