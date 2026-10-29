@@ -40,6 +40,11 @@ It has `resourceTypes` for proxy requests.
 It has `packageName`, `domain`, `requestUrl`, `creationTime`,
 `appliedRules`, `modifiedMetaReason`, and `modifiedContentReasons`.
 
+The payload has no app icon field. It has only `packageName`.
+The details header badge shows the first letter of the app name with a
+generated color. Show a real app icon only when a source log supplies
+one. The current Android format cannot supply it.
+
 Sample: `Docs/samples/android-old.json`.
 
 ## Android new format
@@ -66,6 +71,9 @@ The status is encoded in the event name and in `requestStatuses`.
 It still has `resourceTypes`, `modifiedMetaReason`,
 `modifiedContentReasons`, `appliedStealthModeOptions`, and
 `appliedRules`.
+
+The payload has no app icon field. The details badge stays an initial
+placeholder until a source log supplies an icon.
 
 Sample: `Docs/samples/android-new.json`.
 
@@ -234,6 +242,10 @@ Sample: `Docs/samples/windows.json`.
 - Test the new event names in the sidebar filters.
 - Test content types for the new proxy events.
 - Test the humanized labels are gone after mapping.
+- Test `$app=` and `,app=` list compaction.
+- Test blank Source and Filter cells.
+- Test the firewall strategy mapping.
+- Test the details app badge stays an initial placeholder.
 
 ## Domain-list samples
 
@@ -254,10 +266,64 @@ The viewer compacts both domain lists:
 The full rule is available in the cell popup and in the details.
 The copy button copies the full rule.
 
-Record 9 shows `Filter = Tracking Protection`, `Rule = Stealth`,
-and a gray row.
+Record 9 has only `PERMISSIONS_RULE`. The viewer treats it as a regular
+rule reason, not Tracking Protection. The Filter cell is blank, the Rule
+cell has no Stealth label, and the details Options list is empty. The
+raw JSON still contains `PERMISSIONS_RULE`.
 Record 10 shows `Filter = Cosmetic`, `Rule = Cosmetic`, and a yellow
 row.
+
+## App-list samples
+
+`tests/fixtures/rule-app-lists.json` has these records:
+
+- A `$network,app=` list with 20 package names.
+- A `,app=` list with 20 package names.
+- A `$app=` list with 20 package names.
+- A short `,app=` list with 3 package names. It stays unchanged.
+- A rule with a long `domain=` list and a long `app=` list.
+
+The viewer compacts all app-list forms above 15 values:
+
+- `/^77\.88\.(4|5){2}.(5|8){2}/$network,app=a|b|c|...`
+  becomes `...app=a|b|c...+14...|r|s|t`.
+- `@@||example.com^$network,app=a|b|c|...`
+  becomes `...app=a|b|c...+14...|r|s|t`.
+- `||example.com^$app=a|b|c|...`
+  becomes `...$app=a|b|c...+14...|r|s|t`.
+
+The first 3 and last 3 values are kept. `+14` is the number of hidden
+values. A rule with both lists compacts both in one pass. The full rule
+is available in the cell popup and in the details.
+
+## Firewall strategy
+
+`firewallBlockingStrategy` is a string or an object.
+An object key is the strategy. A `networkType` detail is shown in
+parentheses.
+
+The viewer uses `FIREWALL_STRATEGY_LABELS`.
+The current mapping is a placeholder:
+
+| Raw key | Human-readable label |
+| --- | --- |
+| `blockedByAppRuleOnWifi` | `blockedByAppRuleOnWifi` |
+
+The label equals the raw key until the mapping is filled.
+
+Example:
+
+```json
+"firewallBlockingStrategy": {
+  "blockedByAppRuleOnWifi": {
+    "networkType": "WiFi"
+  }
+}
+```
+
+The Rule cell and the details Firewall field show
+`blockedByAppRuleOnWifi (WiFi)`.
+The Filter cell stays blank.
 
 ## Open questions
 

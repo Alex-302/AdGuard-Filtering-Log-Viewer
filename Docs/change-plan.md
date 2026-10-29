@@ -1,9 +1,9 @@
 # Viewer feedback implementation plan
 
 - **Date**: 2026-10-24
-- **Status**: Implemented (P0), uncommitted. Viewer tests, README, and
-  Python CLI mapping are in place.
-- **Design input**: `Docs/user-feedback.md`
+- **Status**: P0 is committed as `7e78c3d`. The follow-up fixes are
+  uncommitted. Viewer tests, README, and Python CLI mapping are in place.
+- **Design input**: `Docs/user-feedback.md` (local and gitignored)
 - **Branch**: `feat/hide_filter`
 - **Goal**: Fix the viewer behavior reported by the user and finish the
   table interaction model.
@@ -76,8 +76,33 @@ Tests passed:
 - Review fixes: contrast, 30% popup, content-only module, meta
   permissions, one domain count, slash overlays, tablet sidebar,
   `Reset`, resize tooltip, `appPath`, and 901 px focus.
-- Viewer tests: 10 passed in `tests/viewer/` with `npm test`.
+- Viewer tests: 15 passed in `tests/viewer/` with `npm test`.
 - No page errors or console errors.
+
+## Follow-up status (2026-10-25)
+
+Status: implemented. P0 is committed as `7e78c3d`. The follow-up fixes
+are uncommitted.
+Verification: Python 24 OK and 1 skipped. Viewer tests 15 passed.
+
+- Details app badge: documented only. The badge shows the app initial.
+  A real icon is possible only when the source log supplies one. The
+  Android format has no icon field.
+- `$app=` and `,app=` lists use middle truncation above 15 values. A
+  rule with both a long domain list and a long app list compacts both in
+  one pass.
+- A click inside the cell popup does not close it. The base font is
+  14 px, and the mono font is 13 px.
+- Missing Source and Filter values are blank. Rule, App, Method, and
+  HTTP code keep their existing fallbacks.
+- Firewall strategy uses `FIREWALL_STRATEGY_LABELS`.
+  `blockedByAppRuleOnWifi` is a placeholder mapping.
+- Tracking Protection option badges use `+N Stealth`.
+  `PERMISSIONS_RULE` is a regular rule reason and is not in the details
+  Options list.
+- The Type column maximum width is 480 px.
+- New fixtures: `rule-app-lists.json`, `firewall-strategy.json`,
+  `type-long.json`, and `empty-source-filter.json`.
 
 ## Slice 0 - Reproduce and capture
 
@@ -470,6 +495,13 @@ Do not add it to the Android parser without a mapping review.
 - Add `Docs/samples/windows.json` as a fixture.
 - Do not start until the field dictionary is confirmed.
 
+Other future work:
+
+- Show a real app icon in the details badge when the source log supplies
+  one. The Android format has no icon field.
+- Fill `FIREWALL_STRATEGY_LABELS` with human-readable labels. The
+  current mapping is a placeholder.
+
 ## Open questions
 
 1. Confirm the observed new Android event mapping with the product code
@@ -479,6 +511,6 @@ Do not add it to the Android parser without a mapping review.
 
 ## Approval
 
-Status: **Implemented (P0)**. The user approved the work with `делай`.
-Final review and documentation tasks remain.
+Status: **Implemented (P0) and follow-up fixes**. The user approved the
+work with `делай`. Final review and documentation tasks remain.
 

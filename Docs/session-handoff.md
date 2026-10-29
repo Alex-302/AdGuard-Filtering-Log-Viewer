@@ -4,9 +4,12 @@
 
 - Date: 2026-10-25.
 - Branch: `feat/hide_filter`.
-- Changed file: `filtering_log_viewer.html`.
-- State: P0 and the user's feedback are implemented.
-- Changes are not committed.
+- Changed files: `filtering_log_viewer.html`, `README.md`, the files in
+  `Docs/`, `tests/viewer/run.js`, `tests/viewer/README.md`, and the new
+  fixtures in `tests/fixtures/`.
+- State: P0, the user's feedback, and the follow-up fixes are
+  implemented.
+- P0 is committed as `7e78c3d`. The follow-up fixes are uncommitted.
 - Viewer tests, README, and Python CLI mapping are in place.
 - Windows parser remains.
 
@@ -50,8 +53,21 @@ The card list is replaced with a compact virtual table.
 - `Ctrl-F` works in Chrome from a focused row.
 - Hide list edits are a draft until `Save`.
 - Domain lists are compacted above 15 domains.
+- App lists in `$app=` and `,app=` rules are compacted the same way.
+- A rule with both a long domain list and a long app list compacts both.
+- Cell popups stay open on a click inside them. The tooltip font is
+  14 px, and the mono font is 13 px.
+- Empty `Source` and `Filter` cells are blank.
+- Firewall strategy uses `FIREWALL_STRATEGY_LABELS`. The mapping is a
+  placeholder.
+- Tracking Protection option badges use `+N Stealth`.
+- `PERMISSIONS_RULE` is not a Stealth option. A permissions-only row is
+  not Tracking Protection.
+- The `Type` column can grow to 480 px.
 - Tablet details are non-modal. Phone details are full-screen.
 - Row colors match the legend marker backgrounds.
+- The details app badge shows an initial because the Android log has no
+  app icon.
 
 ## Current files
 
@@ -61,7 +77,9 @@ The card list is replaced with a compact virtual table.
 - `README.md` - landing page.
 - `Docs/session-handoff.md` - this file.
 - `Docs/change-plan.md` - implementation plan and status.
-- `Docs/user-feedback.md` - user remarks and their analysis.
+- `Docs/user-feedback.md` - user remarks and their analysis. Local and
+  gitignored. If the file is absent, the summary in this file is the
+  source of truth.
 - `Docs/log-samples.md` - log format analysis.
 - `Docs/samples/` - sanitized Android and Windows samples.
 - `tests/viewer/` - Playwright checks.
@@ -73,7 +91,7 @@ The card list is replaced with a compact virtual table.
   `recent_activity.json` is absent.
 - In `tests/viewer/`: `npm install`, then
   `npx playwright install chromium`, then `npm test`.
-  - 10 viewer tests passed.
+  - 15 viewer tests passed.
 - Playwright checks in Chromium:
   - Table, sorting, column resize, details resize.
   - Click toggle, `Esc`, `Up` and `Down`, `Enter`, `Ctrl-F`.
@@ -81,12 +99,19 @@ The card list is replaced with a compact virtual table.
   - Column width persistence and details width persistence.
   - Empty state, responsive overlay, filters drawer.
   - Focus restoration and breakpoint focus.
+  - App-list compaction for `$app=` and `,app=`.
+  - Tooltip click persistence and font sizes.
+  - Blank Source and Filter cells.
+  - Firewall strategy mapping.
+  - `+N Stealth` and the permissions-only row.
+  - Type column resize cap.
 - An independent review subagent checked the diff and ran the tests.
 - Its findings were fixed:
   - Secondary row text contrast is 5.31:1 on blocked rows.
   - The popup stays at 30% width on narrow screens.
   - Content-only rows show the `Cosmetic` module.
-  - Meta rows with only `PERMISSIONS_RULE` show `Tracking Protection`.
+  - Meta rows with only `PERMISSIONS_RULE` are regular rules, not
+    Tracking Protection.
   - The domain hidden count appears once.
   - `/` closes overlays like `Ctrl-F`.
   - The tablet sidebar fills both grid rows.
@@ -99,13 +124,18 @@ The card list is replaced with a compact virtual table.
 - Tracking Protection for meta, Cosmetic for content-only, options,
   and yellow both-reason rows.
 - Domain-list compaction with full popup and copy.
+- App-list compaction with full popup and copy.
+- Cell popup click persistence and larger fonts.
+- Blank Source and Filter cells.
+- Firewall strategy mapping.
+- `+N Stealth` and the permissions-only row.
+- Type column resize cap at 1600x900 and 1000x800.
 - Hide list draft, Save, discard, import, and Reset.
 - Column menu, right-click, all hideable columns.
 - Double-click reset and whole-cell sorting.
 - Tablet non-modal details and phone full-screen details.
 - Row and legend color equality.
 - Chrome `Ctrl-F` from a focused row.
-- Viewer tests: 10 passed in `tests/viewer/` with `npm test`.
 - No page errors or console errors were seen.
 
 ## Important limitations of the verification
@@ -122,13 +152,24 @@ The card list is replaced with a compact virtual table.
   Legacy `--event` aliases such as `proxy:web` still work.
 - Mobile cards, dark theme, and details tabs are not implemented.
 - Chromium and Chrome were tested. Firefox and WebKit were not.
+- The Android log has only `packageName` and no app icon. The details
+  badge shows the app initial. A real icon is a future path and works
+  only when a source log supplies one.
+- `FIREWALL_STRATEGY_LABELS` is a placeholder. The human-readable label
+  equals the raw key until the mapping is filled.
+- `PERMISSIONS_RULE` is not shown in the details Options list. It stays
+  in the raw JSON.
+- A rule with both a long domain list and a long app list compacts both
+  in one pass. The formatter returns one combined hidden count.
 
 ## User feedback status
 
-The full text is in `Docs/user-feedback.md`.
+The full text is in `Docs/user-feedback.md` (local and gitignored). If
+the file is absent, the summary in this file is the source of truth.
 The plan is in `Docs/change-plan.md`.
 
 All items below are implemented except the Windows parser.
+The 2026-10-25 follow-up items are also implemented.
 
 Summary:
 
@@ -178,6 +219,21 @@ Summary:
     A row click updates details.
     Use a side or bottom panel on a tablet.
 
+Follow-up items from 2026-10-25:
+
+15. The details app badge must show a real icon only when the source log
+    supplies one. The Android log has no icon field.
+16. Long `$app=` and `,app=` lists use the same middle truncation as
+    domain lists.
+17. A click inside a cell popup must not close it. The popup font is
+    larger.
+18. Missing Source and Filter values must be blank, not a dash.
+19. Firewall strategy uses a readable mapping. The first mapping is a
+    placeholder.
+20. Tracking Protection option badges use `+N Stealth`.
+    `PERMISSIONS_RULE` is not Stealth.
+21. The Type column must widen enough for long content-type lists.
+
 ## Decisions that must not be lost
 
 - The viewer must not add blocking or unblocking.
@@ -206,22 +262,39 @@ Resolved decisions:
 - The legend reference is the marker background above the search.
 - Reset clears the draft and enables Save.
 - The details 240 px table minimum is accepted for now.
+- App lists use middle truncation above 15 values.
+- A rule with both long lists compacts both in one pass.
+- The cell popup stays open while the pointer is over it. A click does
+  not close it.
+- Empty Source and Filter cells are blank.
+- `+N Stealth` is used only for Tracking Protection/Stealth rows.
+  Cosmetic-only rows keep `+N`.
+- `PERMISSIONS_RULE` is a regular rule reason, not Stealth.
+- The Type column maximum width is 480 px.
+- The firewall strategy label equals the raw key until the mapping is
+  filled.
+- The details badge uses the app initial until a log supplies an icon.
 
 ## How to continue
 
-1. Read `Docs/user-feedback.md`.
+1. Read `Docs/user-feedback.md` if it exists. The file is local and
+   gitignored. If the file is absent, the summary in this file is the
+   source of truth.
 2. Read `Docs/log-samples.md`.
 3. Read `Docs/change-plan.md`.
 4. Run `py -3 -m unittest discover -s tests -v`.
 5. Run `npm test` in `tests/viewer/`.
 6. Start the Windows parser only after the bitmask dictionary is
    confirmed.
-7. Keep the change uncommitted until the user asks for a commit.
+7. Keep the follow-up changes uncommitted until the user asks for a
+   commit.
 
 ## Ready-to-paste prompt for a new session
 
-> Read `Docs/session-handoff.md`, `Docs/user-feedback.md`,
-> `Docs/log-samples.md`, and `Docs/change-plan.md`. The P0 is
-> implemented. Review the diff and run the Python and viewer tests.
-> Start the Windows parser only after the remaining format questions
-> are confirmed. Do not commit without the user's request.
+> Read `Docs/session-handoff.md`, `Docs/log-samples.md`, and
+> `Docs/change-plan.md`. Read `Docs/user-feedback.md` if it exists. The
+> file is local and gitignored. If the file is absent, the summary in
+> `Docs/session-handoff.md` is the source of truth. The P0 and the
+> follow-up fixes are implemented. Review the diff and run the Python and
+> viewer tests. Start the Windows parser only after the remaining format
+> questions are confirmed. Do not commit without the user's request.

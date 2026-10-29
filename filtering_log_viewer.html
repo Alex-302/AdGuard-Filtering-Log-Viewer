@@ -608,7 +608,7 @@ button { cursor: pointer; }
   background: var(--panel);
   color: var(--text);
   box-shadow: 0 8px 24px rgba(16, 24, 40, 0.18);
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.45;
   overflow: auto;
   overflow-wrap: anywhere;
@@ -619,7 +619,7 @@ button { cursor: pointer; }
 .cell-tooltip-text { min-width: 0; }
 .cell-tooltip.mono .cell-tooltip-text {
   font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
-  font-size: 11px;
+  font-size: 13px;
 }
 .cell-tooltip-copy {
   align-self: flex-start;
@@ -628,7 +628,7 @@ button { cursor: pointer; }
   border-radius: 5px;
   background: var(--panel-2);
   color: var(--text);
-  font-size: 11px;
+  font-size: 13px;
 }
 .cell-tooltip-copy:hover { background: var(--border-soft); }
 .pill {
@@ -1455,7 +1455,7 @@ const COLUMNS = [
   { key: "time", label: "Time", defaultWidth: 82, minWidth: 74, maxWidth: 180, sortable: true, hideInDetails: false, flexible: false },
   { key: "app", label: "App", defaultWidth: 160, minWidth: 90, maxWidth: 400, sortable: true, hideInDetails: true, flexible: false },
   { key: "url", label: "URL", defaultWidth: 280, minWidth: 140, maxWidth: 1200, sortable: true, hideInDetails: false, flexible: true },
-  { key: "type", label: "Type", defaultWidth: 76, minWidth: 52, maxWidth: 140, sortable: true, hideInDetails: false, flexible: false },
+  { key: "type", label: "Type", defaultWidth: 76, minWidth: 52, maxWidth: 480, sortable: true, hideInDetails: false, flexible: false },
   { key: "rule", label: "Rule", defaultWidth: 220, minWidth: 120, maxWidth: 1200, sortable: true, hideInDetails: false, flexible: true },
   { key: "method", label: "Method", defaultWidth: 90, minWidth: 70, maxWidth: 140, sortable: true, hideInDetails: true, flexible: false },
   { key: "filter", label: "Filter", defaultWidth: 130, minWidth: 80, maxWidth: 300, sortable: true, hideInDetails: true, flexible: false },
@@ -2221,13 +2221,34 @@ const MODIFIED_REASON_LABELS = {
   SERVICE_WORKER_INJECT: "Service worker injection",
 };
 
+function isPermissionsOnlyMeta(record) {
+  const reasons = asList(record.raw && record.raw.modifiedMetaReason).map(
+    (value) => String(value).toUpperCase(),
+  );
+  if (!reasons.length) return false;
+  if (!reasons.every((value) => value === "PERMISSIONS_RULE")) return false;
+  return (
+    record.event === "metaModifiedProxyRequest" ||
+    record.status === "META_MODIFIED" ||
+    record.statusRaw.some((value) =>
+      /MODIFIED_META|META_MODIFIED/.test(String(value).toUpperCase()),
+    )
+  );
+}
+
 function isTrackingProtection(record) {
+  if (record.stealthOptions.length) return true;
+  if (
+    record.statusRaw.some((value) =>
+      /STEALTH|TRACKING_PROTECTION/.test(String(value).toUpperCase()),
+    )
+  ) {
+    return true;
+  }
+  if (isPermissionsOnlyMeta(record)) return false;
   if (record.event === "metaModifiedProxyRequest") return true;
   if (record.status === "META_MODIFIED") return true;
-  if (record.stealthOptions.length) return true;
-  return record.statusRaw.some((value) =>
-    /STEALTH|TRACKING_PROTECTION/.test(String(value).toUpperCase()),
-  );
+  return false;
 }
 
 function isCosmeticModule(record) {
@@ -2253,10 +2274,12 @@ function protectionOptions(record) {
     labels.push(STEALTH_OPTION_LABELS[option] || humanizeEvent(option));
   }
   for (const reason of asList(record.raw.modifiedMetaReason)) {
-    if (String(reason).toUpperCase() === "STEALTHMODE") continue;
+    const key = String(reason).toUpperCase();
+    if (key === "STEALTHMODE" || key === "PERMISSIONS_RULE") continue;
     labels.push(MODIFIED_REASON_LABELS[reason] || humanizeEvent(reason));
   }
   for (const reason of asList(record.raw.modifiedContentReasons)) {
+    if (String(reason).toUpperCase() === "PERMISSIONS_RULE") continue;
     labels.push(MODIFIED_REASON_LABELS[reason] || humanizeEvent(reason));
   }
   return dedupeStrings(labels);
@@ -2273,7 +2296,7 @@ function trackingProtectionRuleLabel(record) {
 function recordFilterLabel(record) {
   if (isTrackingProtection(record)) return "Tracking Protection";
   if (isCosmeticModule(record)) return "Cosmetic";
-  return record.filterSources.length ? record.filterSources.join(", ") : "—";
+  return record.filterSources.length ? record.filterSources.join(", ") : "";
 }
 
 function recordRuleLabel(record) {
@@ -2281,6 +2304,9 @@ function recordRuleLabel(record) {
     return trackingProtectionRuleLabel(record);
   }
   if (isCosmeticModule(record)) return "Cosmetic";
+  if (!record.rules.length && record.eventGroup === "firewall") {
+    return formatFirewallStrategy(record.firewallStrategy);
+  }
   return record.rules.length ? record.rules[0] : "";
 }
 
@@ -2310,7 +2336,10 @@ function compactDomainList(domains, separator) {
 }
 
 function formatRuleForCell(rule) {
-  const text = String(rule || "");
+  let text = String(rule || "");
+  let hidden = 0;
+  let truncated = false;
+
   const domainMatch = /(^|[,$])domain=([^,]*)/i.exec(text);
   if (domainMatch) {
     const domains = domainMatch[2]
@@ -2321,11 +2350,25 @@ function formatRuleForCell(rule) {
       const compact = compactDomainList(domains, "|");
       const start = domainMatch.index + domainMatch[1].length;
       const suffix = text.slice(domainMatch.index + domainMatch[0].length);
-      return {
-        text: `${text.slice(0, start)}domain=${compact.text}${suffix}`,
-        hidden: compact.hidden,
-        truncated: true,
-      };
+      text = `${text.slice(0, start)}domain=${compact.text}${suffix}`;
+      hidden += compact.hidden;
+      truncated = true;
+    }
+  }
+
+  const appMatch = /(^|[,$])app=([^,]*)/i.exec(text);
+  if (appMatch) {
+    const apps = appMatch[2]
+      .split("|")
+      .map((value) => value.trim())
+      .filter(Boolean);
+    if (apps.length > 15) {
+      const compact = compactDomainList(apps, "|");
+      const start = appMatch.index + appMatch[1].length;
+      const suffix = text.slice(appMatch.index + appMatch[0].length);
+      text = `${text.slice(0, start)}app=${compact.text}${suffix}`;
+      hidden += compact.hidden;
+      truncated = true;
     }
   }
 
@@ -2341,15 +2384,13 @@ function formatRuleForCell(rule) {
       const suffix = text.slice(
         cosmeticMatch.index + cosmeticMatch[1].length,
       );
-      return {
-        text: `${compact.text}${cosmeticMatch[1]}${suffix}`,
-        hidden: compact.hidden,
-        truncated: true,
-      };
+      text = `${compact.text}${cosmeticMatch[1]}${suffix}`;
+      hidden += compact.hidden;
+      truncated = true;
     }
   }
 
-  return { text, hidden: 0, truncated: false };
+  return { text, hidden, truncated };
 }
 
 function recordMethodLabel(record) {
@@ -2422,6 +2463,11 @@ const STEALTH_LABELS = {
   REMOVING_XCLIENT_DATA_HEADER: "Remove X-Client-Data",
 };
 
+// The human-readable label equals the raw key until the mapping is filled.
+const FIREWALL_STRATEGY_LABELS = {
+  blockedByAppRuleOnWifi: "blockedByAppRuleOnWifi",
+};
+
 function formatTls(value) {
   if (!value) return "";
   if (typeof value === "string") return value;
@@ -2460,7 +2506,7 @@ function formatFirewallStrategy(value) {
   if (!keys.length) return "";
   const key = keys[0];
   const detail = value[key];
-  const label = humanizeEvent(key);
+  const label = FIREWALL_STRATEGY_LABELS[key] || humanizeEvent(key);
   if (detail && typeof detail === "object" && detail.networkType) {
     return `${label} (${detail.networkType})`;
   }
@@ -4318,7 +4364,9 @@ function buildCell(column, record) {
       if (moduleView && options.length) {
         const more = document.createElement("span");
         more.className = "rule-more rule-options-more";
-        more.textContent = `+${options.length}`;
+        more.textContent = tracking
+          ? `+${options.length} Stealth`
+          : `+${options.length}`;
         more.dataset.tooltip = options.join("\n");
         more.dataset.forceTooltip = "true";
         inner.append(more);
@@ -4338,7 +4386,7 @@ function buildCell(column, record) {
           : label
         : record.rules.length
           ? record.rules.join("\n")
-          : "";
+          : formatted.text;
       cell.dataset.tooltipKind = moduleView ? "" : "mono";
       if (formatted.hidden > 0 || (moduleView && options.length)) {
         cell.dataset.forceTooltip = "true";
@@ -4371,7 +4419,7 @@ function buildCell(column, record) {
     case "source": {
       const text = document.createElement("span");
       text.className = "cell-source-text truncate";
-      text.textContent = record.referer || "—";
+      text.textContent = record.referer || "";
       cell.dataset.tooltip = record.referer || "";
       cell.append(text);
       break;
@@ -4755,6 +4803,8 @@ function openDetails(record, index) {
   }
   closeSidebar({ restoreFocus: false });
   applyDetailsWidth();
+  // The Android log has no app icon, so the badge shows the app initial.
+  // Show a real icon here when a source log supplies one.
   const detailsBadgeColor = appColor(record.app);
   els.detailsBadge.style.background = detailsBadgeColor;
   els.detailsBadge.style.color = appTextColor(detailsBadgeColor);
@@ -5393,6 +5443,17 @@ function scheduleTooltipHide() {
   }, 250);
 }
 
+function scheduleTooltipHideOnFocusOut() {
+  if (!els.cellTooltip.hidden && els.cellTooltip.matches(":hover")) {
+    if (tooltipHideTimer !== null) {
+      clearTimeout(tooltipHideTimer);
+      tooltipHideTimer = null;
+    }
+    return;
+  }
+  scheduleTooltipHide();
+}
+
 function startColumnDrag(event) {
   const handle = event.target.closest(".col-resizer");
   if (!handle) return;
@@ -5935,7 +5996,7 @@ els.virtualRows.addEventListener("focusin", (event) => {
   const cell = event.target.closest("[data-tooltip]");
   if (cell) scheduleTooltip(cell);
 });
-els.virtualRows.addEventListener("focusout", scheduleTooltipHide);
+els.virtualRows.addEventListener("focusout", scheduleTooltipHideOnFocusOut);
 els.cellTooltip.addEventListener("mouseenter", () => {
   if (tooltipHideTimer !== null) {
     clearTimeout(tooltipHideTimer);
@@ -5943,13 +6004,20 @@ els.cellTooltip.addEventListener("mouseenter", () => {
   }
 });
 els.cellTooltip.addEventListener("mouseleave", scheduleTooltipHide);
+els.cellTooltip.addEventListener("pointerdown", (event) => {
+  if (tooltipHideTimer !== null) {
+    clearTimeout(tooltipHideTimer);
+    tooltipHideTimer = null;
+  }
+  event.stopPropagation();
+});
 els.cellTooltip.addEventListener("focusin", () => {
   if (tooltipHideTimer !== null) {
     clearTimeout(tooltipHideTimer);
     tooltipHideTimer = null;
   }
 });
-els.cellTooltip.addEventListener("focusout", scheduleTooltipHide);
+els.cellTooltip.addEventListener("focusout", scheduleTooltipHideOnFocusOut);
 els.cellTooltipCopy.addEventListener("click", async (event) => {
   event.stopPropagation();
   await copyText(els.cellTooltipText.textContent);

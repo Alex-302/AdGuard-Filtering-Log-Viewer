@@ -33,6 +33,16 @@ async function search(page, value) {
   await page.waitForSelector("#virtual-rows tr.log-row");
 }
 
+async function enableSourceColumn(page) {
+  await page.locator("#toggle-columns").click();
+  await page.waitForTimeout(150);
+  const input = page.locator('#columns-menu input[data-column="source"]');
+  if (!(await input.isChecked())) await input.check();
+  await page.waitForTimeout(200);
+  await page.keyboard.press("Escape");
+  await page.waitForTimeout(150);
+}
+
 function firstRow(page) {
   return page.locator("#virtual-rows tr.log-row").first();
 }
@@ -75,6 +85,18 @@ test("new Android format and modules", async (page) => {
     "Tracking Protection",
   );
   assert.match(await row.locator('td[data-col="rule"]').textContent(), /^Stealth/);
+  assert.equal(
+    await row.locator(".rule-options-more").textContent(),
+    "+2 Stealth",
+  );
+  assert.match(
+    await row.locator(".rule-options-more").getAttribute("data-tooltip"),
+    /Do Not Track/,
+  );
+  assert.match(
+    await row.locator(".rule-options-more").getAttribute("data-tooltip"),
+    /Remove X-Client-Data/,
+  );
   assert.match(await row.getAttribute("class"), /category-modified/);
   await row.click();
   await wait(200);
@@ -95,6 +117,10 @@ test("new Android format and modules", async (page) => {
     await row.locator('td[data-col="rule"]').textContent(),
     /^Cosmetic \/ Stealth/,
   );
+  assert.equal(
+    await row.locator(".rule-options-more").textContent(),
+    "+3 Stealth",
+  );
   assert.match(await row.getAttribute("class"), /category-cosmetic/);
 
   await search(page, "cosmetic-only");
@@ -104,6 +130,11 @@ test("new Android format and modules", async (page) => {
     "Cosmetic",
   );
   assert.match(await row.locator('td[data-col="rule"]').textContent(), /^Cosmetic/);
+  assert.equal(await row.locator(".rule-options-more").textContent(), "+1");
+  assert.doesNotMatch(
+    await row.locator(".rule-options-more").textContent(),
+    /Stealth/,
+  );
   assert.match(await row.getAttribute("class"), /category-cosmetic/);
   await row.click();
   await wait(200);
@@ -114,17 +145,23 @@ test("new Android format and modules", async (page) => {
 
   await search(page, "challenges.example.com");
   row = firstRow(page);
-  assert.equal(
-    await row.locator('td[data-col="filter"]').textContent(),
-    "Tracking Protection",
+  assert.equal(await row.locator('td[data-col="filter"]').textContent(), "");
+  assert.equal(await row.locator('td[data-col="rule"]').textContent(), "—");
+  assert.equal(await row.locator(".rule-options-more").count(), 0);
+  assert.doesNotMatch(
+    await row.locator('td[data-col="rule"]').textContent(),
+    /Stealth/,
   );
-  assert.match(await row.locator('td[data-col="rule"]').textContent(), /^Stealth/);
-  assert.match(await row.getAttribute("class"), /category-modified/);
   await row.click();
   await wait(200);
   details = await page.locator("#details").textContent();
   assert.match(details, /Modified Meta/);
-  assert.match(details, /Permissions rule/);
+  assert.doesNotMatch(details, /Permissions rule/);
+  assert.match(details, /PERMISSIONS_RULE/);
+  assert.equal(
+    await page.locator("#details-rules .rule-option").count(),
+    0,
+  );
   await page.keyboard.press("Escape");
   await wait(150);
 
@@ -225,6 +262,305 @@ test("domain lists, tooltips, and popups", async (page) => {
     await page.locator("#cell-tooltip-text").textContent(),
     /Other, Ajax/,
   );
+});
+
+test("app lists are compacted", async (page) => {
+  await page.addInitScript(() => {
+    window.__copied = "";
+    if (navigator.clipboard) {
+      Object.defineProperty(navigator.clipboard, "writeText", {
+        configurable: true,
+        value: async (text) => {
+          window.__copied = text;
+        },
+      });
+    }
+  });
+  await load(page, "rule-app-lists.json");
+  await search(page, "app-list.example");
+  const ruleCell = firstRow(page).locator('td[data-col="rule"]');
+  const ruleText = await ruleCell.textContent();
+  assert.match(
+    ruleText,
+    /app=com\.example\.browser\|com\.example\.mail\|com\.example\.news\.\.\.\+14\.\.\.\|com\.discord\|com\.slack\|com\.microsoft\.teams$/,
+  );
+  assert.equal(await ruleCell.locator(".rule-more").count(), 0);
+  const fullRule = await ruleCell.getAttribute("data-tooltip");
+  assert.match(fullRule, /com\.microsoft\.teams$/);
+  assert.doesNotMatch(fullRule, /\+14/);
+
+  await ruleCell.hover();
+  await wait(400);
+  assert.equal(
+    await page.locator("#cell-tooltip").evaluate((el) => el.hidden),
+    false,
+  );
+  assert.equal(await page.locator("#cell-tooltip-text").textContent(), fullRule);
+  await page.mouse.move(5, 5);
+  await wait(400);
+
+  await firstRow(page).click();
+  await wait(200);
+  const detailsCode = page.locator("#details-rules .rule-row code").first();
+  assert.equal(await detailsCode.textContent(), ruleText);
+  assert.equal(await detailsCode.getAttribute("title"), fullRule);
+  assert.equal(
+    await page.locator("#details-rules .rule-row .copy-button").count(),
+    1,
+  );
+  await page.locator("#details-rules .rule-row .copy-button").first().click();
+  await wait(150);
+  assert.equal(await page.evaluate(() => window.__copied), fullRule);
+  await page.keyboard.press("Escape");
+  await wait(150);
+
+  await search(page, "app-list-comma.example");
+  const commaText = await firstRow(page)
+    .locator('td[data-col="rule"]')
+    .textContent();
+  assert.match(
+    commaText,
+    /,app=com\.example\.browser\|com\.example\.mail\|com\.example\.news\.\.\.\+14\.\.\.\|com\.discord\|com\.slack\|com\.microsoft\.teams$/,
+  );
+
+  await search(page, "app-list-short.example");
+  assert.equal(
+    await firstRow(page).locator('td[data-col="rule"]').textContent(),
+    "||app-list-short.example^$network,app=com.example.browser|com.example.mail|com.example.news",
+  );
+
+  await search(page, "app-list-dollar.example");
+  const dollarText = await firstRow(page)
+    .locator('td[data-col="rule"]')
+    .textContent();
+  assert.match(
+    dollarText,
+    /\$app=com\.example\.browser\|com\.example\.mail\|com\.example\.news\.\.\.\+14\.\.\.\|com\.discord\|com\.slack\|com\.microsoft\.teams$/,
+  );
+
+  await search(page, "app-list-both.example");
+  const bothText = await firstRow(page)
+    .locator('td[data-col="rule"]')
+    .textContent();
+  assert.match(
+    bothText,
+    /domain=site1\.com\|site2\.com\|site3\.com\.\.\.\+14\.\.\.\|site18\.com\|site19\.com\|site20\.com,app=com\.example\.browser\|com\.example\.mail\|com\.example\.news\.\.\.\+14\.\.\.\|com\.discord\|com\.slack\|com\.microsoft\.teams$/,
+  );
+});
+
+test("tooltip stays open on click and uses larger fonts", async (page) => {
+  await load(page, "type-long.json");
+  const typeCell = firstRow(page).locator('td[data-col="type"]');
+  await typeCell.hover();
+  await wait(400);
+  const popup = page.locator("#cell-tooltip");
+  assert.equal(await popup.evaluate((el) => el.hidden), false);
+  assert.equal(
+    await popup.evaluate((el) => getComputedStyle(el).fontSize),
+    "14px",
+  );
+  let box = await popup.boundingBox();
+  await page.mouse.click(box.x + 20, box.y + 12);
+  await wait(350);
+  assert.equal(
+    await popup.evaluate((el) => el.hidden),
+    false,
+    "Tooltip closed after a click on its text",
+  );
+  await page.mouse.move(5, 5);
+  await wait(400);
+  assert.equal(await popup.evaluate((el) => el.hidden), true);
+
+  await load(page, "android-new.json");
+  await search(page, "cookieconsent");
+  const ruleCell = firstRow(page).locator('td[data-col="rule"]');
+  await ruleCell.hover();
+  await wait(400);
+  assert.equal(await popup.evaluate((el) => el.hidden), false);
+  assert.equal(
+    await page
+      .locator("#cell-tooltip-text")
+      .evaluate((el) => getComputedStyle(el).fontSize),
+    "13px",
+  );
+  assert.equal(
+    await page
+      .locator("#cell-tooltip-copy")
+      .evaluate((el) => getComputedStyle(el).fontSize),
+    "13px",
+  );
+  box = await popup.boundingBox();
+  await page.mouse.click(box.x + 30, box.y + 12);
+  await wait(350);
+  assert.equal(
+    await popup.evaluate((el) => el.hidden),
+    false,
+    "Mono tooltip closed after a click on its text",
+  );
+  await page.mouse.move(5, 5);
+  await wait(400);
+  assert.equal(await popup.evaluate((el) => el.hidden), true);
+});
+
+test("empty Source and Filter cells stay blank", async (page) => {
+  await load(page, "empty-source-filter.json");
+  await enableSourceColumn(page);
+  assert.equal(await page.locator('#log-head th[data-col="source"]').count(), 1);
+
+  for (const term of [
+    "dns://ads.example.com",
+    "203.0.113.10",
+    "tunnel.example.com",
+    "1.2.3.4",
+  ]) {
+    await search(page, term);
+    const row = firstRow(page);
+    assert.equal(
+      await row.locator('td[data-col="source"]').textContent(),
+      "",
+      `Source is not blank for ${term}`,
+    );
+    assert.equal(
+      await row.locator('td[data-col="filter"]').textContent(),
+      "",
+      `Filter is not blank for ${term}`,
+    );
+  }
+
+  await search(page, "ads.example.com/banner.js");
+  assert.equal(
+    await firstRow(page).locator('td[data-col="filter"]').textContent(),
+    "AdGuard Base filter",
+  );
+
+  await load(page, "android-connections.json");
+  await enableSourceColumn(page);
+  await search(page, "tcp://example.com");
+  assert.equal(
+    await firstRow(page).locator('td[data-col="source"]').textContent(),
+    "",
+  );
+  assert.equal(
+    await firstRow(page).locator('td[data-col="filter"]').textContent(),
+    "",
+  );
+  await search(page, "203.0.113.10");
+  assert.equal(
+    await firstRow(page).locator('td[data-col="source"]').textContent(),
+    "",
+  );
+  assert.equal(
+    await firstRow(page).locator('td[data-col="filter"]').textContent(),
+    "",
+  );
+
+  await load(page, "android-new.json");
+  await enableSourceColumn(page);
+  await search(page, "dns://ads.example.com");
+  assert.equal(
+    await firstRow(page).locator('td[data-col="source"]').textContent(),
+    "",
+  );
+  assert.equal(
+    await firstRow(page).locator('td[data-col="filter"]').textContent(),
+    "DNS filter 2",
+  );
+
+  await load(page, "android-old.json");
+  await enableSourceColumn(page);
+  await search(page, "1.2.3.4");
+  assert.equal(
+    await firstRow(page).locator('td[data-col="source"]').textContent(),
+    "",
+  );
+  assert.equal(
+    await firstRow(page).locator('td[data-col="filter"]').textContent(),
+    "User Rules",
+  );
+});
+
+test("firewall strategy mapping", async (page) => {
+  await load(page, "firewall-strategy.json");
+  const row = firstRow(page);
+  assert.equal(
+    await row.locator('td[data-col="rule"]').textContent(),
+    "blockedByAppRuleOnWifi (WiFi)",
+  );
+  assert.equal(await row.locator('td[data-col="filter"]').textContent(), "");
+  assert.equal(
+    await row.locator('td[data-col="rule"]').getAttribute("data-tooltip"),
+    "blockedByAppRuleOnWifi (WiFi)",
+  );
+  await row.click();
+  await wait(200);
+  const firewall = await page.evaluate(() => {
+    const term = [...document.querySelectorAll("#details-fields dt")].find(
+      (element) => element.textContent === "Firewall",
+    );
+    return term && term.nextElementSibling
+      ? term.nextElementSibling.textContent
+      : "";
+  });
+  assert.equal(firewall.trim(), "blockedByAppRuleOnWifi (WiFi)");
+  assert.doesNotMatch(
+    await page.locator("#details-fields").textContent(),
+    /Blocked By App Rule On Wifi/,
+  );
+});
+
+test("Type column resize cap", async (page) => {
+  await load(page, "type-long.json");
+  const typeCell = firstRow(page).locator('td[data-col="type"]');
+  assert.match(await typeCell.textContent(), /HTML/);
+  assert.match(await typeCell.textContent(), /Subdocument/);
+
+  const handle = page.locator('#log-head th[data-col="type"] .col-resizer');
+  let box = await handle.boundingBox();
+  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(
+    box.x + box.width / 2 + 200,
+    box.y + box.height / 2,
+    { steps: 10 },
+  );
+  await page.mouse.up();
+  await wait(250);
+  let width = await page
+    .locator('#log-cols col[data-col="type"]')
+    .evaluate((el) => parseFloat(el.style.width));
+  assert.ok(width > 200, `Type column width is ${width}`);
+  assert.ok(
+    await typeCell.evaluate((el) => {
+      const text = el.querySelector(".cell-type-text");
+      return text.scrollWidth <= text.clientWidth + 1;
+    }),
+    "Type text is still truncated",
+  );
+  await typeCell.hover();
+  await wait(400);
+  assert.equal(
+    await page.locator("#cell-tooltip").evaluate((el) => el.hidden),
+    true,
+    "Tooltip appeared for fitting Type text",
+  );
+
+  await handle.focus();
+  for (let index = 0; index < 20; index += 1) {
+    await page.keyboard.press("ArrowRight");
+  }
+  await wait(250);
+  width = await page
+    .locator('#log-cols col[data-col="type"]')
+    .evaluate((el) => parseFloat(el.style.width));
+  assert.equal(width, 480);
+
+  await page.setViewportSize({ width: 1000, height: 800 });
+  await wait(400);
+  assert.equal(await page.locator("#log-table").evaluate((el) => el.hidden), false);
+  width = await page
+    .locator('#log-cols col[data-col="type"]')
+    .evaluate((el) => parseFloat(el.style.width));
+  assert.ok(width > 200, `Narrow Type column width is ${width}`);
 });
 
 test("sorting, resizing, and column visibility", async (page) => {

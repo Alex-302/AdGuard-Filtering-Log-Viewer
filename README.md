@@ -35,16 +35,27 @@ The viewer processes the file locally. No data is sent to the network.
   `Ctrl-F` or `/` to focus it.
 - Click any table header to sort. Drag the header edge to resize a
   column; double-click the edge to reset it. The keyboard arrows resize
-  a focused edge.
+  a focused edge. The `Type` column can be widened to show long content
+  type lists.
 - `Time` and `URL` are always visible. Use `Columns` or right-click the
   header to hide or show the other columns. `App` shows the raw package
   name, process name, or app path.
 - Hover a cut cell to see the full value. The popup can be selected and
-  copied, and it stays open while the pointer is over it.
+  copied, and it stays open while the pointer is over it. Clicking the
+  popup text does not close it.
 - Select a request to see its details. Details are docked on desktop,
-  shown below the table on a tablet, and full-screen on a phone.
+  shown below the table on a tablet, and full-screen on a phone. The app
+  badge in the details header shows the app initial. A real icon appears
+  only when the source log supplies one; the Android log has no icon
+  field.
+- Rules with long `domain=` or `app=` lists are compacted in the middle.
+  The cell shows the first three and last three values with `+N` hidden
+  values. Hover shows the full rule.
 - Modified requests show the `Tracking Protection` or `Cosmetic` module
-  in the `Filter` column and the module option count in `Rule`.
+  in the `Filter` column. Tracking Protection rows show the option count
+  as `+N Stealth` in `Rule`. Cosmetic-only rows show `+N`.
+- Empty `Source` and `Filter` cells stay blank. A missing value does not
+  show a dash.
 - Enable `Unique URLs only` to merge repeated requests.
 - The viewer saves the selected filters and column layout for the next
   visit.

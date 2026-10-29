@@ -1,0 +1,25 @@
+[
+  {
+    "id": 1,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.browser",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://types.example.com/page",
+        "domain": "types.example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": ["AJAX", "HTML", "SUBDOCUMENT"],
+        "requestStatuses": [],
+        "creationTime": 1761330000000,
+        "elapsedTime": 4,
+        "sent": 100,
+        "received": 2000,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  }
+]
