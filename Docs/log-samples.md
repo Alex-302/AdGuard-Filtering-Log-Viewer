@@ -242,7 +242,7 @@ Sample: `Docs/samples/windows.json`.
 - Test the new event names in the sidebar filters.
 - Test content types for the new proxy events.
 - Test the humanized labels are gone after mapping.
-- Test `$app=` and `,app=` list compaction.
+- Test `$app=`, `$app=~`, `,app=`, and `,app=~` list compaction.
 - Test blank Source and Filter cells.
 - Test the firewall strategy mapping.
 - Test the details app badge stays an initial placeholder.
@@ -258,10 +258,10 @@ Sample: `Docs/samples/windows.json`.
 
 The viewer compacts both domain lists:
 
-- `/cookieconsent.$domain=qrcodemonkey.net|...|jagadzet.pl`
-  becomes `...qrcodemonkey.net|wedos.com|scssoft.com...+14...|...`.
-- `a.com,b.com,c.com,...,t.com##.ad-banner`
-  becomes `a.com,b.com,c.com,...+14...r.com,s.com,t.com##.ad-banner`.
+- `/cookieconsent.$domain=qrcodemonkey.net|…|jagadzet.pl`
+  becomes `/cookieconsent.$domain=qrcodemonkey.net|wedos.com|scssoft.com…+14…|markat.com.pl|itpizzalasporto.plateform.app|jagadzet.pl`.
+- `a.com,b.com,c.com,…,t.com##.ad-banner`
+  becomes `a.com,b.com,c.com,…+14…r.com,s.com,t.com##.ad-banner`.
 
 The full rule is available in the cell popup and in the details.
 The copy button copies the full rule.
@@ -283,18 +283,51 @@ row.
 - A short `,app=` list with 3 package names. It stays unchanged.
 - A rule with a long `domain=` list and a long `app=` list.
 
+`tests/fixtures/rule-app-long-lists.json` has these records:
+
+- A `$app=` list with 342 package names.
+- A `$app=~` list with 342 package names.
+- A `$network,app=` list with 346 package names.
+- A `$app=` list with 16 package names. It is the first compacted
+  size.
+- A `$app=` list with 15 package names. It stays unchanged.
+- A `,app=~` list with 20 package names.
+- A `$app=` list with 20 package names followed by `,third-party`.
+
 The viewer compacts all app-list forms above 15 values:
 
-- `/^77\.88\.(4|5){2}.(5|8){2}/$network,app=a|b|c|...`
-  becomes `...app=a|b|c...+14...|r|s|t`.
-- `@@||example.com^$network,app=a|b|c|...`
-  becomes `...app=a|b|c...+14...|r|s|t`.
-- `||example.com^$app=a|b|c|...`
-  becomes `...$app=a|b|c...+14...|r|s|t`.
+- `$network,app=a|b|c|…|t` becomes `$network,app=a…+18…t` for a
+  20-value comma list.
+- `@@||example.com^$network,app=a|b|c|…|t` becomes
+  `@@||example.com^$network,app=a…+18…t`.
+- `||example.com^$app=a|b|c|…|t` becomes
+  `||example.com^$app=a…+18…t` for a 20-value standalone list.
+- `||example.com^$app=~a|~b|~c|…|~t` becomes
+  `||example.com^$app=~a…+18…~t`.
+- `||example.com^$network,app=~a|~b|~c|…|~t` becomes
+  `||example.com^$network,app=~a…+18…~t` for a 20-value comma
+  exception list.
+- `||example.com^$app=a|b|c|…|t,third-party` becomes
+  `||example.com^$app=a…+18…t,third-party`.
 
-The first 3 and last 3 values are kept. `+14` is the number of hidden
-values. A rule with both lists compacts both in one pass. The full rule
-is available in the cell popup and in the details.
+A 15-value `$app=` list stays unchanged. A 16-value list becomes
+`first…+14…last`.
+
+All app-list forms (`$app=`, `$app=~`, `,app=`, `,app=~`) keep the
+first and last value and preserve `~` on each shown value. `+N` is the
+number of hidden values: total - 2. The compacted text uses `…`, not
+three dots. A rule with both a long domain list and a long app list
+compacts both in one pass. The full rule is available in the cell popup
+and in the details.
+
+Long examples:
+
+- 342-value `$app=` list:
+  `$app=ab.exchangerate…+340…com.openmygame.games.android.fillwordsoffline`.
+- 342-value `$app=~` list:
+  `$app=~ab.exchangerate…+340…~com.openmygame.games.android.fillwordsoffline`.
+- 346-value `$network,app=` list:
+  `/^77\.88\.(4|5){2}.(5|8){2}/$network,app=ab.exchangerate…+344…com.openmygame.games.android.fillwordsoffline`.
 
 ## Firewall strategy
 

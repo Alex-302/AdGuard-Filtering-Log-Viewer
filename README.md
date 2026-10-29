@@ -50,9 +50,11 @@ The viewer processes the file locally. No data is sent to the network.
   badge in the details header shows the app initial. A real icon appears
   only when the source log supplies one; the Android log has no icon
   field.
-- Rules with long `domain=` or `app=` lists are compacted in the middle.
-  The cell shows the first three and last three values with `+N` hidden
-  values. Hover shows the full rule.
+- Rules with long `domain=` lists keep the first three and last three
+  values. Long app lists (`$app=`, `$app=~`, `,app=`, `,app=~`) keep
+  the first and last value. The compacted text uses `…+N…`; `~` stays
+  on each shown value. Hover and details show the full rule. Copy in
+  details copies it.
 - Modified requests show the `Tracking Protection` or `Cosmetic` module
   in the `Filter` column. Tracking Protection rows show the option count
   as `+N Stealth` in `Rule`. Cosmetic-only rows show `+N`.

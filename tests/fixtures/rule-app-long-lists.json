@@ -1,0 +1,205 @@
+[
+  {
+    "id": 1,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.browser",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://app-list-long-dollar.example/record",
+        "domain": "app-list-long-dollar.example",
+        "thirdPartyRequest": false,
+        "resourceTypes": ["DOCUMENT"],
+        "requestStatuses": [],
+        "creationTime": 1761310005001,
+        "elapsedTime": 4,
+        "sent": 100,
+        "received": 2000,
+        "httpMethod": "GET",
+        "appliedRules": {
+          "url": {
+            "filterListId": 2,
+            "isWhitelist": false,
+            "ruleText": "||app-list-long-dollar.example^$app=ab.exchangerate|com.example.app001|com.example.app002|com.example.app003|com.example.app004|com.example.app005|com.example.app006|com.example.app007|com.example.app008|com.example.app009|com.example.app010|com.example.app011|com.example.app012|com.example.app013|com.example.app014|com.example.app015|com.example.app016|com.example.app017|com.example.app018|com.example.app019|com.example.app020|com.example.app021|com.example.app022|com.example.app023|com.example.app024|com.example.app025|com.example.app026|com.example.app027|com.example.app028|com.example.app029|com.example.app030|com.example.app031|com.example.app032|com.example.app033|com.example.app034|com.example.app035|com.example.app036|com.example.app037|com.example.app038|com.example.app039|com.example.app040|com.example.app041|com.example.app042|com.example.app043|com.example.app044|com.example.app045|com.example.app046|com.example.app047|com.example.app048|com.example.app049|com.example.app050|com.example.app051|com.example.app052|com.example.app053|com.example.app054|com.example.app055|com.example.app056|com.example.app057|com.example.app058|com.example.app059|com.example.app060|com.example.app061|com.example.app062|com.example.app063|com.example.app064|com.example.app065|com.example.app066|com.example.app067|com.example.app068|com.example.app069|com.example.app070|com.example.app071|com.example.app072|com.example.app073|com.example.app074|com.example.app075|com.example.app076|com.example.app077|com.example.app078|com.example.app079|com.example.app080|com.example.app081|com.example.app082|com.example.app083|com.example.app084|com.example.app085|com.example.app086|com.example.app087|com.example.app088|com.example.app089|com.example.app090|com.example.app091|com.example.app092|com.example.app093|com.example.app094|com.example.app095|com.example.app096|com.example.app097|com.example.app098|com.example.app099|com.example.app100|com.example.app101|com.example.app102|com.example.app103|com.example.app104|com.example.app105|com.example.app106|com.example.app107|com.example.app108|com.example.app109|com.example.app110|com.example.app111|com.example.app112|com.example.app113|com.example.app114|com.example.app115|com.example.app116|com.example.app117|com.example.app118|com.example.app119|com.example.app120|com.example.app121|com.example.app122|com.example.app123|com.example.app124|com.example.app125|com.example.app126|com.example.app127|com.example.app128|com.example.app129|com.example.app130|com.example.app131|com.example.app132|com.example.app133|com.example.app134|com.example.app135|com.example.app136|com.example.app137|com.example.app138|com.example.app139|com.example.app140|com.example.app141|com.example.app142|com.example.app143|com.example.app144|com.example.app145|com.example.app146|com.example.app147|com.example.app148|com.example.app149|com.example.app150|com.example.app151|com.example.app152|com.example.app153|com.example.app154|com.example.app155|com.example.app156|com.example.app157|com.example.app158|com.example.app159|com.example.app160|com.example.app161|com.example.app162|com.example.app163|com.example.app164|com.example.app165|com.example.app166|com.example.app167|com.example.app168|com.example.app169|com.example.app170|com.example.app171|com.example.app172|com.example.app173|com.example.app174|com.example.app175|com.example.app176|com.example.app177|com.example.app178|com.example.app179|com.example.app180|com.example.app181|com.example.app182|com.example.app183|com.example.app184|com.example.app185|com.example.app186|com.example.app187|com.example.app188|com.example.app189|com.example.app190|com.example.app191|com.example.app192|com.example.app193|com.example.app194|com.example.app195|com.example.app196|com.example.app197|com.example.app198|com.example.app199|com.example.app200|com.example.app201|com.example.app202|com.example.app203|com.example.app204|com.example.app205|com.example.app206|com.example.app207|com.example.app208|com.example.app209|com.example.app210|com.example.app211|com.example.app212|com.example.app213|com.example.app214|com.example.app215|com.example.app216|com.example.app217|com.example.app218|com.example.app219|com.example.app220|com.example.app221|com.example.app222|com.example.app223|com.example.app224|com.example.app225|com.example.app226|com.example.app227|com.example.app228|com.example.app229|com.example.app230|com.example.app231|com.example.app232|com.example.app233|com.example.app234|com.example.app235|com.example.app236|com.example.app237|com.example.app238|com.example.app239|com.example.app240|com.example.app241|com.example.app242|com.example.app243|com.example.app244|com.example.app245|com.example.app246|com.example.app247|com.example.app248|com.example.app249|com.example.app250|com.example.app251|com.example.app252|com.example.app253|com.example.app254|com.example.app255|com.example.app256|com.example.app257|com.example.app258|com.example.app259|com.example.app260|com.example.app261|com.example.app262|com.example.app263|com.example.app264|com.example.app265|com.example.app266|com.example.app267|com.example.app268|com.example.app269|com.example.app270|com.example.app271|com.example.app272|com.example.app273|com.example.app274|com.example.app275|com.example.app276|com.example.app277|com.example.app278|com.example.app279|com.example.app280|com.example.app281|com.example.app282|com.example.app283|com.example.app284|com.example.app285|com.example.app286|com.example.app287|com.example.app288|com.example.app289|com.example.app290|com.example.app291|com.example.app292|com.example.app293|com.example.app294|com.example.app295|com.example.app296|com.example.app297|com.example.app298|com.example.app299|com.example.app300|com.example.app301|com.example.app302|com.example.app303|com.example.app304|com.example.app305|com.example.app306|com.example.app307|com.example.app308|com.example.app309|com.example.app310|com.example.app311|com.example.app312|com.example.app313|com.example.app314|com.example.app315|com.example.app316|com.example.app317|com.example.app318|com.example.app319|com.example.app320|com.example.app321|com.example.app322|com.example.app323|com.example.app324|com.example.app325|com.example.app326|com.example.app327|com.example.app328|com.example.app329|com.example.app330|com.example.app331|com.example.app332|com.example.app333|com.example.app334|com.example.app335|com.example.app336|com.example.app337|com.example.app338|com.example.app339|com.example.app340|com.openmygame.games.android.fillwordsoffline"
+          }
+        },
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 2,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.browser",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://app-list-long-tilde.example/record",
+        "domain": "app-list-long-tilde.example",
+        "thirdPartyRequest": false,
+        "resourceTypes": ["DOCUMENT"],
+        "requestStatuses": [],
+        "creationTime": 1761310005002,
+        "elapsedTime": 4,
+        "sent": 100,
+        "received": 2000,
+        "httpMethod": "GET",
+        "appliedRules": {
+          "url": {
+            "filterListId": 2,
+            "isWhitelist": false,
+            "ruleText": "||app-list-long-tilde.example^$app=~ab.exchangerate|~com.example.app001|~com.example.app002|~com.example.app003|~com.example.app004|~com.example.app005|~com.example.app006|~com.example.app007|~com.example.app008|~com.example.app009|~com.example.app010|~com.example.app011|~com.example.app012|~com.example.app013|~com.example.app014|~com.example.app015|~com.example.app016|~com.example.app017|~com.example.app018|~com.example.app019|~com.example.app020|~com.example.app021|~com.example.app022|~com.example.app023|~com.example.app024|~com.example.app025|~com.example.app026|~com.example.app027|~com.example.app028|~com.example.app029|~com.example.app030|~com.example.app031|~com.example.app032|~com.example.app033|~com.example.app034|~com.example.app035|~com.example.app036|~com.example.app037|~com.example.app038|~com.example.app039|~com.example.app040|~com.example.app041|~com.example.app042|~com.example.app043|~com.example.app044|~com.example.app045|~com.example.app046|~com.example.app047|~com.example.app048|~com.example.app049|~com.example.app050|~com.example.app051|~com.example.app052|~com.example.app053|~com.example.app054|~com.example.app055|~com.example.app056|~com.example.app057|~com.example.app058|~com.example.app059|~com.example.app060|~com.example.app061|~com.example.app062|~com.example.app063|~com.example.app064|~com.example.app065|~com.example.app066|~com.example.app067|~com.example.app068|~com.example.app069|~com.example.app070|~com.example.app071|~com.example.app072|~com.example.app073|~com.example.app074|~com.example.app075|~com.example.app076|~com.example.app077|~com.example.app078|~com.example.app079|~com.example.app080|~com.example.app081|~com.example.app082|~com.example.app083|~com.example.app084|~com.example.app085|~com.example.app086|~com.example.app087|~com.example.app088|~com.example.app089|~com.example.app090|~com.example.app091|~com.example.app092|~com.example.app093|~com.example.app094|~com.example.app095|~com.example.app096|~com.example.app097|~com.example.app098|~com.example.app099|~com.example.app100|~com.example.app101|~com.example.app102|~com.example.app103|~com.example.app104|~com.example.app105|~com.example.app106|~com.example.app107|~com.example.app108|~com.example.app109|~com.example.app110|~com.example.app111|~com.example.app112|~com.example.app113|~com.example.app114|~com.example.app115|~com.example.app116|~com.example.app117|~com.example.app118|~com.example.app119|~com.example.app120|~com.example.app121|~com.example.app122|~com.example.app123|~com.example.app124|~com.example.app125|~com.example.app126|~com.example.app127|~com.example.app128|~com.example.app129|~com.example.app130|~com.example.app131|~com.example.app132|~com.example.app133|~com.example.app134|~com.example.app135|~com.example.app136|~com.example.app137|~com.example.app138|~com.example.app139|~com.example.app140|~com.example.app141|~com.example.app142|~com.example.app143|~com.example.app144|~com.example.app145|~com.example.app146|~com.example.app147|~com.example.app148|~com.example.app149|~com.example.app150|~com.example.app151|~com.example.app152|~com.example.app153|~com.example.app154|~com.example.app155|~com.example.app156|~com.example.app157|~com.example.app158|~com.example.app159|~com.example.app160|~com.example.app161|~com.example.app162|~com.example.app163|~com.example.app164|~com.example.app165|~com.example.app166|~com.example.app167|~com.example.app168|~com.example.app169|~com.example.app170|~com.example.app171|~com.example.app172|~com.example.app173|~com.example.app174|~com.example.app175|~com.example.app176|~com.example.app177|~com.example.app178|~com.example.app179|~com.example.app180|~com.example.app181|~com.example.app182|~com.example.app183|~com.example.app184|~com.example.app185|~com.example.app186|~com.example.app187|~com.example.app188|~com.example.app189|~com.example.app190|~com.example.app191|~com.example.app192|~com.example.app193|~com.example.app194|~com.example.app195|~com.example.app196|~com.example.app197|~com.example.app198|~com.example.app199|~com.example.app200|~com.example.app201|~com.example.app202|~com.example.app203|~com.example.app204|~com.example.app205|~com.example.app206|~com.example.app207|~com.example.app208|~com.example.app209|~com.example.app210|~com.example.app211|~com.example.app212|~com.example.app213|~com.example.app214|~com.example.app215|~com.example.app216|~com.example.app217|~com.example.app218|~com.example.app219|~com.example.app220|~com.example.app221|~com.example.app222|~com.example.app223|~com.example.app224|~com.example.app225|~com.example.app226|~com.example.app227|~com.example.app228|~com.example.app229|~com.example.app230|~com.example.app231|~com.example.app232|~com.example.app233|~com.example.app234|~com.example.app235|~com.example.app236|~com.example.app237|~com.example.app238|~com.example.app239|~com.example.app240|~com.example.app241|~com.example.app242|~com.example.app243|~com.example.app244|~com.example.app245|~com.example.app246|~com.example.app247|~com.example.app248|~com.example.app249|~com.example.app250|~com.example.app251|~com.example.app252|~com.example.app253|~com.example.app254|~com.example.app255|~com.example.app256|~com.example.app257|~com.example.app258|~com.example.app259|~com.example.app260|~com.example.app261|~com.example.app262|~com.example.app263|~com.example.app264|~com.example.app265|~com.example.app266|~com.example.app267|~com.example.app268|~com.example.app269|~com.example.app270|~com.example.app271|~com.example.app272|~com.example.app273|~com.example.app274|~com.example.app275|~com.example.app276|~com.example.app277|~com.example.app278|~com.example.app279|~com.example.app280|~com.example.app281|~com.example.app282|~com.example.app283|~com.example.app284|~com.example.app285|~com.example.app286|~com.example.app287|~com.example.app288|~com.example.app289|~com.example.app290|~com.example.app291|~com.example.app292|~com.example.app293|~com.example.app294|~com.example.app295|~com.example.app296|~com.example.app297|~com.example.app298|~com.example.app299|~com.example.app300|~com.example.app301|~com.example.app302|~com.example.app303|~com.example.app304|~com.example.app305|~com.example.app306|~com.example.app307|~com.example.app308|~com.example.app309|~com.example.app310|~com.example.app311|~com.example.app312|~com.example.app313|~com.example.app314|~com.example.app315|~com.example.app316|~com.example.app317|~com.example.app318|~com.example.app319|~com.example.app320|~com.example.app321|~com.example.app322|~com.example.app323|~com.example.app324|~com.example.app325|~com.example.app326|~com.example.app327|~com.example.app328|~com.example.app329|~com.example.app330|~com.example.app331|~com.example.app332|~com.example.app333|~com.example.app334|~com.example.app335|~com.example.app336|~com.example.app337|~com.example.app338|~com.example.app339|~com.example.app340|~com.openmygame.games.android.fillwordsoffline"
+          }
+        },
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 3,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.browser",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://app-list-long-comma.example/record",
+        "domain": "app-list-long-comma.example",
+        "thirdPartyRequest": false,
+        "resourceTypes": ["DOCUMENT"],
+        "requestStatuses": [],
+        "creationTime": 1761310005003,
+        "elapsedTime": 4,
+        "sent": 100,
+        "received": 2000,
+        "httpMethod": "GET",
+        "appliedRules": {
+          "url": {
+            "filterListId": 2,
+            "isWhitelist": false,
+            "ruleText": "/^77\\.88\\.(4|5){2}.(5|8){2}/$network,app=ab.exchangerate|altergames.carlauncher|altergames.intellect_battle|com.example.app001|com.example.app002|com.example.app003|com.example.app004|com.example.app005|com.example.app006|com.example.app007|com.example.app008|com.example.app009|com.example.app010|com.example.app011|com.example.app012|com.example.app013|com.example.app014|com.example.app015|com.example.app016|com.example.app017|com.example.app018|com.example.app019|com.example.app020|com.example.app021|com.example.app022|com.example.app023|com.example.app024|com.example.app025|com.example.app026|com.example.app027|com.example.app028|com.example.app029|com.example.app030|com.example.app031|com.example.app032|com.example.app033|com.example.app034|com.example.app035|com.example.app036|com.example.app037|com.example.app038|com.example.app039|com.example.app040|com.example.app041|com.example.app042|com.example.app043|com.example.app044|com.example.app045|com.example.app046|com.example.app047|com.example.app048|com.example.app049|com.example.app050|com.example.app051|com.example.app052|com.example.app053|com.example.app054|com.example.app055|com.example.app056|com.example.app057|com.example.app058|com.example.app059|com.example.app060|com.example.app061|com.example.app062|com.example.app063|com.example.app064|com.example.app065|com.example.app066|com.example.app067|com.example.app068|com.example.app069|com.example.app070|com.example.app071|com.example.app072|com.example.app073|com.example.app074|com.example.app075|com.example.app076|com.example.app077|com.example.app078|com.example.app079|com.example.app080|com.example.app081|com.example.app082|com.example.app083|com.example.app084|com.example.app085|com.example.app086|com.example.app087|com.example.app088|com.example.app089|com.example.app090|com.example.app091|com.example.app092|com.example.app093|com.example.app094|com.example.app095|com.example.app096|com.example.app097|com.example.app098|com.example.app099|com.example.app100|com.example.app101|com.example.app102|com.example.app103|com.example.app104|com.example.app105|com.example.app106|com.example.app107|com.example.app108|com.example.app109|com.example.app110|com.example.app111|com.example.app112|com.example.app113|com.example.app114|com.example.app115|com.example.app116|com.example.app117|com.example.app118|com.example.app119|com.example.app120|com.example.app121|com.example.app122|com.example.app123|com.example.app124|com.example.app125|com.example.app126|com.example.app127|com.example.app128|com.example.app129|com.example.app130|com.example.app131|com.example.app132|com.example.app133|com.example.app134|com.example.app135|com.example.app136|com.example.app137|com.example.app138|com.example.app139|com.example.app140|com.example.app141|com.example.app142|com.example.app143|com.example.app144|com.example.app145|com.example.app146|com.example.app147|com.example.app148|com.example.app149|com.example.app150|com.example.app151|com.example.app152|com.example.app153|com.example.app154|com.example.app155|com.example.app156|com.example.app157|com.example.app158|com.example.app159|com.example.app160|com.example.app161|com.example.app162|com.example.app163|com.example.app164|com.example.app165|com.example.app166|com.example.app167|com.example.app168|com.example.app169|com.example.app170|com.example.app171|com.example.app172|com.example.app173|com.example.app174|com.example.app175|com.example.app176|com.example.app177|com.example.app178|com.example.app179|com.example.app180|com.example.app181|com.example.app182|com.example.app183|com.example.app184|com.example.app185|com.example.app186|com.example.app187|com.example.app188|com.example.app189|com.example.app190|com.example.app191|com.example.app192|com.example.app193|com.example.app194|com.example.app195|com.example.app196|com.example.app197|com.example.app198|com.example.app199|com.example.app200|com.example.app201|com.example.app202|com.example.app203|com.example.app204|com.example.app205|com.example.app206|com.example.app207|com.example.app208|com.example.app209|com.example.app210|com.example.app211|com.example.app212|com.example.app213|com.example.app214|com.example.app215|com.example.app216|com.example.app217|com.example.app218|com.example.app219|com.example.app220|com.example.app221|com.example.app222|com.example.app223|com.example.app224|com.example.app225|com.example.app226|com.example.app227|com.example.app228|com.example.app229|com.example.app230|com.example.app231|com.example.app232|com.example.app233|com.example.app234|com.example.app235|com.example.app236|com.example.app237|com.example.app238|com.example.app239|com.example.app240|com.example.app241|com.example.app242|com.example.app243|com.example.app244|com.example.app245|com.example.app246|com.example.app247|com.example.app248|com.example.app249|com.example.app250|com.example.app251|com.example.app252|com.example.app253|com.example.app254|com.example.app255|com.example.app256|com.example.app257|com.example.app258|com.example.app259|com.example.app260|com.example.app261|com.example.app262|com.example.app263|com.example.app264|com.example.app265|com.example.app266|com.example.app267|com.example.app268|com.example.app269|com.example.app270|com.example.app271|com.example.app272|com.example.app273|com.example.app274|com.example.app275|com.example.app276|com.example.app277|com.example.app278|com.example.app279|com.example.app280|com.example.app281|com.example.app282|com.example.app283|com.example.app284|com.example.app285|com.example.app286|com.example.app287|com.example.app288|com.example.app289|com.example.app290|com.example.app291|com.example.app292|com.example.app293|com.example.app294|com.example.app295|com.example.app296|com.example.app297|com.example.app298|com.example.app299|com.example.app300|com.example.app301|com.example.app302|com.example.app303|com.example.app304|com.example.app305|com.example.app306|com.example.app307|com.example.app308|com.example.app309|com.example.app310|com.example.app311|com.example.app312|com.example.app313|com.example.app314|com.example.app315|com.example.app316|com.example.app317|com.example.app318|com.example.app319|com.example.app320|com.example.app321|com.example.app322|com.example.app323|com.example.app324|com.example.app325|com.example.app326|com.example.app327|com.example.app328|com.example.app329|com.example.app330|com.example.app331|com.example.app332|com.example.app333|com.example.app334|com.example.app335|com.example.app336|com.example.app337|com.example.app338|com.example.app339|com.example.app340|ru.nskes.paysphera|app.one.logica|com.openmygame.games.android.fillwordsoffline"
+          }
+        },
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 4,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.browser",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://app-list-boundary-16.example/record",
+        "domain": "app-list-boundary-16.example",
+        "thirdPartyRequest": false,
+        "resourceTypes": ["DOCUMENT"],
+        "requestStatuses": [],
+        "creationTime": 1761310005004,
+        "elapsedTime": 4,
+        "sent": 100,
+        "received": 2000,
+        "httpMethod": "GET",
+        "appliedRules": {
+          "url": {
+            "filterListId": 2,
+            "isWhitelist": false,
+            "ruleText": "||app-list-boundary-16.example^$app=boundary16.first|boundary16.mid01|boundary16.mid02|boundary16.mid03|boundary16.mid04|boundary16.mid05|boundary16.mid06|boundary16.mid07|boundary16.mid08|boundary16.mid09|boundary16.mid10|boundary16.mid11|boundary16.mid12|boundary16.mid13|boundary16.mid14|boundary16.last"
+          }
+        },
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 5,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.browser",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://app-list-boundary-15.example/record",
+        "domain": "app-list-boundary-15.example",
+        "thirdPartyRequest": false,
+        "resourceTypes": ["DOCUMENT"],
+        "requestStatuses": [],
+        "creationTime": 1761310005005,
+        "elapsedTime": 4,
+        "sent": 100,
+        "received": 2000,
+        "httpMethod": "GET",
+        "appliedRules": {
+          "url": {
+            "filterListId": 2,
+            "isWhitelist": false,
+            "ruleText": "||app-list-boundary-15.example^$app=boundary15.first|boundary15.mid01|boundary15.mid02|boundary15.mid03|boundary15.mid04|boundary15.mid05|boundary15.mid06|boundary15.mid07|boundary15.mid08|boundary15.mid09|boundary15.mid10|boundary15.mid11|boundary15.mid12|boundary15.mid13|boundary15.last"
+          }
+        },
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 6,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.browser",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://app-list-comma-tilde.example/record",
+        "domain": "app-list-comma-tilde.example",
+        "thirdPartyRequest": false,
+        "resourceTypes": ["DOCUMENT"],
+        "requestStatuses": [],
+        "creationTime": 1761310005006,
+        "elapsedTime": 4,
+        "sent": 100,
+        "received": 2000,
+        "httpMethod": "GET",
+        "appliedRules": {
+          "url": {
+            "filterListId": 2,
+            "isWhitelist": false,
+            "ruleText": "||app-list-comma-tilde.example^$network,app=~ab.exchangerate|~altergames.carlauncher|~altergames.intellect_battle|~com.example.tilde01|~com.example.tilde02|~com.example.tilde03|~com.example.tilde04|~com.example.tilde05|~com.example.tilde06|~com.example.tilde07|~com.example.tilde08|~com.example.tilde09|~com.example.tilde10|~com.example.tilde11|~com.example.tilde12|~com.example.tilde13|~com.example.tilde14|~ru.nskes.paysphera|~app.one.logica|~com.openmygame.games.android.fillwordsoffline"
+          }
+        },
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 7,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.browser",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://app-list-suffix.example/record",
+        "domain": "app-list-suffix.example",
+        "thirdPartyRequest": false,
+        "resourceTypes": ["DOCUMENT"],
+        "requestStatuses": [],
+        "creationTime": 1761310005007,
+        "elapsedTime": 4,
+        "sent": 100,
+        "received": 2000,
+        "httpMethod": "GET",
+        "appliedRules": {
+          "url": {
+            "filterListId": 2,
+            "isWhitelist": false,
+            "ruleText": "||app-list-suffix.example^$app=com.example.browser|com.example.mail|com.example.news|com.google.android.youtube|com.android.chrome|org.mozilla.firefox|com.spotify.music|com.instagram.android|com.facebook.katana|com.whatsapp|org.telegram.messenger|com.viber.voip|com.snapchat.android|com.twitter.android|com.linkedin.android|com.pinterest|com.reddit.frontpage|com.discord|com.slack|com.microsoft.teams,third-party"
+          }
+        },
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  }
+]

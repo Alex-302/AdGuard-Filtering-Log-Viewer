@@ -2,8 +2,8 @@
 
 ## Status
 
-- Date: 2026-10-25.
-- Branch: `feat/hide_filter`.
+- Date: 2026-10-29.
+- Branch: `master`.
 - Changed files: `filtering_log_viewer.html`, `README.md`, the files in
   `Docs/`, `tests/viewer/run.js`, `tests/viewer/README.md`, and the new
   fixtures in `tests/fixtures/`.
@@ -12,6 +12,18 @@
 - P0 is committed as `7e78c3d`. The follow-up fixes are uncommitted.
 - Viewer tests, README, and Python CLI mapping are in place.
 - Windows parser remains.
+
+## App-list compaction follow-up (2026-10-29)
+
+- All app-list forms (`$app=`, `$app=~`, `,app=`, `,app=~`) above 15
+  values keep the first and last value with `…+N…`. `~` is preserved.
+- `domain=` and cosmetic domain lists keep the first 3 and last 3 values.
+- All rule compaction uses the ellipsis character `…`.
+- The cell tooltip, details row, and Copy button keep the full rule.
+- New fixture: `tests/fixtures/rule-app-long-lists.json`.
+- New fixture cases: 15/16 boundary, `,app=~`, and a trailing
+  modifier.
+- Viewer tests: 19 passed. Python: 24 tests run, 23 passed, 1 skipped.
 
 ## What is already done
 
@@ -52,8 +64,11 @@ The card list is replaced with a compact virtual table.
 - Cell popups are interactive and copyable.
 - `Ctrl-F` works in Chrome from a focused row.
 - Hide list edits are a draft until `Save`.
-- Domain lists are compacted above 15 domains.
-- App lists in `$app=` and `,app=` rules are compacted the same way.
+- Domain lists are compacted above 15 domains. They keep the first 3
+  and last 3 values.
+- App lists compact above 15 values. All app-list forms (`$app=`,
+  `$app=~`, `,app=`, `,app=~`) keep 1/1 with no `|` before the last
+  value. `~` is preserved.
 - A rule with both a long domain list and a long app list compacts both.
 - Cell popups stay open on a click inside them. The tooltip font is
   14 px, and the mono font is 13 px.
@@ -91,11 +106,11 @@ The card list is replaced with a compact virtual table.
 
 ## Verification that passed
 
-- `py -3 -m unittest discover -s tests -v` - 24 OK, 1 skipped because
-  `recent_activity.json` is absent.
+- `py -3 -m unittest discover -s tests -v` - 24 tests run, 23 passed,
+  1 skipped because `recent_activity.json` is absent.
 - In `tests/viewer/`: `npm install`, then
   `npx playwright install chromium`, then `npm test`.
-  - 17 viewer tests passed.
+  - 19 viewer tests passed.
 - Playwright checks in Chromium:
   - Table, sorting, column resize, details resize.
   - Click toggle, `Esc`, `Up` and `Down`, `Enter`, `Ctrl-F`.
@@ -103,7 +118,8 @@ The card list is replaced with a compact virtual table.
   - Column width persistence and details width persistence.
   - Empty state, responsive overlay, filters drawer.
   - Focus restoration and breakpoint focus.
-  - App-list compaction for `$app=` and `,app=`.
+  - App-list compaction for `,app=`, `,app=~`, `$app=`, and `$app=~`,
+    including 15/16 boundaries and a trailing modifier.
   - Tooltip click persistence and font sizes.
   - Blank Source and Filter cells.
   - Firewall strategy mapping.
@@ -170,6 +186,7 @@ The card list is replaced with a compact virtual table.
   in the raw JSON.
 - A rule with both a long domain list and a long app list compacts both
   in one pass. The formatter returns one combined hidden count.
+- All rule compaction uses the ellipsis character `…`.
 
 ## User feedback status
 
@@ -218,8 +235,8 @@ Summary:
     `Save` must be gray when there is nothing to save.
     Reset clears the draft and enables `Save`. It does not save.
 13. Rules with domain lists must be compacted.
-    `$domain=a|b|c` shows the first domain and `|...`.
-    `a,b,c##selector` shows `a,...##selector`.
+    `$domain=a|b|c` shows the first domain and `|…`.
+    `a,b,c##selector` shows `a,…##selector`.
     A `+N` badge counts hidden domains.
     The cell counts as truncated and shows the full rule on hover.
     More than 7 domains use middle truncation.
@@ -232,8 +249,8 @@ Follow-up items from 2026-10-25:
 
 15. The details app badge must show a real icon only when the source log
     supplies one. The Android log has no icon field.
-16. Long `$app=` and `,app=` lists use the same middle truncation as
-    domain lists.
+16. Long app lists keep the first and last value. All app-list forms
+    use 1/1.
 17. A click inside a cell popup must not close it. The popup font is
     larger.
 18. Missing Source and Filter values must be blank, not a dash.
@@ -271,8 +288,11 @@ Resolved decisions:
 - The legend reference is the marker background above the search.
 - Reset clears the draft and enables Save.
 - The details 240 px table minimum is accepted for now.
-- App lists use middle truncation above 15 values.
+- App lists compact above 15 values. All app-list forms (`$app=`,
+  `$app=~`, `,app=`, `,app=~`) keep 1/1 with no `|` before the last
+  value. `~` is preserved.
 - A rule with both long lists compacts both in one pass.
+- Rule compaction uses the ellipsis character `…`.
 - The cell popup stays open while the pointer is over it. A click does
   not close it.
 - Empty Source and Filter cells are blank.

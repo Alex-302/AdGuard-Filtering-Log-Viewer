@@ -2331,15 +2331,35 @@ function compactDomainList(domains, separator) {
   const first = domains.slice(0, 3).join(separator);
   const last = domains.slice(-3).join(separator);
   const hidden = domains.length - 6;
+  const gap = `…+${hidden}…`;
   if (separator === "|") {
     return {
-      text: `${first}...+${hidden}...|${last}`,
+      text: `${first}${gap}|${last}`,
       hidden,
       truncated: true,
     };
   }
   return {
-    text: `${first},...+${hidden}...${last}`,
+    text: `${first},${gap}${last}`,
+    hidden,
+    truncated: true,
+  };
+}
+
+function compactAppList(apps) {
+  if (apps.length <= 15) {
+    return {
+      text: apps.join("|"),
+      hidden: 0,
+      truncated: false,
+    };
+  }
+  const first = apps[0];
+  const last = apps[apps.length - 1];
+  const hidden = apps.length - 2;
+  const gap = `…+${hidden}…`;
+  return {
+    text: `${first}${gap}${last}`,
     hidden,
     truncated: true,
   };
@@ -2373,7 +2393,7 @@ function formatRuleForCell(rule) {
       .map((value) => value.trim())
       .filter(Boolean);
     if (apps.length > 15) {
-      const compact = compactDomainList(apps, "|");
+      const compact = compactAppList(apps);
       const start = appMatch.index + appMatch[1].length;
       const suffix = text.slice(appMatch.index + appMatch[0].length);
       text = `${text.slice(0, start)}app=${compact.text}${suffix}`;

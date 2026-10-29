@@ -30,8 +30,12 @@ It fails on an assertion, a page error, or a console error.
   rows.
 - `PERMISSIONS_RULE` as a regular rule reason.
 - App column and `appPath`.
-- Domain-list and app-list compaction. A rule with both long lists
+- Domain-list and app-list compaction. `domain=` lists keep 3/3. All
+  app lists (`$app=`, `$app=~`, `,app=`, `,app=~`) keep 1/1 and
+  preserve `~`. Compacted text uses `…`. A rule with both long lists
   compacts both.
+- App-list boundaries: 15 values stay unchanged, 16 values compact.
+  A modifier after the app list stays.
 - Column visibility, sorting, resizing, and double-click reset.
 - Opening details keeps the current sort order and scroll position.
 - The Type column resize cap at 1600x900 and 1000x800.
@@ -54,6 +58,9 @@ It fails on an assertion, a page error, or a console error.
 - `android-connections.json` - connections-only log.
 - `app-path.json` - `appPath` in the App column.
 - `rule-app-lists.json` - `$app=` and `,app=` lists.
+- `rule-app-long-lists.json` - 342-value `$app=` and `$app=~` lists,
+  a 346-value `$network,app=` list, 15/16 boundaries, a `,app=~` list,
+  and a list with a trailing modifier.
 - `empty-source-filter.json` - missing Source and Filter values.
 - `firewall-strategy.json` - firewall strategy object.
 - `type-long.json` - long content-type list.

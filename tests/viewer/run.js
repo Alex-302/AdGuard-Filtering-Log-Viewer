@@ -9,6 +9,7 @@ const viewerUrl = pathToFileURL(
 ).href;
 const fixtureDir = path.resolve(__dirname, "..", "fixtures");
 const fixture = (name) => path.join(fixtureDir, name);
+const longAppFixtures = require(fixture("rule-app-long-lists.json"));
 
 const tests = [];
 function test(name, fn) {
@@ -183,7 +184,8 @@ test("domain lists, tooltips, and popups", async (page) => {
   await search(page, "cookieconsent");
   const ruleCell = firstRow(page).locator('td[data-col="rule"]');
   const ruleText = await ruleCell.textContent();
-  assert.match(ruleText, /\.\.\.\+14\.\.\./);
+  assert.match(ruleText, /…\+14…/);
+  assert.doesNotMatch(ruleText, /\.\.\./);
   assert.equal(await ruleCell.locator(".rule-more").count(), 0);
 
   await ruleCell.hover();
@@ -216,7 +218,7 @@ test("domain lists, tooltips, and popups", async (page) => {
     .locator("#details-rules .rule-row code")
     .first()
     .textContent();
-  assert.match(detailsRule, /\.\.\.\+14\.\.\./);
+  assert.match(detailsRule, /…\+14…/);
   assert.equal(
     await page.locator("#details-rules .rule-row .rule-more").count(),
     0,
@@ -234,10 +236,11 @@ test("domain lists, tooltips, and popups", async (page) => {
     .textContent();
   assert.ok(
     cosmeticRule.includes(
-      "a.com,b.com,c.com,...+14...r.com,s.com,t.com##.ad-banner",
+      "a.com,b.com,c.com,…+14…r.com,s.com,t.com##.ad-banner",
     ),
     "Cosmetic domain list is not compacted",
   );
+  assert.doesNotMatch(cosmeticRule, /\.\.\./);
 
   await search(page, "stats.example.com");
   const typeHandle = page.locator(
@@ -282,8 +285,9 @@ test("app lists are compacted", async (page) => {
   const ruleText = await ruleCell.textContent();
   assert.match(
     ruleText,
-    /app=com\.example\.browser\|com\.example\.mail\|com\.example\.news\.\.\.\+14\.\.\.\|com\.discord\|com\.slack\|com\.microsoft\.teams$/,
+    /,app=com\.example\.browser…\+18…com\.microsoft\.teams$/,
   );
+  assert.doesNotMatch(ruleText, /\.\.\./);
   assert.equal(await ruleCell.locator(".rule-more").count(), 0);
   const fullRule = await ruleCell.getAttribute("data-tooltip");
   assert.match(fullRule, /com\.microsoft\.teams$/);
@@ -320,8 +324,9 @@ test("app lists are compacted", async (page) => {
     .textContent();
   assert.match(
     commaText,
-    /,app=com\.example\.browser\|com\.example\.mail\|com\.example\.news\.\.\.\+14\.\.\.\|com\.discord\|com\.slack\|com\.microsoft\.teams$/,
+    /,app=com\.example\.browser…\+18…com\.microsoft\.teams$/,
   );
+  assert.doesNotMatch(commaText, /\.\.\./);
 
   await search(page, "app-list-short.example");
   assert.equal(
@@ -335,8 +340,9 @@ test("app lists are compacted", async (page) => {
     .textContent();
   assert.match(
     dollarText,
-    /\$app=com\.example\.browser\|com\.example\.mail\|com\.example\.news\.\.\.\+14\.\.\.\|com\.discord\|com\.slack\|com\.microsoft\.teams$/,
+    /\$app=com\.example\.browser…\+18…com\.microsoft\.teams$/,
   );
+  assert.doesNotMatch(dollarText, /\.\.\./);
 
   await search(page, "app-list-both.example");
   const bothText = await firstRow(page)
@@ -344,8 +350,135 @@ test("app lists are compacted", async (page) => {
     .textContent();
   assert.match(
     bothText,
-    /domain=site1\.com\|site2\.com\|site3\.com\.\.\.\+14\.\.\.\|site18\.com\|site19\.com\|site20\.com,app=com\.example\.browser\|com\.example\.mail\|com\.example\.news\.\.\.\+14\.\.\.\|com\.discord\|com\.slack\|com\.microsoft\.teams$/,
+    /domain=site1\.com\|site2\.com\|site3\.com…\+14…\|site18\.com\|site19\.com\|site20\.com,app=com\.example\.browser…\+18…com\.microsoft\.teams$/,
   );
+  assert.doesNotMatch(bothText, /\.\.\./);
+});
+
+test("long app lists use the new compaction shapes", async (page) => {
+  await page.addInitScript(() => {
+    window.__copied = "";
+    if (navigator.clipboard) {
+      Object.defineProperty(navigator.clipboard, "writeText", {
+        configurable: true,
+        value: async (text) => {
+          window.__copied = text;
+        },
+      });
+    }
+  });
+  const cases = [
+    {
+      domain: "app-list-long-dollar.example",
+      compact:
+        "||app-list-long-dollar.example^$app=ab.exchangerate…+340…com.openmygame.games.android.fillwordsoffline",
+    },
+    {
+      domain: "app-list-long-tilde.example",
+      compact:
+        "||app-list-long-tilde.example^$app=~ab.exchangerate…+340…~com.openmygame.games.android.fillwordsoffline",
+    },
+    {
+      domain: "app-list-long-comma.example",
+      compact:
+        "/^77\\.88\\.(4|5){2}.(5|8){2}/$network,app=ab.exchangerate…+344…com.openmygame.games.android.fillwordsoffline",
+    },
+  ];
+  await load(page, "rule-app-long-lists.json");
+  for (const item of cases) {
+    const fixtureRecord = longAppFixtures.find(
+      (record) => record.event.regularProxyRequest.domain === item.domain,
+    );
+    const fullRule =
+      fixtureRecord.event.regularProxyRequest.appliedRules.url.ruleText;
+    await search(page, item.domain);
+    const ruleCell = firstRow(page).locator('td[data-col="rule"]');
+    const ruleText = await ruleCell.textContent();
+    assert.equal(ruleText, item.compact);
+    assert.doesNotMatch(ruleText, /\.\.\./);
+    assert.equal(await ruleCell.getAttribute("data-tooltip"), fullRule);
+    await firstRow(page).click();
+    await wait(200);
+    const detailsCode = page.locator("#details-rules .rule-row code").first();
+    assert.equal(await detailsCode.textContent(), item.compact);
+    assert.equal(await detailsCode.getAttribute("title"), fullRule);
+    await page.locator("#details-rules .rule-row .copy-button").first().click();
+    await wait(150);
+    assert.equal(await page.evaluate(() => window.__copied), fullRule);
+    await page.keyboard.press("Escape");
+    await wait(150);
+  }
+});
+
+test("app list boundaries, comma exceptions, and suffixes", async (page) => {
+  await page.addInitScript(() => {
+    window.__copied = "";
+    if (navigator.clipboard) {
+      Object.defineProperty(navigator.clipboard, "writeText", {
+        configurable: true,
+        value: async (text) => {
+          window.__copied = text;
+        },
+      });
+    }
+  });
+  const boundary15Values = [
+    "boundary15.first",
+    ...Array.from(
+      { length: 13 },
+      (_, index) => `boundary15.mid${String(index + 1).padStart(2, "0")}`,
+    ),
+    "boundary15.last",
+  ];
+  const cases = [
+    {
+      domain: "app-list-boundary-16.example",
+      compact:
+        "||app-list-boundary-16.example^$app=boundary16.first…+14…boundary16.last",
+    },
+    {
+      domain: "app-list-boundary-15.example",
+      compact: `||app-list-boundary-15.example^$app=${boundary15Values.join("|")}`,
+      unchanged: true,
+    },
+    {
+      domain: "app-list-comma-tilde.example",
+      compact:
+        "||app-list-comma-tilde.example^$network,app=~ab.exchangerate…+18…~com.openmygame.games.android.fillwordsoffline",
+    },
+    {
+      domain: "app-list-suffix.example",
+      compact:
+        "||app-list-suffix.example^$app=com.example.browser…+18…com.microsoft.teams,third-party",
+    },
+  ];
+  await load(page, "rule-app-long-lists.json");
+  for (const item of cases) {
+    const fixtureRecord = longAppFixtures.find(
+      (record) => record.event.regularProxyRequest.domain === item.domain,
+    );
+    const fullRule =
+      fixtureRecord.event.regularProxyRequest.appliedRules.url.ruleText;
+    await search(page, item.domain);
+    const ruleCell = firstRow(page).locator('td[data-col="rule"]');
+    const ruleText = await ruleCell.textContent();
+    assert.equal(ruleText, item.compact);
+    assert.doesNotMatch(ruleText, /\.\.\./);
+    if (item.unchanged) {
+      assert.equal(ruleText, fullRule);
+    }
+    assert.equal(await ruleCell.getAttribute("data-tooltip"), fullRule);
+    await firstRow(page).click();
+    await wait(200);
+    const detailsCode = page.locator("#details-rules .rule-row code").first();
+    assert.equal(await detailsCode.textContent(), item.compact);
+    assert.equal(await detailsCode.getAttribute("title"), fullRule);
+    await page.locator("#details-rules .rule-row .copy-button").first().click();
+    await wait(150);
+    assert.equal(await page.evaluate(() => window.__copied), fullRule);
+    await page.keyboard.press("Escape");
+    await wait(150);
+  }
 });
 
 test("tooltip stays open on click and uses larger fonts", async (page) => {

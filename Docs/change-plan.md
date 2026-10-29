@@ -68,7 +68,7 @@ Remaining work:
 
 Tests passed:
 
-- Python: 24 OK, 1 skipped.
+- Python: 24 tests run, 23 passed, 1 skipped.
 - Playwright: table, sorting, resize, double-click reset, tooltips,
   domain lists, Tracking Protection, new Android format, hide draft,
   responsive details, focus, colors.
@@ -76,21 +76,22 @@ Tests passed:
 - Review fixes: contrast, 30% popup, content-only module, meta
   permissions, one domain count, slash overlays, tablet sidebar,
   `Reset`, resize tooltip, `appPath`, and 901 px focus.
-- Viewer tests: 17 passed in `tests/viewer/` with `npm test`.
+- Viewer tests: 19 passed in `tests/viewer/` with `npm test`.
 - No page errors or console errors.
 
 ## Follow-up status (2026-10-25)
 
 Status: implemented. P0 is committed as `7e78c3d`. The follow-up fixes
 are uncommitted.
-Verification: Python 24 OK and 1 skipped. Viewer tests 17 passed.
+Verification: Python 24 tests run, 23 passed, 1 skipped. Viewer tests:
+19 passed.
 
 - Details app badge: documented only. The badge shows the app initial.
   A real icon is possible only when the source log supplies one. The
   Android format has no icon field.
-- `$app=` and `,app=` lists use middle truncation above 15 values. A
-  rule with both a long domain list and a long app list compacts both in
-  one pass.
+- All app-list forms (`$app=`, `$app=~`, `,app=`, `,app=~`) keep 1/1.
+  All rule compaction uses `…`. A rule with both a long domain list and
+  a long app list compacts both in one pass.
 - A click inside the cell popup does not close it. The base font is
   14 px, and the mono font is 13 px.
 - Missing Source and Filter values are blank. Rule, App, Method, and
@@ -101,8 +102,9 @@ Verification: Python 24 OK and 1 skipped. Viewer tests 17 passed.
   `PERMISSIONS_RULE` is a regular rule reason and is not in the details
   Options list.
 - The Type column maximum width is 480 px.
-- New fixtures: `rule-app-lists.json`, `firewall-strategy.json`,
-  `type-long.json`, and `empty-source-filter.json`.
+- New fixtures: `rule-app-lists.json`, `rule-app-long-lists.json`,
+  `firewall-strategy.json`, `type-long.json`, and
+  `empty-source-filter.json`.
 
 ## Post-release fixes (2026-10-29)
 
@@ -110,8 +112,14 @@ Verification: Python 24 OK and 1 skipped. Viewer tests 17 passed.
   hidden by details. The list keeps its scroll position.
 - An AdGuard settings export now shows a clear import error and points
   to `recent_activity.json`.
-- New tests: sort/scroll stability and the settings export error.
-- Viewer tests: 17 passed.
+- All app lists use 1/1 compaction with `…+N…` and no `|` before the
+  last value. Domain lists keep 3/3. All rule compaction uses `…`.
+  `~` is preserved.
+- A compacted app list followed by `,third-party` keeps the suffix.
+- New tests: sort/scroll stability, the settings export error, long
+  app-list shapes, 15/16 boundaries, `,app=~`, and a trailing modifier.
+- New fixture: `rule-app-long-lists.json`.
+- Viewer tests: 19 passed.
 
 ## Slice 0 - Reproduce and capture
 
@@ -347,9 +355,14 @@ Verification: Python 24 OK and 1 skipped. Viewer tests 17 passed.
         - `openDetails` - keep the compact rule and the full copy button.
         - Tooltip or popup - show the full original rule.
     - **Behavior:**
-        - `$domain=a|b|c` -> `rule$domain=a|...`.
-        - `a,b,c##selector` -> `a,...##selector`.
-        - `+N` counts the hidden domains.
+        - `$domain=a|b|c|…|t` -> `rule$domain=a|b|c…+N…|r|s|t`.
+        - `a,b,c,…,t##selector` -> `a,b,c,…+N…r,s,t##selector`.
+        - `$app=a|b|c|…|t` -> `$app=a…+N…t`.
+        - `$network,app=a|b|c|…|t` ->
+          `$network,app=a…+N…t`.
+        - `$network,app=~a|~b|~c|…|~t` ->
+          `$network,app=~a…+N…~t`.
+        - `+N` counts the hidden values.
         - More than 15 domains uses middle truncation.
         - Keep other modifiers after the domain list.
         - Handle `~domain` exceptions.
