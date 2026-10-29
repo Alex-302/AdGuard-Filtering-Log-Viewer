@@ -1,0 +1,148 @@
+[
+  {
+    "id": 1,
+    "event": {
+      "blockedProxyRequest": {
+        "packageName": "com.example.browser",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://app-list.example/one",
+        "domain": "app-list.example",
+        "thirdPartyRequest": true,
+        "resourceTypes": ["SCRIPT"],
+        "requestStatuses": ["BLOCKED"],
+        "creationTime": 1761310000000,
+        "elapsedTime": 2,
+        "sent": 0,
+        "received": 0,
+        "httpMethod": "GET",
+        "appliedRules": {
+          "url": {
+            "filterListId": 2,
+            "isWhitelist": false,
+            "ruleText": "/^77\\.88\\.(4|5){2}.(5|8){2}/$network,app=com.example.browser|com.example.mail|com.example.news|com.google.android.youtube|com.android.chrome|org.mozilla.firefox|com.spotify.music|com.instagram.android|com.facebook.katana|com.whatsapp|org.telegram.messenger|com.viber.voip|com.snapchat.android|com.twitter.android|com.linkedin.android|com.pinterest|com.reddit.frontpage|com.discord|com.slack|com.microsoft.teams"
+          }
+        },
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": [],
+        "requestBlockedReason": ["RULE"]
+      }
+    }
+  },
+  {
+    "id": 2,
+    "event": {
+      "allowedProxyRequest": {
+        "packageName": "com.example.browser",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://app-list-comma.example/two",
+        "domain": "app-list-comma.example",
+        "thirdPartyRequest": false,
+        "resourceTypes": ["DOCUMENT"],
+        "requestStatuses": ["ALLOWED"],
+        "creationTime": 1761310001000,
+        "elapsedTime": 4,
+        "sent": 100,
+        "received": 2000,
+        "httpMethod": "GET",
+        "appliedRules": {
+          "url": {
+            "filterListId": 2,
+            "isWhitelist": true,
+            "ruleText": "@@||app-list-comma.example^$network,app=com.example.browser|com.example.mail|com.example.news|com.google.android.youtube|com.android.chrome|org.mozilla.firefox|com.spotify.music|com.instagram.android|com.facebook.katana|com.whatsapp|org.telegram.messenger|com.viber.voip|com.snapchat.android|com.twitter.android|com.linkedin.android|com.pinterest|com.reddit.frontpage|com.discord|com.slack|com.microsoft.teams"
+          }
+        },
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 3,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.browser",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://app-list-short.example/three",
+        "domain": "app-list-short.example",
+        "thirdPartyRequest": false,
+        "resourceTypes": ["DOCUMENT"],
+        "requestStatuses": [],
+        "creationTime": 1761310002000,
+        "elapsedTime": 4,
+        "sent": 100,
+        "received": 2000,
+        "httpMethod": "GET",
+        "appliedRules": {
+          "url": {
+            "filterListId": 2,
+            "isWhitelist": false,
+            "ruleText": "||app-list-short.example^$network,app=com.example.browser|com.example.mail|com.example.news"
+          }
+        },
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 4,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.browser",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://app-list-both.example/four",
+        "domain": "app-list-both.example",
+        "thirdPartyRequest": false,
+        "resourceTypes": ["DOCUMENT"],
+        "requestStatuses": [],
+        "creationTime": 1761310003000,
+        "elapsedTime": 4,
+        "sent": 100,
+        "received": 2000,
+        "httpMethod": "GET",
+        "appliedRules": {
+          "url": {
+            "filterListId": 2,
+            "isWhitelist": false,
+            "ruleText": "||app-list-both.example^$domain=site1.com|site2.com|site3.com|site4.com|site5.com|site6.com|site7.com|site8.com|site9.com|site10.com|site11.com|site12.com|site13.com|site14.com|site15.com|site16.com|site17.com|site18.com|site19.com|site20.com,app=com.example.browser|com.example.mail|com.example.news|com.google.android.youtube|com.android.chrome|org.mozilla.firefox|com.spotify.music|com.instagram.android|com.facebook.katana|com.whatsapp|org.telegram.messenger|com.viber.voip|com.snapchat.android|com.twitter.android|com.linkedin.android|com.pinterest|com.reddit.frontpage|com.discord|com.slack|com.microsoft.teams"
+          }
+        },
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 5,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.browser",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://app-list-dollar.example/five",
+        "domain": "app-list-dollar.example",
+        "thirdPartyRequest": false,
+        "resourceTypes": ["DOCUMENT"],
+        "requestStatuses": [],
+        "creationTime": 1761310004000,
+        "elapsedTime": 4,
+        "sent": 100,
+        "received": 2000,
+        "httpMethod": "GET",
+        "appliedRules": {
+          "url": {
+            "filterListId": 2,
+            "isWhitelist": false,
+            "ruleText": "||app-list-dollar.example^$app=com.example.browser|com.example.mail|com.example.news|com.google.android.youtube|com.android.chrome|org.mozilla.firefox|com.spotify.music|com.instagram.android|com.facebook.katana|com.whatsapp|org.telegram.messenger|com.viber.voip|com.snapchat.android|com.twitter.android|com.linkedin.android|com.pinterest|com.reddit.frontpage|com.discord|com.slack|com.microsoft.teams"
+          }
+        },
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  }
+]

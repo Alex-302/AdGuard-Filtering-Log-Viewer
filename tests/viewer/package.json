@@ -1,0 +1,15 @@
+{
+  "name": "adguard-filtering-log-viewer-tests",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Playwright checks for the AdGuard Filtering Log Viewer.",
+  "scripts": {
+    "test": "node run.js"
+  },
+  "devDependencies": {
+    "playwright": "^1.49.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

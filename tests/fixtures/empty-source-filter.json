@@ -1,0 +1,100 @@
+[
+  {
+    "id": 1,
+    "event": {
+      "blockedDnsRequest": {
+        "packageName": "com.adguard.dns",
+        "domain": "ads.example.com.",
+        "requestUrl": "dns://ads.example.com./",
+        "requestType": "A",
+        "answer": "A, 0.0.0.0",
+        "elapsedTime": 1,
+        "startTime": 1761340000000,
+        "blockingReason": "QUERY_MATCHED_BY_RULE",
+        "sent": 0,
+        "received": 0
+      }
+    }
+  },
+  {
+    "id": 2,
+    "event": {
+      "blockedByFirewallRequest": {
+        "packageName": "com.example.app",
+        "domain": "203.0.113.10:443",
+        "requestUrl": "tcp://203.0.113.10:443",
+        "creationTime": 1761340001000,
+        "elapsedTime": 0,
+        "sent": 0,
+        "received": 0,
+        "firewallBlockingStrategy": "BLOCK"
+      }
+    }
+  },
+  {
+    "id": 3,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.browser",
+        "type": "TunnelRequest",
+        "protocol": "Tcp",
+        "requestUrl": "https://tunnel.example.com:443",
+        "domain": "tunnel.example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [],
+        "requestStatuses": [],
+        "creationTime": 1761340002000,
+        "elapsedTime": 5,
+        "sent": 0,
+        "received": 0,
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 4,
+    "event": {
+      "whitelistedByNetworkRuleRequest": {
+        "packageName": "com.example.browser",
+        "domain": "1.2.3.4:443",
+        "requestUrl": "tcp://1.2.3.4:443",
+        "creationTime": 1761340003000,
+        "elapsedTime": 5,
+        "sent": 0,
+        "received": 0
+      }
+    }
+  },
+  {
+    "id": 5,
+    "event": {
+      "blockedProxyRequest": {
+        "packageName": "com.example.browser",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://ads.example.com/banner.js",
+        "domain": "ads.example.com",
+        "thirdPartyRequest": true,
+        "resourceTypes": ["SCRIPT"],
+        "requestStatuses": ["BLOCKED"],
+        "creationTime": 1761340004000,
+        "elapsedTime": 2,
+        "sent": 0,
+        "received": 0,
+        "httpMethod": "GET",
+        "appliedRules": {
+          "url": {
+            "filterListId": 2,
+            "isWhitelist": false,
+            "ruleText": "||ads.example.com^"
+          }
+        },
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": [],
+        "requestBlockedReason": ["RULE"]
+      }
+    }
+  }
+]
