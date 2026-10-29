@@ -1,0 +1,14 @@
+{
+  "protocol-version": "2.0",
+  "general-settings": {
+    "allow-acceptable-ads": false,
+    "show-blocked-ads-count": true
+  },
+  "filters": {
+    "enabled-filters": [1, 2, 3],
+    "custom-filters": []
+  },
+  "stealth": {
+    "stealth-disable-stealth-mode": false
+  }
+}

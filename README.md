@@ -21,7 +21,9 @@ https://alex-302.github.io/AdGuard-Filtering-Log-Viewer/
 Drop `recent_activity.json` into the window or choose the file.
 
 The input is the `recent_activity.json` file exported from AdGuard for
-Android. Logs from other AdGuard products are not compatible.
+Android. Logs from other AdGuard products are not compatible. A settings
+export is not a filtering log. The viewer rejects it and points to
+`recent_activity.json`.
 
 The viewer processes the file locally. No data is sent to the network.
 

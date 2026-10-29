@@ -68,6 +68,10 @@ The card list is replaced with a compact virtual table.
 - Row colors match the legend marker backgrounds.
 - The details app badge shows an initial because the Android log has no
   app icon.
+- Opening details keeps the current sort order and scroll position.
+  Details auto-hide does not reset the sort.
+- An AdGuard settings export shows a clear import error and points to
+  `recent_activity.json`.
 
 ## Current files
 
@@ -91,7 +95,7 @@ The card list is replaced with a compact virtual table.
   `recent_activity.json` is absent.
 - In `tests/viewer/`: `npm install`, then
   `npx playwright install chromium`, then `npm test`.
-  - 15 viewer tests passed.
+  - 17 viewer tests passed.
 - Playwright checks in Chromium:
   - Table, sorting, column resize, details resize.
   - Click toggle, `Esc`, `Up` and `Down`, `Enter`, `Ctrl-F`.
@@ -105,6 +109,8 @@ The card list is replaced with a compact virtual table.
   - Firewall strategy mapping.
   - `+N Stealth` and the permissions-only row.
   - Type column resize cap.
+  - Sort order and scroll position stay stable when details open.
+  - The settings export error message.
 - An independent review subagent checked the diff and ran the tests.
 - Its findings were fixed:
   - Secondary row text contrast is 5.31:1 on blocked rows.
@@ -130,6 +136,9 @@ The card list is replaced with a compact virtual table.
 - Firewall strategy mapping.
 - `+N Stealth` and the permissions-only row.
 - Type column resize cap at 1600x900 and 1000x800.
+- Opening details keeps the sort order and scroll position on a
+  200-record list.
+- An AdGuard settings export shows the expected import error.
 - Hide list draft, Save, discard, import, and Reset.
 - Column menu, right-click, all hideable columns.
 - Double-click reset and whole-cell sorting.

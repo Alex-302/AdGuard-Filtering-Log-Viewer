@@ -76,14 +76,14 @@ Tests passed:
 - Review fixes: contrast, 30% popup, content-only module, meta
   permissions, one domain count, slash overlays, tablet sidebar,
   `Reset`, resize tooltip, `appPath`, and 901 px focus.
-- Viewer tests: 15 passed in `tests/viewer/` with `npm test`.
+- Viewer tests: 17 passed in `tests/viewer/` with `npm test`.
 - No page errors or console errors.
 
 ## Follow-up status (2026-10-25)
 
 Status: implemented. P0 is committed as `7e78c3d`. The follow-up fixes
 are uncommitted.
-Verification: Python 24 OK and 1 skipped. Viewer tests 15 passed.
+Verification: Python 24 OK and 1 skipped. Viewer tests 17 passed.
 
 - Details app badge: documented only. The badge shows the app initial.
   A real icon is possible only when the source log supplies one. The
@@ -103,6 +103,15 @@ Verification: Python 24 OK and 1 skipped. Viewer tests 15 passed.
 - The Type column maximum width is 480 px.
 - New fixtures: `rule-app-lists.json`, `firewall-strategy.json`,
   `type-long.json`, and `empty-source-filter.json`.
+
+## Post-release fixes (2026-10-29)
+
+- Opening details no longer resets the sort when the sort column is
+  hidden by details. The list keeps its scroll position.
+- An AdGuard settings export now shows a clear import error and points
+  to `recent_activity.json`.
+- New tests: sort/scroll stability and the settings export error.
+- Viewer tests: 17 passed.
 
 ## Slice 0 - Reproduce and capture
 

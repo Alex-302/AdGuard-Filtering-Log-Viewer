@@ -2078,6 +2078,16 @@ function parseLog(data) {
     }
   }
   if (!Array.isArray(value)) {
+    if (
+      value &&
+      typeof value === "object" &&
+      ("general-settings" in value || "protocol-version" in value) &&
+      "filters" in value
+    ) {
+      throw new Error(
+        "This file is an AdGuard settings export, not a filtering log. Export recent_activity.json from AdGuard for Android.",
+      );
+    }
     throw new Error("JSON must contain an array of records.");
   }
   const records = [];
@@ -4791,16 +4801,6 @@ function openDetails(record, index) {
   state.selectedId = record.uid;
   state.selectedIndex = index;
   state.detailsOpen = true;
-  if (ensureVisibleSort()) {
-    renderList({ preserveScroll: true });
-    const found = state.visibleRecords.findIndex(
-      (item) => item.uid === record.uid,
-    );
-    if (found !== -1) {
-      index = found;
-      state.selectedIndex = found;
-    }
-  }
   closeSidebar({ restoreFocus: false });
   applyDetailsWidth();
   // The Android log has no app icon, so the badge shows the app initial.

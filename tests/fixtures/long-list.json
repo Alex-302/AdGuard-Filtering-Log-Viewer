@@ -1,0 +1,5002 @@
+[
+  {
+    "id": 1,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-000",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400000000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 2,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-001",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400001000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 3,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-002",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400002000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 4,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-003",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400003000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 5,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-004",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400004000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 6,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-005",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400005000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 7,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-006",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400006000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 8,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-007",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400007000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 9,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-008",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400008000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 10,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-009",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400009000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 11,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-010",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400010000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 12,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-011",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400011000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 13,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-012",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400012000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 14,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-013",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400013000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 15,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-014",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400014000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 16,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-015",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400015000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 17,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-016",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400016000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 18,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-017",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400017000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 19,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-018",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400018000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 20,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-019",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400019000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 21,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-020",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400020000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 22,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-021",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400021000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 23,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-022",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400022000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 24,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-023",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400023000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 25,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-024",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400024000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 26,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-025",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400025000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 27,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-026",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400026000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 28,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-027",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400027000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 29,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-028",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400028000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 30,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-029",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400029000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 31,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-030",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400030000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 32,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-031",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400031000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 33,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-032",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400032000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 34,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-033",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400033000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 35,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-034",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400034000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 36,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-035",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400035000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 37,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-036",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400036000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 38,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-037",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400037000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 39,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-038",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400038000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 40,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-039",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400039000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 41,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-040",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400040000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 42,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-041",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400041000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 43,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-042",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400042000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 44,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-043",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400043000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 45,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-044",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400044000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 46,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-045",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400045000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 47,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-046",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400046000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 48,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-047",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400047000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 49,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-048",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400048000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 50,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-049",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400049000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 51,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-050",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400050000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 52,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-051",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400051000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 53,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-052",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400052000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 54,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-053",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400053000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 55,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-054",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400054000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 56,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-055",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400055000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 57,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-056",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400056000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 58,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-057",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400057000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 59,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-058",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400058000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 60,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-059",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400059000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 61,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-060",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400060000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 62,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-061",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400061000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 63,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-062",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400062000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 64,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-063",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400063000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 65,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-064",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400064000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 66,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-065",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400065000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 67,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-066",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400066000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 68,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-067",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400067000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 69,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-068",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400068000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 70,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-069",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400069000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 71,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-070",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400070000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 72,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-071",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400071000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 73,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-072",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400072000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 74,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-073",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400073000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 75,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-074",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400074000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 76,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-075",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400075000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 77,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-076",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400076000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 78,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-077",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400077000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 79,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-078",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400078000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 80,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-079",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400079000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 81,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-080",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400080000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 82,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-081",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400081000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 83,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-082",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400082000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 84,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-083",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400083000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 85,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-084",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400084000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 86,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-085",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400085000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 87,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-086",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400086000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 88,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-087",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400087000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 89,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-088",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400088000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 90,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-089",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400089000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 91,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-090",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400090000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 92,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-091",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400091000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 93,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-092",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400092000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 94,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-093",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400093000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 95,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-094",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400094000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 96,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-095",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400095000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 97,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-096",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400096000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 98,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-097",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400097000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 99,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-098",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400098000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 100,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-099",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400099000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 101,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-100",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400100000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 102,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-101",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400101000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 103,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-102",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400102000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 104,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-103",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400103000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 105,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-104",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400104000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 106,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-105",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400105000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 107,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-106",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400106000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 108,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-107",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400107000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 109,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-108",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400108000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 110,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-109",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400109000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 111,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-110",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400110000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 112,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-111",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400111000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 113,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-112",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400112000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 114,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-113",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400113000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 115,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-114",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400114000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 116,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-115",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400115000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 117,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-116",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400116000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 118,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-117",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400117000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 119,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-118",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400118000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 120,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-119",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400119000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 121,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-120",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400120000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 122,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-121",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400121000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 123,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-122",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400122000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 124,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-123",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400123000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 125,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-124",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400124000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 126,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-125",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400125000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 127,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-126",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400126000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 128,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-127",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400127000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 129,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-128",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400128000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 130,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-129",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400129000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 131,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-130",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400130000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 132,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-131",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400131000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 133,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-132",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400132000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 134,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-133",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400133000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 135,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-134",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400134000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 136,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-135",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400135000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 137,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-136",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400136000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 138,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-137",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400137000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 139,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-138",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400138000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 140,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-139",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400139000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 141,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-140",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400140000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 142,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-141",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400141000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 143,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-142",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400142000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 144,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-143",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400143000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 145,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-144",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400144000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 146,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-145",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400145000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 147,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-146",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400146000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 148,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-147",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400147000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 149,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-148",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400148000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 150,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-149",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400149000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 151,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-150",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400150000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 152,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-151",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400151000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 153,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-152",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400152000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 154,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-153",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400153000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 155,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-154",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400154000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 156,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-155",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400155000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 157,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-156",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400156000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 158,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-157",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400157000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 159,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-158",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400158000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 160,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-159",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400159000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 161,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-160",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400160000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 162,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-161",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400161000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 163,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-162",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400162000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 164,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-163",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400163000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 165,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-164",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400164000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 166,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-165",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400165000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 167,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-166",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400166000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 168,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-167",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400167000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 169,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-168",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400168000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 170,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-169",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400169000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 171,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-170",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400170000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 172,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-171",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400171000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 173,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-172",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400172000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 174,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-173",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400173000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 175,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-174",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400174000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 176,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-175",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400175000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 177,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-176",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400176000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 178,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-177",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400177000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 179,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-178",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400178000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 180,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-179",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400179000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 181,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-180",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400180000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 182,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-181",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400181000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 183,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-182",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400182000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 184,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-183",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400183000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 185,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-184",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400184000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 186,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-185",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400185000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 187,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-186",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400186000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 188,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-187",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400187000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 189,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-188",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400188000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 190,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-189",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400189000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 191,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-190",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400190000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 192,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-191",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400191000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 193,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-192",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400192000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 194,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-193",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400193000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 195,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-194",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400194000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 196,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-195",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400195000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 197,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-196",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400196000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 198,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-197",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400197000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 199,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.alpha",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-198",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400198000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  },
+  {
+    "id": 200,
+    "event": {
+      "regularProxyRequest": {
+        "packageName": "com.example.zebra",
+        "type": "WebRequest",
+        "protocol": "HTTP2",
+        "requestUrl": "https://example.com/item-199",
+        "domain": "example.com",
+        "thirdPartyRequest": false,
+        "resourceTypes": [
+          "DOCUMENT"
+        ],
+        "requestStatuses": [],
+        "creationTime": 1761400199000,
+        "elapsedTime": 1,
+        "sent": 1,
+        "received": 1,
+        "httpMethod": "GET",
+        "appliedRules": {},
+        "modifiedMetaReason": [],
+        "modifiedContentReasons": []
+      }
+    }
+  }
+]

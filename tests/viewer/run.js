@@ -934,6 +934,78 @@ test("appPath in App column and details", async (page) => {
   await page.keyboard.press("Escape");
 });
 
+test("opening details keeps the sort order and scroll position", async (page) => {
+  await load(page, "long-list.json");
+  await page.locator('#log-head th[data-col="app"]').click({
+    position: { x: 3, y: 3 },
+  });
+  await wait(300);
+  await page.evaluate(() => {
+    document.querySelector("#record-list").scrollTop = 150 * 32;
+  });
+  await wait(300);
+  const before = await page.evaluate(() => {
+    const list = document.querySelector("#record-list");
+    const head = document.querySelector("#log-head");
+    const top = list.getBoundingClientRect().top + head.offsetHeight;
+    const row = [...document.querySelectorAll("#virtual-rows tr.log-row")].find(
+      (item) => item.getBoundingClientRect().top > top + 40,
+    );
+    return {
+      scrollTop: list.scrollTop,
+      index: row.dataset.index,
+      url: row.querySelector('td[data-col="url"]').textContent,
+    };
+  });
+  await page
+    .locator(`#virtual-rows tr.log-row[data-index="${before.index}"]`)
+    .click();
+  await wait(500);
+  const after = await page.evaluate(() => {
+    const list = document.querySelector("#record-list");
+    const row = document.querySelector("#virtual-rows tr.log-row.selected");
+    return {
+      scrollTop: list.scrollTop,
+      index: row ? row.dataset.index : null,
+      url: row ? row.querySelector('td[data-col="url"]').textContent : null,
+      detailsOpen: !document.querySelector("#details").hidden,
+    };
+  });
+  assert.equal(after.detailsOpen, true);
+  assert.equal(after.url, before.url, "Selected record changed");
+  assert.ok(
+    Math.abs(after.scrollTop - before.scrollTop) <= 1,
+    `List jumped from ${before.scrollTop} to ${after.scrollTop}`,
+  );
+
+  await page.keyboard.press("Escape");
+  await wait(300);
+  assert.equal(
+    await page.locator('#log-head th[data-col="app"]').getAttribute("aria-sort"),
+    "ascending",
+  );
+  const afterClose = await page
+    .locator("#record-list")
+    .evaluate((el) => el.scrollTop);
+  assert.ok(
+    Math.abs(afterClose - before.scrollTop) <= 1,
+    "List jumped after details closed",
+  );
+});
+
+test("settings export shows a clear import error", async (page) => {
+  await page.goto(viewerUrl);
+  await page.setInputFiles("#file-input", fixture("settings-export.json"));
+  await wait(300);
+  assert.equal(
+    await page.locator("#error").evaluate((el) => el.hidden),
+    false,
+  );
+  const error = await page.locator("#error-text").textContent();
+  assert.match(error, /settings export/i);
+  assert.match(error, /recent_activity\.json/i);
+});
+
 async function main() {
   const browser = await chromium.launch();
   let failed = 0;
